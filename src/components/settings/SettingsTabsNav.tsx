@@ -21,7 +21,7 @@ export default function SettingsTabsNav({
   ];
 
   return (
-    <div className="w-full lg:w-64 shrink-0 bg-[#EAEAEA] border border-gray-300/60 rounded-2xl p-3 h-fit">
+    <div className="w-full lg:w-64 shrink-0 bg-[#EAEAEA] border border-gray-300/60 rounded-2xl p-2 sm:p-3 h-fit overflow-x-auto">
       <div className="flex flex-row lg:flex-col gap-1.5">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;

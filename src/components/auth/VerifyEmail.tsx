@@ -95,9 +95,9 @@ export default function VerifyOTPPage() {
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#EBEBEB]">
       {/* Left Section - Form */}
-      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-10 md:p-12 lg:p-14 min-h-screen">
+      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 min-h-screen">
         {/* Logo */}
-        <div className="mt-14 max-w-lg w-full mx-auto">
+        <div className="pt-2 sm:pt-0 max-w-lg w-full mx-auto">
           <ProjexProLogo />
         </div>
 

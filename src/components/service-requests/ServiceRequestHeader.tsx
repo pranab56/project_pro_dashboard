@@ -13,12 +13,12 @@ export default function ServiceRequestHeader({
   onOpenModal,
 }: ServiceRequestHeaderProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="flex flex-row items-center justify-between gap-3">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
+        <h1 className="text-xl sm:text-3xl font-bold text-gray-900 tracking-tight">
           Service Requests
         </h1>
-        <p className="text-sm text-gray-500 font-normal mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
           {activeCount} active · Click a Job ID to track progress
         </p>
       </div>
@@ -26,9 +26,9 @@ export default function ServiceRequestHeader({
       <button
         type="button"
         onClick={onOpenModal}
-        className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-5 py-3 rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm w-fit"
+        className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0"
       >
-        <Plus className="w-4 h-4" />
+        <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         <span>New Service Request</span>
       </button>
     </div>

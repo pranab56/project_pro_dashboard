@@ -60,7 +60,7 @@ export default function VerificationPage() {
         {/* Top Header Nav */}
         <VerificationHeaderNav />
 
-        <div className="p-10">
+        <div className="p-4 sm:p-8 md:p-10 flex-1">
           {/* STEP 1: WELCOME */}
         {currentStep === 1 && (
           <Step1Welcome onContinue={() => setCurrentStep(2)} />

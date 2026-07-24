@@ -35,7 +35,7 @@ export default function InvoiceFilters({
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       {/* Tabs Pill Bar */}
-      <div className="inline-flex items-center p-1 bg-[#E5E7EB]/80 border border-gray-300/50 rounded-2xl w-fit">
+      <div className="inline-flex items-center p-1 bg-[#E5E7EB]/80 border border-gray-300/50 rounded-2xl w-full sm:w-fit overflow-x-auto max-w-full">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.key;
           return (
