@@ -85,7 +85,7 @@ export default function ResetPasswordForm() {
             Create New Password
           </h1>
           <p className="text-sm text-gray-500 mt-2 mb-8 font-normal leading-relaxed">
-            Please enter a password that you haven't used with ProjexPro.
+            Please enter a password that you haven&apos;t used with ProjexPro.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">

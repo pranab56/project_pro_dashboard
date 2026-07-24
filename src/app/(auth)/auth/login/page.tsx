@@ -12,18 +12,6 @@ interface LoginErrors {
   password: string;
 }
 
-interface LoginResponse {
-  data: {
-    accessToken: string;
-  };
-  message?: string;
-}
-
-interface LoginError {
-  data: {
-    message: string;
-  };
-}
 
 function ProjexProLogo() {
   return (
@@ -87,8 +75,6 @@ export default function LoginPage() {
     if (newErrors.email || newErrors.password) {
       return;
     }
-
-    const candidate = { email: email, password: password, userDeviceId: "jsdkjhsdjkfhkjs" };
     try {
       toast.success('Login successful!');
       router.push('/');
@@ -212,7 +198,7 @@ export default function LoginPage() {
 
             {/* Create Account Link */}
             <div className="text-center mt-6 pt-2 text-sm text-gray-700 font-medium">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/auth/register" className="text-[#6B1294] font-semibold hover:underline">
                 Create Account
               </Link>

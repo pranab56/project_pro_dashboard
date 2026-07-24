@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import React from 'react';
+import { Trash2 } from 'lucide-react';
 import { Plan } from './types';
 
 interface DeleteModalProps {
@@ -13,39 +13,39 @@ interface DeleteModalProps {
 }
 
 export default function DeleteModal({ isOpen, onClose, plan, onDelete, isLoading = false }: DeleteModalProps) {
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[450px] p-8">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold">Delete Plan</DialogTitle>
-        </DialogHeader>
+  if (!isOpen || !plan) return null;
 
-        <p className="text-gray-600 my-6">
-          Are you sure you want to delete &quot;{plan?.title}`&quot;? This action cannot be undone.
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center animate-in fade-in zoom-in-95 duration-200 ease-out">
+        {/* Warning Icon Circle */}
+        <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4 text-[#E53935]">
+          <Trash2 className="w-8 h-8 text-[#E53935]" />
+        </div>
+
+        <h3 className="text-xl font-bold text-gray-900 mb-2">Delete Plan?</h3>
+        <p className="text-sm text-gray-500 mb-6 font-normal">
+          Are you sure you want to delete <span className="font-semibold text-gray-800">&quot;{plan.title}&quot;</span>? This action cannot be undone.
         </p>
 
-        <div className="flex gap-4">
-          <Button
+        <div className="flex gap-3 w-full">
+          <button
             type="button"
             onClick={onClose}
-            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700"
+            className="flex-1 py-3 px-4 border border-gray-300 rounded-xl text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
           >
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             type="button"
-            onClick={() => {
-              if (plan) {
-                onDelete(plan._id);
-              }
-            }}
+            onClick={() => onDelete(plan._id)}
             disabled={isLoading}
-            className="flex-1 bg-red-500 hover:bg-red-600 text-white"
+            className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer shadow-sm disabled:opacity-60"
           >
             {isLoading ? 'Deleting...' : 'Delete'}
-          </Button>
+          </button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 }

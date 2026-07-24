@@ -47,7 +47,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex h-16 items-center justify-between px-6 bg-[#EBEBEB] border-b border-gray-200/80 w-full">
+    <header className="flex h-[81px] items-center justify-between px-6 bg-[#EBEBEB] border-b border-gray-300 w-full">
       {/* Left side - Slogan Header */}
       <div className="flex items-center gap-1.5 text-lg md:text-xl">
         <span className="font-bold text-gray-900 tracking-tight">Property Care.</span>

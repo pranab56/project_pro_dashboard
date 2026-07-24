@@ -120,6 +120,31 @@ export default function PropertiesPage() {
     const [formTotalUnits, setFormTotalUnits] = useState<string>("");
     const [formUnitNumber, setFormUnitNumber] = useState<string>("");
     const [formStatus, setFormStatus] = useState<PropertyStatus>("Active");
+    const [formImage, setFormImage] = useState<string>("");
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+
+    // Handle File Selection
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setFormImage(imageUrl);
+            setErrors((prev) => ({ ...prev, image: "" }));
+        }
+    };
+
+    // Handle File Drop
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files?.[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setFormImage(imageUrl);
+            setErrors((prev) => ({ ...prev, image: "" }));
+        }
+    };
 
     // Open Modal for Create
     const handleOpenAddModal = () => {
@@ -131,6 +156,8 @@ export default function PropertiesPage() {
         setFormTotalUnits("");
         setFormUnitNumber("");
         setFormStatus("Active");
+        setFormImage("");
+        setErrors({});
         setIsModalOpen(true);
     };
 
@@ -144,6 +171,8 @@ export default function PropertiesPage() {
         setFormTotalUnits(prop.totalUnits.toString());
         setFormUnitNumber(prop.unitNumber || "");
         setFormStatus(prop.status);
+        setFormImage(prop.image || "");
+        setErrors({});
         setIsModalOpen(true);
     };
 
@@ -156,10 +185,42 @@ export default function PropertiesPage() {
     // Submit Modal (Create or Edit)
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!formName.trim() || !formAddress.trim()) {
-            toast.error("Property name and address are required");
+
+        const newErrors: Record<string, string> = {};
+
+        if (!formName.trim()) {
+            newErrors.name = "Property Name is required";
+        }
+        if (!formAddress.trim()) {
+            newErrors.address = "Address is required";
+        }
+
+        if (formType === "residential") {
+            if (!formImage) {
+                newErrors.image = "Property Image is required";
+            }
+            if (!formUnitNumber.trim()) {
+                newErrors.unitNumber = "Unit Number is required";
+            }
+            if (!formTotalUnits.trim() || Number(formTotalUnits) <= 0) {
+                newErrors.totalUnits = "Total Units is required";
+            }
+        }
+
+        if (!formCategory) {
+            newErrors.category = "Category is required";
+        }
+        if (!formStatus) {
+            newErrors.status = "Status is required";
+        }
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            toast.error("Please fill in all required fields");
             return;
         }
+
+        const finalImage = formImage || `/images/prop_${(properties.length % 6) + 1}.png`;
 
         if (editingId) {
             // Edit existing
@@ -175,6 +236,7 @@ export default function PropertiesPage() {
                             unitNumber: formUnitNumber || undefined,
                             type: formType,
                             status: formStatus,
+                            image: finalImage,
                         }
                         : p
                 )
@@ -191,7 +253,7 @@ export default function PropertiesPage() {
                 unitNumber: formUnitNumber || undefined,
                 type: formType,
                 status: formStatus,
-                image: `/images/prop_${(properties.length % 6) + 1}.png`,
+                image: finalImage,
             };
             setProperties([newProp, ...properties]);
             toast.success("New property added successfully");
@@ -232,7 +294,7 @@ export default function PropertiesPage() {
                 <button
                     type="button"
                     onClick={handleOpenAddModal}
-                    className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-5 py-2.5 rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm w-fit"
+                    className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-5 py-3 rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm w-fit"
                 >
                     <Plus className="w-4 h-4" />
                     <span>Add Property</span>
@@ -240,21 +302,21 @@ export default function PropertiesPage() {
             </div>
 
             {/* Search & Filter Controls Bar */}
-            <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg- border border-gray-300/50 rounded-lg p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Search Input */}
-                <div className="relative w-full md:w-96">
+                <div className="relative w-full md:w-8/12">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search properties..."
-                        className="w-full pl-10 pr-4 py-2.5 bg-[#EAEAEA] border border-transparent rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none transition-all"
+                        className="w-full pl-10 pr-4 py-4 bg-[#EAEAEA]  border border-gray-300 rounded-sm text-sm text-gray-900 placeholder:text-gray-400 focus:bg-[#EAEAEA] focus:outline-none transition-all"
                     />
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex items-center gap-1 bg-[#DEDEE1] p-1 rounded-xl w-full md:w-auto overflow-x-auto">
+                <div className="flex items-center gap-1 bg-[#DEDEE1] p-2 rounded-sm w-full md:w-4/12 overflow-x-auto">
                     {(["all", "residential", "commercial", "mixed-use"] as FilterType[]).map((tab) => {
                         const isSelected = selectedFilter === tab;
                         const labels: Record<FilterType, string> = {
@@ -268,7 +330,7 @@ export default function PropertiesPage() {
                                 key={tab}
                                 type="button"
                                 onClick={() => setSelectedFilter(tab)}
-                                className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${isSelected
+                                className={`px-3.5 py-2.5 rounded-sm text-xs sm:text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${isSelected
                                     ? "bg-white text-gray-900 font-semibold shadow-xs"
                                     : "text-gray-600 hover:text-gray-900"
                                     }`}
@@ -285,7 +347,7 @@ export default function PropertiesPage() {
                 {filteredProperties.map((prop) => (
                     <div
                         key={prop.id}
-                        className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between transition-all hover:shadow-md"
+                        className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg overflow-hidden shadow-xs flex flex-col justify-between transition-all hover:shadow-md"
                     >
                         {/* Top Image & Overlay Badges */}
                         <div className="h-48 w-full relative overflow-hidden bg-gray-200">
@@ -353,7 +415,7 @@ export default function PropertiesPage() {
                                 <button
                                     type="button"
                                     onClick={() => handleOpenEditModal(prop)}
-                                    className="flex-1 py-2 px-3 border border-gray-300 bg-white/80 hover:bg-white text-gray-700 font-semibold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    className="flex-1 py-3 px-3 border-2 border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold text-xs sm:text-sm rounded-sm flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                                 >
                                     <Pencil className="w-3.5 h-3.5" />
                                     <span>Edit</span>
@@ -361,7 +423,7 @@ export default function PropertiesPage() {
                                 <button
                                     type="button"
                                     onClick={() => setDeletingProperty(prop)}
-                                    className="flex-1 py-2 px-3 border border-red-200 bg-red-50/60 hover:bg-red-100 text-[#E53935] font-semibold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    className="flex-1 py-3 px-3 border-2 border-red-200 hover:bg-red-100 text-[#E53935] font-semibold text-xs sm:text-sm rounded-sm flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                                 >
                                     <Trash2 className="w-3.5 h-3.5" />
                                     <span>Delete</span>
@@ -374,8 +436,8 @@ export default function PropertiesPage() {
 
             {/* Confirm Delete Modal */}
             {deletingProperty && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center animate-in fade-in zoom-in-95 duration-200 ease-out">
                         {/* Warning Icon Circle */}
                         <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4 text-[#E53935]">
                             <Trash2 className="w-8 h-8 text-[#E53935]" />
@@ -383,7 +445,7 @@ export default function PropertiesPage() {
 
                         <h3 className="text-xl font-bold text-gray-900 mb-2">Delete Property?</h3>
                         <p className="text-sm text-gray-500 mb-6 font-normal">
-                            Are you sure you want to delete <span className="font-semibold text-gray-800">"{deletingProperty.name}"</span>? This action cannot be undone.
+                            Are you sure you want to delete <span className="font-semibold text-gray-800">&quot;{deletingProperty.name}&quot;</span>? This action cannot be undone.
                         </p>
 
                         <div className="flex gap-3 w-full">
@@ -411,8 +473,8 @@ export default function PropertiesPage() {
 
             {/* Add / Edit Property Modal Dialog */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#EBEBEB] rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl max-h-[92vh] overflow-y-auto border border-gray-300/60">
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                    <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-xl w-full shadow-2xl max-h-[92vh] overflow-y-auto border border-gray-300/60 animate-in fade-in zoom-in-95 duration-200 ease-out">
                         {/* Modal Header */}
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl font-bold text-gray-900">
@@ -437,7 +499,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType("residential")}
-                                        className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "residential"
+                                        className={`py-3 px-4 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "residential"
                                             ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294]"
                                             : "bg-[#E2E2E5] text-gray-700 border border-transparent hover:bg-gray-300"
                                             }`}
@@ -448,7 +510,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType("commercial")}
-                                        className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "commercial"
+                                        className={`py-3 px-4 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "commercial"
                                             ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294]"
                                             : "bg-[#E2E2E5] text-gray-700 border border-transparent hover:bg-gray-300"
                                             }`}
@@ -467,11 +529,19 @@ export default function PropertiesPage() {
                                 <input
                                     type="text"
                                     value={formName}
-                                    onChange={(e) => setFormName(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormName(e.target.value);
+                                        if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
+                                    }}
                                     placeholder="e.g. Sunset Apartments"
-                                    className="w-full px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none transition-all"
-                                    required
+                                    className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                        }`}
                                 />
+                                {errors.name && (
+                                    <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                        <span>⚠️</span> {errors.name}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Address */}
@@ -482,11 +552,19 @@ export default function PropertiesPage() {
                                 <input
                                     type="text"
                                     value={formAddress}
-                                    onChange={(e) => setFormAddress(e.target.value)}
+                                    onChange={(e) => {
+                                        setFormAddress(e.target.value);
+                                        if (e.target.value.trim()) setErrors((prev) => ({ ...prev, address: "" }));
+                                    }}
                                     placeholder="Full property address"
-                                    className="w-full px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none transition-all"
-                                    required
+                                    className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                        }`}
                                 />
+                                {errors.address && (
+                                    <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                        <span>⚠️</span> {errors.address}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Conditional Fields for Residential vs Commercial */}
@@ -497,45 +575,100 @@ export default function PropertiesPage() {
                                         <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                                             Images *
                                         </label>
-                                        <div className="border-2 border-dashed border-gray-300/80 bg-[#E2E2E5]/60 hover:bg-white rounded-xl p-5 text-center cursor-pointer transition-all">
-                                            <UploadCloud className="w-7 h-7 text-gray-400 mx-auto mb-1.5" />
-                                            <p className="text-xs sm:text-sm text-gray-600 font-medium">
-                                                Drag & drop photos here, or{" "}
-                                                <span className="text-[#6B1294] font-semibold underline">
-                                                    browse
-                                                </span>
-                                            </p>
-                                            <p className="text-[11px] text-gray-400 mt-0.5">
-                                                PNG, JPG up to 10KB size
-                                            </p>
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            accept="image/*"
+                                            onChange={handleFileSelect}
+                                            className="hidden"
+                                        />
+                                        <div
+                                            onClick={() => fileInputRef.current?.click()}
+                                            onDragOver={(e) => e.preventDefault()}
+                                            onDrop={handleDrop}
+                                            className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${errors.image
+                                                ? "border-red-500 bg-red-50/30"
+                                                : formImage
+                                                    ? "border-purple-400 bg-purple-50/30"
+                                                    : "border-gray-300/80 bg-[#E2E2E5]/60 hover:bg-white"
+                                                }`}
+                                        >
+                                            {formImage ? (
+                                                <div className="relative group">
+                                                    <img
+                                                        src={formImage}
+                                                        alt="Property preview"
+                                                        className="w-full h-36 object-cover rounded-lg shadow-xs"
+                                                    />
+                                                    <div className="absolute inset-0 bg-black/40 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white text-xs font-semibold">
+                                                        Click to change image
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <UploadCloud className="w-7 h-7 text-gray-400 mx-auto mb-1.5" />
+                                                    <p className="text-xs sm:text-sm text-gray-600 font-medium">
+                                                        Drag & drop photos here, or{" "}
+                                                        <span className="text-[#6B1294] font-semibold underline">
+                                                            browse
+                                                        </span>
+                                                    </p>
+                                                    <p className="text-[11px] text-gray-400 mt-0.5">
+                                                        PNG, JPG supported
+                                                    </p>
+                                                </>
+                                            )}
                                         </div>
+                                        {errors.image && (
+                                            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                                <span>⚠️</span> {errors.image}
+                                            </p>
+                                        )}
                                     </div>
 
                                     {/* Unit Number & Total Units (2 Cols) */}
                                     <div className="grid grid-cols-2 gap-3">
                                         <div>
                                             <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                                Unit Number
+                                                Unit Number *
                                             </label>
                                             <input
                                                 type="text"
                                                 value={formUnitNumber}
-                                                onChange={(e) => setFormUnitNumber(e.target.value)}
+                                                onChange={(e) => {
+                                                    setFormUnitNumber(e.target.value);
+                                                    if (e.target.value.trim()) setErrors((prev) => ({ ...prev, unitNumber: "" }));
+                                                }}
                                                 placeholder="e.g. A, 1A, 101"
-                                                className="w-full px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none transition-all"
+                                                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.unitNumber ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                                    }`}
                                             />
+                                            {errors.unitNumber && (
+                                                <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                                    <span>⚠️</span> {errors.unitNumber}
+                                                </p>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                                Total Units
+                                                Total Units *
                                             </label>
                                             <input
                                                 type="number"
                                                 value={formTotalUnits}
-                                                onChange={(e) => setFormTotalUnits(e.target.value)}
+                                                onChange={(e) => {
+                                                    setFormTotalUnits(e.target.value);
+                                                    if (e.target.value.trim()) setErrors((prev) => ({ ...prev, totalUnits: "" }));
+                                                }}
                                                 placeholder="e.g. 24"
-                                                className="w-full px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:bg-white focus:outline-none transition-all"
+                                                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.totalUnits ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                                    }`}
                                             />
+                                            {errors.totalUnits && (
+                                                <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                                    <span>⚠️</span> {errors.totalUnits}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 </>
@@ -545,10 +678,17 @@ export default function PropertiesPage() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
                                     <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                        Category
+                                        Category *
                                     </label>
-                                    <Select value={formCategory} onValueChange={(val) => setFormCategory(val)}>
-                                        <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:bg-white focus:outline-none transition-all cursor-pointer shadow-none">
+                                    <Select
+                                        value={formCategory}
+                                        onValueChange={(val) => {
+                                            setFormCategory(val);
+                                            setErrors((prev) => ({ ...prev, category: "" }));
+                                        }}
+                                    >
+                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.category ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                            }`}>
                                             <SelectValue placeholder="Select Category" />
                                         </SelectTrigger>
                                         <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
@@ -559,13 +699,25 @@ export default function PropertiesPage() {
                                             <SelectItem value="Retail / Office">Retail / Office</SelectItem>
                                         </SelectContent>
                                     </Select>
+                                    {errors.category && (
+                                        <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                            <span>⚠️</span> {errors.category}
+                                        </p>
+                                    )}
                                 </div>
                                 <div>
                                     <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                        Status
+                                        Status *
                                     </label>
-                                    <Select value={formStatus} onValueChange={(val) => setFormStatus(val as PropertyStatus)}>
-                                        <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:bg-white focus:outline-none transition-all cursor-pointer shadow-none">
+                                    <Select
+                                        value={formStatus}
+                                        onValueChange={(val) => {
+                                            setFormStatus(val as PropertyStatus);
+                                            setErrors((prev) => ({ ...prev, status: "" }));
+                                        }}
+                                    >
+                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.status ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                            }`}>
                                             <SelectValue placeholder="Select Status" />
                                         </SelectTrigger>
                                         <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
@@ -574,6 +726,11 @@ export default function PropertiesPage() {
                                             <SelectItem value="Inactive">Inactive</SelectItem>
                                         </SelectContent>
                                     </Select>
+                                    {errors.status && (
+                                        <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                                            <span>⚠️</span> {errors.status}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 

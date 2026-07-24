@@ -136,7 +136,7 @@ export default function VerifyOTPPage() {
 
             {/* Resend Code Row */}
             <div className="flex items-center justify-between text-sm pt-1">
-              <span className="text-gray-700 font-medium">Didn't receive the code?</span>
+              <span className="text-gray-700 font-medium">Didn&apos;t receive the code?</span>
               <button
                 type="button"
                 onClick={handleResend}

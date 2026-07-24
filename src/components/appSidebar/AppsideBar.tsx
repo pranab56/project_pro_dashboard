@@ -81,16 +81,16 @@ export default function OptimusSidebar() {
 
   return (
     <>
-      <Sidebar className="border-r border-gray-200/80 bg-[#EAEAEA]">
+      <Sidebar className="border-r border-gray-300/80 bg-[#EBEBEB]">
         {/* Header Logo */}
-        <SidebarHeader className="p-4 sm:p-5 border-b border-gray-200/80 bg-[#EAEAEA]">
+        <SidebarHeader className="p-4 sm:p-5 border-b border-gray-300 bg-[#EBEBEB]">
           <Link href="/" className="block">
             <ProjexProLogo />
           </Link>
         </SidebarHeader>
 
         {/* Main Menu items */}
-        <SidebarContent className="bg-[#EAEAEA] p-3">
+        <SidebarContent className="bg-[#EBEBEB] p-3">
           <SidebarMenu className="space-y-1.5">
             {sidebars.map((item) => {
               const active = isActive(item.path);
@@ -98,11 +98,10 @@ export default function OptimusSidebar() {
                 <SidebarMenuItem key={item.name}>
                   <SidebarMenuButton
                     asChild
-                    className={`h-11 px-4 rounded-2xl transition-all duration-200 flex items-center justify-between w-full cursor-pointer ${
-                      active
+                    className={`h-11 px-4 rounded-lg transition-all duration-200 flex items-center justify-between w-full cursor-pointer ${active
                         ? "bg-[#E1D4F4] text-[#8E25E3] font-semibold hover:bg-[#E1D4F4] hover:text-[#8E25E3]"
                         : "text-gray-600 hover:bg-gray-200/70 hover:text-gray-900 font-medium"
-                    }`}
+                      }`}
                   >
                     <Link href={item.path} className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-3">
@@ -119,7 +118,7 @@ export default function OptimusSidebar() {
         </SidebarContent>
 
         {/* Footer Logout Button */}
-        <SidebarFooter className="p-3 border-t border-gray-200/80 bg-[#EAEAEA]">
+        <SidebarFooter className="p-3 border-t border-gray-300 bg-[#EBEBEB]">
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}
@@ -133,8 +132,8 @@ export default function OptimusSidebar() {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center flex flex-col items-center animate-in fade-in zoom-in-95 duration-200 ease-out">
             {/* Warning Icon Circle */}
             <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4 text-[#E53935]">
               <LogOut className="w-8 h-8 text-[#E53935]" />

@@ -80,8 +80,8 @@ export default function RegisterPage() {
 
     if (Object.keys(newErrors).length > 0) return;
 
-    toast.success('Registration successful!');
-    router.push('/auth/login');
+    toast.success('Registration successful! Please complete your account verification.');
+    router.push('/verification');
   };
 
   const isManager = role === 'manager';
@@ -228,7 +228,7 @@ export default function RegisterPage() {
               </label>
               <input
                 id="contactNumber"
-                type="tel"
+                type="number"
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
                 placeholder="Enter your contact number here..."
