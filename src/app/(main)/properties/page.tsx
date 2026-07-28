@@ -302,7 +302,7 @@ export default function PropertiesPage() {
             </div>
 
             {/* Search & Filter Controls Bar */}
-            <div className="bg- border border-gray-300/50 rounded-lg p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Search Input */}
                 <div className="relative w-full md:w-8/12">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -311,12 +311,12 @@ export default function PropertiesPage() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search properties..."
-                        className="w-full pl-10 pr-4 py-4 bg-[#EAEAEA]  border border-gray-300 rounded-sm text-sm text-gray-900 placeholder:text-gray-400 focus:bg-[#EAEAEA] focus:outline-none transition-all"
+                        className="w-full pl-10 pr-4 py-4 bg-[#F9FAFB] border border-gray-300 rounded-sm text-sm text-gray-900 placeholder:text-gray-400 focus:bg-[#F9FAFB] focus:outline-none transition-all"
                     />
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex items-center gap-1 bg-[#DEDEE1] p-2 rounded-sm w-full md:w-4/12 overflow-x-auto">
+                <div className="flex items-center gap-1 bg-[#F9FAFB] p-2 rounded-sm w-full md:w-4/12 overflow-x-auto">
                     {(["all", "residential", "commercial", "mixed-use"] as FilterType[]).map((tab) => {
                         const isSelected = selectedFilter === tab;
                         const labels: Record<FilterType, string> = {
@@ -347,7 +347,7 @@ export default function PropertiesPage() {
                 {filteredProperties.map((prop) => (
                     <div
                         key={prop.id}
-                        className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg overflow-hidden shadow-xs flex flex-col justify-between transition-all hover:shadow-md"
+                        className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg overflow-hidden shadow-xs flex flex-col justify-between transition-all hover:shadow-md"
                     >
                         {/* Top Image & Overlay Badges */}
                         <div className="h-48 w-full relative overflow-hidden bg-gray-200">
@@ -474,7 +474,7 @@ export default function PropertiesPage() {
             {/* Add / Edit Property Modal Dialog */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-                    <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-xl w-full shadow-2xl max-h-[92vh] overflow-y-auto border border-gray-300/60 animate-in fade-in zoom-in-95 duration-200 ease-out">
+                    <div className="bg-[#F9FAFB] rounded-xl p-6 sm:p-8 max-w-xl w-full shadow-2xl max-h-[92vh] overflow-y-auto border border-gray-300/60 animate-in fade-in zoom-in-95 duration-200 ease-out">
                         {/* Modal Header */}
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl font-bold text-gray-900">
@@ -501,7 +501,7 @@ export default function PropertiesPage() {
                                         onClick={() => setFormType("residential")}
                                         className={`py-3 px-4 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "residential"
                                             ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294]"
-                                            : "bg-[#E2E2E5] text-gray-700 border border-transparent hover:bg-gray-300"
+                                            : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                                             }`}
                                     >
                                         <Home className="w-4 h-4" />
@@ -512,7 +512,7 @@ export default function PropertiesPage() {
                                         onClick={() => setFormType("commercial")}
                                         className={`py-3 px-4 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all ${formType === "commercial"
                                             ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294]"
-                                            : "bg-[#E2E2E5] text-gray-700 border border-transparent hover:bg-gray-300"
+                                            : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                                             }`}
                                     >
                                         <Building2 className="w-4 h-4" />
@@ -534,7 +534,7 @@ export default function PropertiesPage() {
                                         if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
                                     }}
                                     placeholder="e.g. Sunset Apartments"
-                                    className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                         }`}
                                 />
                                 {errors.name && (
@@ -557,7 +557,7 @@ export default function PropertiesPage() {
                                         if (e.target.value.trim()) setErrors((prev) => ({ ...prev, address: "" }));
                                     }}
                                     placeholder="Full property address"
-                                    className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                         }`}
                                 />
                                 {errors.address && (
@@ -590,7 +590,7 @@ export default function PropertiesPage() {
                                                 ? "border-red-500 bg-red-50/30"
                                                 : formImage
                                                     ? "border-purple-400 bg-purple-50/30"
-                                                    : "border-gray-300/80 bg-[#E2E2E5]/60 hover:bg-white"
+                                                    : "border-gray-300 bg-white hover:bg-purple-50/20"
                                                 }`}
                                         >
                                             {formImage ? (
@@ -640,7 +640,7 @@ export default function PropertiesPage() {
                                                     if (e.target.value.trim()) setErrors((prev) => ({ ...prev, unitNumber: "" }));
                                                 }}
                                                 placeholder="e.g. A, 1A, 101"
-                                                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.unitNumber ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.unitNumber ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                                     }`}
                                             />
                                             {errors.unitNumber && (
@@ -661,7 +661,7 @@ export default function PropertiesPage() {
                                                     if (e.target.value.trim()) setErrors((prev) => ({ ...prev, totalUnits: "" }));
                                                 }}
                                                 placeholder="e.g. 24"
-                                                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.totalUnits ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.totalUnits ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                                     }`}
                                             />
                                             {errors.totalUnits && (
@@ -687,7 +687,7 @@ export default function PropertiesPage() {
                                             setErrors((prev) => ({ ...prev, category: "" }));
                                         }}
                                     >
-                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.category ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.category ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                             }`}>
                                             <SelectValue placeholder="Select Category" />
                                         </SelectTrigger>
@@ -716,7 +716,7 @@ export default function PropertiesPage() {
                                             setErrors((prev) => ({ ...prev, status: "" }));
                                         }}
                                     >
-                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.status ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                                        <SelectTrigger className={`w-full h-[46px] px-4 py-6 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.status ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                                             }`}>
                                             <SelectValue placeholder="Select Status" />
                                         </SelectTrigger>
@@ -740,7 +740,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setIsModalOpen(false)}
-                                        className="flex-1 py-3.5 px-4 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm sm:text-base transition-colors cursor-pointer"
+                                        className="flex-1 py-3.5 px-4 bg-[#F9FAFB] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm sm:text-base transition-colors cursor-pointer"
                                     >
                                         Cancel
                                     </button>

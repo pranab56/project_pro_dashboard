@@ -48,7 +48,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex h-[81px] items-center justify-between px-3 sm:px-6 bg-[#EBEBEB] border-b border-gray-300 w-full shrink-0">
+    <header className="flex h-[81px] items-center justify-between px-3 sm:px-6 bg-[#f0f0f0] border-b border-gray-300 w-full shrink-0">
       {/* Left side - Sidebar Toggle & Slogan Header */}
       <div className="flex items-center gap-2 sm:gap-3">
         <SidebarTrigger className="p-2 text-gray-700 hover:bg-gray-200/80 rounded-xl cursor-pointer" />

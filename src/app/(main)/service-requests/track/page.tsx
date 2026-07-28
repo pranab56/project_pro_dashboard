@@ -131,7 +131,7 @@ function TrackContent() {
           <button
             type="button"
             onClick={() => router.push("/service-requests")}
-            className="px-3.5 py-2 bg-[#E2E2E5] hover:bg-gray-300 rounded-xl text-gray-700 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-3.5 py-2 bg-[#F9FAFB] border border-gray-300 hover:bg-gray-100 rounded-xl text-gray-700 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>Service Requests</span>
@@ -153,7 +153,7 @@ function TrackContent() {
       {/* Top Info Cards Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Info Card (2 Cols) */}
-        <div className="lg:col-span-2 bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-3">
             <span className="bg-[#F2E7FC] text-[#8E25E3] font-bold text-xs px-2.5 py-1 rounded-lg">
               {request.id}
@@ -190,7 +190,7 @@ function TrackContent() {
         </div>
 
         {/* Right Contractor Card (1 Col) */}
-        <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
           <h3 className="text-sm font-bold text-gray-900 mb-4">Contractor</h3>
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
@@ -209,7 +209,7 @@ function TrackContent() {
       </div>
 
       {/* Project Progress Stepper Timeline Card */}
-      <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-6 sm:p-8 shadow-xs">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 sm:p-8 shadow-xs">
         <div className="flex items-center justify-between mb-8">
           <h3 className="text-lg font-bold text-gray-900">Project Progress</h3>
           <div className="bg-[#DEDEE1] px-4 py-1.5 rounded-full flex items-center gap-2">

@@ -66,10 +66,10 @@ export default function Step2ContactInfo({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, fullName: "" }));
               }}
               placeholder="Alex Morgan"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
                 errors.fullName
                   ? "border-red-500 bg-red-50/20"
-                  : "border-transparent focus:bg-white"
+                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.fullName && (
@@ -92,10 +92,10 @@ export default function Step2ContactInfo({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, jobTitle: "" }));
               }}
               placeholder="Property Manager"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
                 errors.jobTitle
                   ? "border-red-500 bg-red-50/20"
-                  : "border-transparent focus:bg-white"
+                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.jobTitle && (
@@ -119,10 +119,10 @@ export default function Step2ContactInfo({
               if (e.target.value.trim()) setErrors((prev) => ({ ...prev, businessEmail: "" }));
             }}
             placeholder="alex@yourcompany.com"
-            className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
               errors.businessEmail
                 ? "border-red-500 bg-red-50/20"
-                : "border-transparent focus:bg-white"
+                : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
             }`}
           />
           <p className="text-[11px] text-gray-500 font-normal mt-1">
@@ -149,10 +149,10 @@ export default function Step2ContactInfo({
               if (e.target.value.trim()) setErrors((prev) => ({ ...prev, contactNumber: "" }));
             }}
             placeholder="+1 (555) 000-0000"
-            className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
               errors.contactNumber
                 ? "border-red-500 bg-red-50/20"
-                : "border-transparent focus:bg-white"
+                : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
             }`}
           />
           {errors.contactNumber && (
@@ -168,7 +168,7 @@ export default function Step2ContactInfo({
         <button
           type="button"
           onClick={onBack}
-          className="py-3 px-5 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
+          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>

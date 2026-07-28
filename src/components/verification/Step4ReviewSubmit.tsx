@@ -45,7 +45,7 @@ export default function Step4ReviewSubmit({
 
       <div className="space-y-4">
         {/* Card 1: Contact Information */}
-        <div className="bg-[#E2E2E5]/70 border border-gray-300/60 rounded-2xl p-5 space-y-3">
+        <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <User className="w-4 h-4 text-[#6B1294]" />
@@ -90,7 +90,7 @@ export default function Step4ReviewSubmit({
         </div>
 
         {/* Card 2: Company & Portfolio */}
-        <div className="bg-[#E2E2E5]/70 border border-gray-300/60 rounded-2xl p-5 space-y-3">
+        <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-[#6B1294]" />
@@ -166,7 +166,7 @@ export default function Step4ReviewSubmit({
         <button
           type="button"
           onClick={onBack}
-          className="py-3 px-5 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
+          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>

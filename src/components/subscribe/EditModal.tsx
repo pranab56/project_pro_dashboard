@@ -124,7 +124,7 @@ export default function EditModal({ isOpen, onClose, plan, onSave, isLoading = f
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 ease-out">
+      <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto no-scrollbar animate-in fade-in zoom-in-95 duration-200 ease-out">
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Edit Plan</h2>

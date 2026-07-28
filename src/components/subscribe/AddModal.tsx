@@ -120,7 +120,7 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 ease-out">
+      <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto no-scrollbar animate-in fade-in zoom-in-95 duration-200 ease-out">
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Create a New Plan</h2>
@@ -189,7 +189,7 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
               }}
               disabled={isFree}
               className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all disabled:opacity-60 ${
-                errors.price ? 'border-red-500 bg-red-50/20' : 'border-transparent focus:bg-white'
+                errors.price ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
               }`}
             />
             {errors.price && (
@@ -213,7 +213,7 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, productId: '' }));
               }}
               className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                errors.productId ? 'border-red-500 bg-red-50/20' : 'border-transparent focus:bg-white'
+                errors.productId ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
               }`}
             />
             {errors.productId && (
@@ -257,7 +257,7 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 if (e.target.value) setErrors((prev) => ({ ...prev, participantCount: '' }));
               }}
               className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                errors.participantCount ? 'border-red-500 bg-red-50/20' : 'border-transparent focus:bg-white'
+                errors.participantCount ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
               }`}
             />
             {errors.participantCount && (

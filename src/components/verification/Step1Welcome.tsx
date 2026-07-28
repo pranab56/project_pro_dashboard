@@ -27,7 +27,7 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
 
       {/* 3 Step Cards */}
       <div className="space-y-3">
-        <div className="p-4 sm:p-5 bg-[#E2E2E5]/70 rounded-2xl border border-gray-300/60 flex items-start gap-4">
+        <div className="p-4 sm:p-5 bg-[#F9FAFB] rounded-2xl border border-gray-300/60 flex items-start gap-4">
           <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
             <FileText className="w-5 h-5" />
           </div>
@@ -44,7 +44,7 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 bg-[#E2E2E5]/70 rounded-2xl border border-gray-300/60 flex items-start gap-4">
+        <div className="p-4 sm:p-5 bg-[#F9FAFB] rounded-2xl border border-gray-300/60 flex items-start gap-4">
           <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
             <Shield className="w-5 h-5" />
           </div>
@@ -56,7 +56,7 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 bg-[#E2E2E5]/70 rounded-2xl border border-gray-300/60 flex items-start gap-4">
+        <div className="p-4 sm:p-5 bg-[#F9FAFB] rounded-2xl border border-gray-300/60 flex items-start gap-4">
           <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>

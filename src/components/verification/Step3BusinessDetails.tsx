@@ -92,8 +92,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, companyName: "" }));
               }}
               placeholder="Acme Property Management"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.companyName ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                errors.companyName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.companyName && (
@@ -116,8 +116,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, legalName: "" }));
               }}
               placeholder="Acme Property Management LLC"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.legalName ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                errors.legalName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.legalName && (
@@ -137,7 +137,7 @@ export default function Step3BusinessDetails({
               value={formData.dbaName}
               onChange={onChange}
               placeholder="Acme Property Management"
-              className="w-full px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:bg-white focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
             />
             <p className="text-[11px] text-gray-500 font-normal mt-1">
               Only fill this out if your company operates under a different name from
@@ -158,8 +158,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, website: "" }));
               }}
               placeholder="https://acmeproperty.com"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.website ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                errors.website ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.website && (
@@ -182,8 +182,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, address: "" }));
               }}
               placeholder="123 Business Blvd, Suite 400"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.address ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.address && (
@@ -207,8 +207,8 @@ export default function Step3BusinessDetails({
                   if (e.target.value.trim()) setErrors((prev) => ({ ...prev, city: "" }));
                 }}
                 placeholder="Los Angeles"
-                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                  errors.city ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                  errors.city ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                 }`}
               />
               {errors.city && (
@@ -231,8 +231,8 @@ export default function Step3BusinessDetails({
                   if (e.target.value.trim()) setErrors((prev) => ({ ...prev, state: "" }));
                 }}
                 placeholder="CA"
-                className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                  errors.state ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                  errors.state ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                 }`}
               />
               {errors.state && (
@@ -256,8 +256,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, taxId: "" }));
               }}
               placeholder="XX-XXXXXXX"
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.taxId ? "border-red-500 bg-red-50/20" : "border-transparent focus:bg-white"
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
+                errors.taxId ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
               }`}
             />
             {errors.taxId && (
@@ -288,7 +288,7 @@ export default function Step3BusinessDetails({
                 className={`w-full px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                   formData.portfolioSize === size
                     ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                    : "bg-[#E2E2E5]/70 border-transparent hover:bg-white text-gray-800"
+                    : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                 }`}
               >
                 <span>{size}</span>
@@ -328,7 +328,7 @@ export default function Step3BusinessDetails({
                 className={`w-full px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
                   formData.maintenance === opt
                     ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                    : "bg-[#E2E2E5]/70 border-transparent hover:bg-white text-gray-800"
+                    : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                 }`}
               >
                 <span>{opt}</span>
@@ -373,7 +373,7 @@ export default function Step3BusinessDetails({
                   className={`px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center gap-3 ${
                     isSelected
                       ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                      : "bg-[#E2E2E5]/70 border-transparent hover:bg-white text-gray-800"
+                      : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                   }`}
                 >
                   <div
@@ -398,7 +398,7 @@ export default function Step3BusinessDetails({
         <button
           type="button"
           onClick={onBack}
-          className="py-3 px-5 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
+          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>

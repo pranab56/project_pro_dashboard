@@ -82,7 +82,7 @@ export default function Overview(): React.ReactElement {
       {/* Top 4 Stats Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {/* Card 1: Total Properties */}
-        <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Total Properties
@@ -100,7 +100,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 2: Active Jobs */}
-        <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Active Jobs
@@ -118,7 +118,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 3: Approval Required */}
-        <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Approval Required
@@ -136,7 +136,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 4: Jobs Completed */}
-        <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between">
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Jobs Completed
@@ -155,7 +155,7 @@ export default function Overview(): React.ReactElement {
       </div>
 
       {/* Service Requests Bar Chart Section */}
-      <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-6">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6">
         <div className="mb-4">
           <h2 className="text-lg font-bold text-gray-900">Service Requests</h2>
           <p className="text-xs text-gray-500 font-normal mt-0.5">Yearly volume</p>
@@ -200,7 +200,7 @@ export default function Overview(): React.ReactElement {
       </div>
 
       {/* Recent Activity Section */}
-      <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-6">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6">
         <h2 className="text-lg font-bold text-gray-900 mb-4">Recent Activity</h2>
 
         <div className="space-y-4">

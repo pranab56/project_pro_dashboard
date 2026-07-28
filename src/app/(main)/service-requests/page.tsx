@@ -174,7 +174,7 @@ export default function ServiceRequestsPage() {
       />
 
       {/* Search Input Bar */}
-      <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-lg p-3.5 sm:p-2">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-3.5 sm:p-2">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
@@ -182,7 +182,7 @@ export default function ServiceRequestsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by ID, title, or property..."
-            className="w-full pl-10 pr-4 py-4 bg-[#EAEAEA] border border-gray-300/40 rounded-sm text-sm text-gray-900 placeholder:text-gray-400 focus:bg-[#EAEAEA] focus:border-[#A3A3A3] focus:outline-none transition-all"
+            className="w-full pl-10 pr-4 py-3.5 bg-white border border-gray-300 rounded-sm text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 focus:outline-none transition-all"
           />
         </div>
       </div>

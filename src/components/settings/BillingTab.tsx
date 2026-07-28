@@ -30,7 +30,7 @@ export default function BillingTab() {
   return (
     <div className="space-y-6">
       {/* 1. Current Plan Card */}
-      <div className="bg-[#EAEAEA] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Current Plan
         </h3>
@@ -65,7 +65,7 @@ export default function BillingTab() {
           <button
             type="button"
             onClick={handleChangePlan}
-            className="bg-[#E2E2E5] hover:bg-gray-300 text-gray-800 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gray-300/60 transition-colors cursor-pointer"
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gray-300 transition-colors cursor-pointer"
           >
             Change Plan
           </button>
@@ -80,12 +80,12 @@ export default function BillingTab() {
       </div>
 
       {/* 2. Payment Method Card */}
-      <div className="bg-[#EAEAEA] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Payment Method
         </h3>
 
-        <div className="bg-[#E2E2E5]/80 border border-gray-300/60 rounded-2xl p-4 flex items-center justify-between">
+        <div className="bg-white border border-gray-300/60 rounded-2xl p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-black text-white px-2.5 py-1 text-xs font-black tracking-widest rounded-md shrink-0">
               VISA
@@ -116,7 +116,7 @@ export default function BillingTab() {
       </div>
 
       {/* 3. Billing History Card */}
-      <div className="bg-[#EAEAEA] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Billing History
         </h3>

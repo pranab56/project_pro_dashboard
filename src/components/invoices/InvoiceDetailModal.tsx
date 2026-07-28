@@ -83,7 +83,7 @@ export default function InvoiceDetailModal({
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto pr-1 space-y-6 flex-1">
+        <div className="overflow-y-auto no-scrollbar pr-1 space-y-6 flex-1">
           {/* Metadata Grid */}
           <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-xs sm:text-sm bg-gray-50/80 p-4 rounded-2xl border border-gray-100">
             <div>

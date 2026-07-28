@@ -17,7 +17,7 @@ export default function ServiceRequestTable({
 }: ServiceRequestTableProps) {
   if (requests.length === 0) {
     return (
-      <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl p-8 text-center">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-8 text-center">
         <p className="text-gray-500 font-medium text-sm">
           No service requests found matching your search.
         </p>
@@ -26,7 +26,7 @@ export default function ServiceRequestTable({
   }
 
   return (
-    <div className="bg-[#E2E2E5] border border-gray-300/50 rounded-2xl overflow-x-auto shadow-xs">
+    <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl overflow-x-auto shadow-xs">
       <table className="w-full text-left border-collapse min-w-[900px]">
         <thead>
           <tr className="border-b border-gray-300/60 text-[11px] font-bold text-gray-500 uppercase tracking-wider">

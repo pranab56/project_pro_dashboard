@@ -51,7 +51,7 @@ export default function VerificationPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#EBEBEB]">
+    <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#F9FAFB]">
       {/* LEFT SIDEBAR PANEL */}
       <VerificationSidebar currentStep={currentStep} />
 

@@ -51,7 +51,7 @@ type SidebarItem = {
   icon: React.ComponentType<{ className?: string }>;
 };
 
-const sidebars: SidebarItem[] = [
+const defaultSidebars: SidebarItem[] = [
   { name: "Dashboard", path: "/", icon: LayoutGrid },
   { name: "Properties", path: "/properties", icon: Building2 },
   { name: "Service Requests", path: "/service-requests", icon: Wrench },
@@ -59,14 +59,24 @@ const sidebars: SidebarItem[] = [
   { name: "Settings", path: "/settings", icon: Settings },
 ];
 
+const serviceProviderSidebars: SidebarItem[] = [
+  { name: "Dashboard", path: "/services_provider/overview", icon: LayoutGrid },
+  { name: "Job Request", path: "/services_provider/job_request", icon: Wrench },
+  { name: "Payment Information", path: "/services_provider/payment", icon: Receipt },
+  { name: "Settings", path: "/services_provider/settings", icon: Settings },
+];
+
 export default function OptimusSidebar() {
   const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const pathname = usePathname();
   const router = useRouter();
 
+  const isServiceProvider = pathname.startsWith("/services_provider");
+  const sidebars = isServiceProvider ? serviceProviderSidebars : defaultSidebars;
+
   const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === "/";
+    if (path === "/" || path === "/services_provider/overview") {
+      return pathname === path;
     }
     return pathname.startsWith(path);
   };
@@ -83,14 +93,14 @@ export default function OptimusSidebar() {
     <>
       <Sidebar className="border-r border-gray-300/80 bg-[#EBEBEB]">
         {/* Header Logo */}
-        <SidebarHeader className="p-4 sm:p-5 border-b border-gray-300 bg-[#EBEBEB]">
+        <SidebarHeader className="p-4 sm:p-5 border-b border-gray-300 bg-[#f0f0f0]">
           <Link href="/" className="block">
             <ProjexProLogo />
           </Link>
         </SidebarHeader>
 
         {/* Main Menu items */}
-        <SidebarContent className="bg-[#EBEBEB] p-3">
+        <SidebarContent className="bg-[#f0f0f0] p-3">
           <SidebarMenu className="space-y-1.5">
             {sidebars.map((item) => {
               const active = isActive(item.path);
@@ -99,8 +109,8 @@ export default function OptimusSidebar() {
                   <SidebarMenuButton
                     asChild
                     className={`h-11 px-4 rounded-lg transition-all duration-200 flex items-center justify-between w-full cursor-pointer ${active
-                        ? "bg-[#E1D4F4] text-[#8E25E3] font-semibold hover:bg-[#E1D4F4] hover:text-[#8E25E3]"
-                        : "text-gray-600 hover:bg-gray-200/70 hover:text-gray-900 font-medium"
+                      ? "bg-[#E1D4F4] text-[#8E25E3] font-semibold hover:bg-[#E1D4F4] hover:text-[#8E25E3]"
+                      : "text-gray-600 hover:bg-gray-200/70 hover:text-gray-900 font-medium"
                       }`}
                   >
                     <Link href={item.path} className="flex items-center justify-between w-full">
@@ -118,7 +128,7 @@ export default function OptimusSidebar() {
         </SidebarContent>
 
         {/* Footer Logout Button */}
-        <SidebarFooter className="p-3 border-t border-gray-300 bg-[#EBEBEB]">
+        <SidebarFooter className="p-3 border-t border-gray-300 bg-[#f0f0f0]">
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}

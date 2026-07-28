@@ -21,8 +21,8 @@ import {
 import { ChevronLeft, ChevronRight, Loader2, Search } from "lucide-react";
 import Image from 'next/image';
 import React, { useMemo, useState } from 'react';
-const useAllUsersQuery = (..._args: unknown[]) => ({ data: { data: [], meta: { totalPage: 1, limit: 10, total: 0 } }, isLoading: false, isFetching: false, refetch: () => {} });
-const useBlockUserMutation = () => [(..._args: unknown[]) => ({ unwrap: async () => {} }), { isLoading: false }] as const;
+const useAllUsersQuery = (opts?: Record<string, unknown>) => { void opts; return { data: { data: [], meta: { totalPage: 1, limit: 10, total: 0 } }, isLoading: false, isFetching: false, refetch: () => {} }; };
+const useBlockUserMutation = () => [(id?: unknown) => { void id; return { unwrap: async () => {} }; }, { isLoading: false }] as const;
 import { baseURL } from '../../utils/BaseURL';
 import CustomLoading from '../Loading/CustomLoading';
 
