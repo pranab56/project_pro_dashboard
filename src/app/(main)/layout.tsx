@@ -6,8 +6,8 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Cat Herding Admin Dashboard",
-  description: "Cat Herding Admin Dashboard",
+  title: "ProjectPro Admin Dashboard",
+  description: "ProjectPro Admin Dashboard",
 };
 
 export default function RootLayout({
