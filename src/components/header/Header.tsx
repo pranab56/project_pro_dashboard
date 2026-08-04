@@ -52,10 +52,6 @@ export default function Header() {
       {/* Left side - Sidebar Toggle & Slogan Header */}
       <div className="flex items-center gap-2 sm:gap-3">
         <SidebarTrigger className="p-2 text-gray-700 hover:bg-gray-200/80 rounded-xl cursor-pointer" />
-        <div className="flex items-center gap-1 sm:gap-1.5 text-base sm:text-lg md:text-xl truncate">
-          <span className="font-bold text-gray-900 tracking-tight">Property Care.</span>
-          <span className="italic font-medium text-gray-700 hidden xs:inline sm:inline">Simplified</span>
-        </div>
       </div>
 
       {/* Right side - Notification and Profile */}

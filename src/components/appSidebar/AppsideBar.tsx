@@ -15,8 +15,10 @@ import {
   LogOut,
   Receipt,
   Settings,
+  User,
   Wrench,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -26,21 +28,14 @@ import { removeToken } from "@/utils/storage";
 function ProjexProLogo() {
   return (
     <div className="flex items-center gap-2.5">
-      {/* Roof/Chevron Stack Icon */}
-      <svg width="38" height="38" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 4L4 17.5H12L22 10L32 17.5H40L22 4Z" fill="#FF9F00" />
-        <path d="M22 13L8 23.5H16L22 19L28 23.5H36L22 13Z" fill="#F59E0B" />
-        <path d="M22 22L12 29.5H19.5L22 27.6L24.5 29.5H32L22 22Z" fill="#D97706" />
-      </svg>
-      <div className="flex flex-col">
-        <div className="flex items-center leading-none text-xl md:text-2xl font-bold tracking-tight">
-          <span className="text-[#5B1B95]">Projex</span>
-          <span className="text-[#A327EE]">Pro</span>
-        </div>
-        <span className="text-[9px] text-gray-500 font-medium tracking-tight mt-0.5">
-          property services, simplified
-        </span>
-      </div>
+      <Image
+        src="/logo/logo.png"
+        alt="ProjexPro Logo"
+        width={220}
+        height={60}
+        className="h-15 w-auto object-contain"
+        priority
+      />
     </div>
   );
 }
@@ -62,6 +57,7 @@ const defaultSidebars: SidebarItem[] = [
 const serviceProviderSidebars: SidebarItem[] = [
   { name: "Dashboard", path: "/services_provider/overview", icon: LayoutGrid },
   { name: "Job Request", path: "/services_provider/job_request", icon: Wrench },
+  { name: "Profile", path: "/services_provider/profile", icon: User },
   { name: "Payment Information", path: "/services_provider/payment", icon: Receipt },
   { name: "Settings", path: "/services_provider/settings", icon: Settings },
 ];
