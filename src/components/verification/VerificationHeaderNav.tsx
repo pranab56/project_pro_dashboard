@@ -1,25 +1,18 @@
 "use client";
 
-import React from "react";
+import Image from "next/image";
 
 function ProjexProLogo() {
   return (
     <div className="flex items-center gap-2.5">
-      <svg
-        width="34"
-        height="34"
-        viewBox="0 0 44 44"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M22 4L4 17.5H12L22 10L32 17.5H40L22 4Z" fill="#FF9F00" />
-        <path d="M22 13L8 23.5H16L22 19L28 23.5H36L22 13Z" fill="#F59E0B" />
-        <path d="M22 22L12 29.5H19.5L22 27.6L24.5 29.5H32L22 22Z" fill="#D97706" />
-      </svg>
-      <div className="flex items-center text-xl font-bold tracking-tight">
-        <span className="text-[#5B1B95]">Projex</span>
-        <span className="text-[#A327EE]">Pro</span>
-      </div>
+      <Image
+        src="/logo/logo.png"
+        alt="ProjexPro Logo"
+        width={1000}
+        height={1000}
+        className="h-15 w-auto object-contain"
+        priority
+      />
     </div>
   );
 }

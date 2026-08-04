@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Check, Download, X } from "lucide-react";
 import { Invoice } from "@/types/invoice";
 import InvoiceStatusBadge from "./InvoiceStatusBadge";
@@ -60,15 +61,13 @@ export default function InvoiceDetailModal({
         <div className="mb-6">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-4">
-            <svg width="28" height="28" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 4L4 17.5H12L22 10L32 17.5H40L22 4Z" fill="#FF9F00" />
-              <path d="M22 13L8 23.5H16L22 19L28 23.5H36L22 13Z" fill="#F59E0B" />
-              <path d="M22 22L12 29.5H19.5L22 27.6L24.5 29.5H32L22 22Z" fill="#D97706" />
-            </svg>
-            <div className="flex items-center text-lg font-bold">
-              <span className="text-[#5B1B95]">Projex</span>
-              <span className="text-[#A327EE]">Pro</span>
-            </div>
+            <Image
+              src="/logo/logo.png"
+              alt="ProjexPro Logo"
+              width={160}
+              height={45}
+              className="h-9 w-auto object-contain"
+            />
           </div>
 
           <div className="flex items-center gap-3">
