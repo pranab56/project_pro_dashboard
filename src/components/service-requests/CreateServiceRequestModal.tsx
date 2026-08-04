@@ -156,18 +156,17 @@ export default function CreateServiceRequestModal({
               }}
             >
               <SelectTrigger
-                className={`w-full h-[46px] px-4 py-6 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${
-                  errors.property ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                }`}
+                className={`w-full h-[46px] px-4 py-6 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none ${errors.property ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  }`}
               >
                 <SelectValue placeholder="Select Property" />
               </SelectTrigger>
               <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
-                <SelectItem value="Sunset Apartments">Sunset Apartments</SelectItem>
-                <SelectItem value="Green Valley Complex">Green Valley Complex</SelectItem>
-                <SelectItem value="TechHub Tower">TechHub Tower</SelectItem>
-                <SelectItem value="Maple Street Condos">Maple Street Condos</SelectItem>
-                <SelectItem value="Harbor View Plaza">Harbor View Plaza</SelectItem>
+                <SelectItem className="py-3" value="Sunset Apartments">Sunset Apartments</SelectItem>
+                <SelectItem className="py-3" value="Green Valley Complex">Green Valley Complex</SelectItem>
+                <SelectItem className="py-3" value="TechHub Tower">TechHub Tower</SelectItem>
+                <SelectItem className="py-3" value="Maple Street Condos">Maple Street Condos</SelectItem>
+                <SelectItem className="py-3" value="Harbor View Plaza">Harbor View Plaza</SelectItem>
               </SelectContent>
             </Select>
             {errors.property && (
@@ -190,9 +189,8 @@ export default function CreateServiceRequestModal({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, title: "" }));
               }}
               placeholder="e.g. Water Leak under Kitchen Sink"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                errors.title ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.title ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.title && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -214,9 +212,8 @@ export default function CreateServiceRequestModal({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, description: "" }));
               }}
               placeholder="Detailed description of the issue..."
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all resize-none ${
-                errors.description ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all resize-none ${errors.description ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.description && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -236,11 +233,10 @@ export default function CreateServiceRequestModal({
                   key={pri}
                   type="button"
                   onClick={() => setFormPriority(pri)}
-                  className={`py-2.5 px-2 rounded-xl font-medium text-xs sm:text-sm text-center cursor-pointer transition-all ${
-                    formPriority === pri
-                      ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294] font-bold"
-                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-                  }`}
+                  className={`py-2.5 px-2 rounded-xl font-medium text-xs sm:text-sm text-center cursor-pointer transition-all ${formPriority === pri
+                    ? "border-2 border-[#6B1294] bg-[#F2E7FC] text-[#6B1294] font-bold"
+                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                    }`}
                 >
                   {pri}
                 </button>
@@ -257,22 +253,20 @@ export default function CreateServiceRequestModal({
               <button
                 type="button"
                 onClick={() => setFormIsOccupied(true)}
-                className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center cursor-pointer transition-all ${
-                  formIsOccupied
-                    ? "border-2 border-emerald-500 bg-emerald-100 text-emerald-800"
-                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-                }`}
+                className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center cursor-pointer transition-all ${formIsOccupied
+                  ? "border-2 border-emerald-500 bg-emerald-100 text-emerald-800"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                  }`}
               >
                 Yes
               </button>
               <button
                 type="button"
                 onClick={() => setFormIsOccupied(false)}
-                className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center cursor-pointer transition-all ${
-                  !formIsOccupied
-                    ? "border-2 border-red-300 bg-red-100 text-red-700"
-                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
-                }`}
+                className={`py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center cursor-pointer transition-all ${!formIsOccupied
+                  ? "border-2 border-red-300 bg-red-100 text-red-700"
+                  : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
+                  }`}
               >
                 No
               </button>
@@ -295,9 +289,8 @@ export default function CreateServiceRequestModal({
                       if (e.target.value.trim()) setErrors((prev) => ({ ...prev, tenantName: "" }));
                     }}
                     placeholder="Nichole"
-                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                      errors.tenantName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                    }`}
+                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.tenantName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                      }`}
                   />
                   {errors.tenantName && (
                     <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -317,9 +310,8 @@ export default function CreateServiceRequestModal({
                       if (e.target.value.trim()) setErrors((prev) => ({ ...prev, tenantPhone: "" }));
                     }}
                     placeholder="+555 2552 552"
-                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                      errors.tenantPhone ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                    }`}
+                    className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.tenantPhone ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                      }`}
                   />
                   {errors.tenantPhone && (
                     <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -360,13 +352,12 @@ export default function CreateServiceRequestModal({
               onClick={() => fileInputRef.current?.click()}
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
-              className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${
-                errors.image
-                  ? "border-red-500 bg-red-50/30"
-                  : formImage
+              className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all ${errors.image
+                ? "border-red-500 bg-red-50/30"
+                : formImage
                   ? "border-purple-400 bg-purple-50/30"
                   : "border-gray-300 bg-white hover:bg-purple-50/20"
-              }`}
+                }`}
             >
               {formImage ? (
                 <div className="relative group">

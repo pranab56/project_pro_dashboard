@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 
-// 12 Months Service Requests Data matching the screenshot
+// 12 Months Service Requests Data matching the Figma screenshot
 const serviceRequestsData = [
   { month: "Jan", volume: 11 },
   { month: "Feb", volume: 18 },
@@ -75,59 +75,23 @@ export default function Overview(): React.ReactElement {
           Hi Alex 👋
         </h1>
         <p className="text-sm text-gray-500 font-normal mt-1">
-          Welcome to your premium property dashboard.
+          Welcome to your <span className="font-semibold text-[#5B1B95]">ProjexPro</span> dashboard.
         </p>
       </div>
 
-      {/* Top 4 Stats Cards Grid */}
+      {/* Top 4 Stats Cards Grid - Order matched to Figma: Approval Required, Active Jobs, Completed Jobs, Total Properties */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        {/* Card 1: Total Properties */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
-          <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
-              Total Properties
-            </span>
-            <div className="p-2.5 rounded-lg bg-[#F2E7FC] text-[#8E25E3]">
-              <Building2 className="w-8 h-8" />
-            </div>
-          </div>
-          <div className="mt-2">
-            <h2 className="text-3xl font-bold text-gray-900">10</h2>
-            <p className="text-xs font-semibold text-[#8E25E3] mt-1">
-              5 Units | 50% Occupied
-            </p>
-          </div>
-        </div>
-
-        {/* Card 2: Active Jobs */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
-          <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
-              Active Jobs
-            </span>
-            <div className="p-2.5 rounded-lg bg-green-100 text-green-600">
-              <Wrench className="w-8 h-8" />
-            </div>
-          </div>
-          <div className="mt-2">
-            <h2 className="text-3xl font-bold text-gray-900">8</h2>
-            <p className="text-xs font-semibold text-green-600 mt-1">
-              3 urgent
-            </p>
-          </div>
-        </div>
-
-        {/* Card 3: Approval Required */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-5 flex flex-col justify-between">
+        {/* Card 1: Approval Required */}
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Approval Required
             </span>
-            <div className="p-2.5 rounded-lg bg-red-100 text-red-600">
-              <Receipt className="w-8 h-8" />
+            <div className="p-2.5 rounded-xl bg-red-100/90 text-red-600">
+              <Receipt className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-2">
+          <div className="mt-3">
             <h2 className="text-3xl font-bold text-gray-900">4</h2>
             <p className="text-xs font-semibold text-red-600 mt-1">
               Need Attention
@@ -135,20 +99,56 @@ export default function Overview(): React.ReactElement {
           </div>
         </div>
 
-        {/* Card 4: Jobs Completed */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between">
+        {/* Card 2: Active Jobs */}
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
-              Jobs Completed
+              Active Jobs
             </span>
-            <div className="p-2.5 rounded-lg bg-blue-100 text-blue-600">
-              <Wrench className="w-8 h-8" />
+            <div className="p-2.5 rounded-xl bg-green-100/90 text-emerald-600">
+              <Wrench className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-2">
+          <div className="mt-3">
+            <h2 className="text-3xl font-bold text-gray-900">8</h2>
+            <p className="text-xs font-semibold text-emerald-600 mt-1">
+              3 urgent
+            </p>
+          </div>
+        </div>
+
+        {/* Card 3: Completed Jobs */}
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+          <div className="flex items-start justify-between">
+            <span className="text-xs sm:text-sm font-normal text-gray-500">
+              Completed Jobs
+            </span>
+            <div className="p-2.5 rounded-xl bg-blue-100/90 text-blue-600">
+              <Wrench className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="mt-3">
             <h2 className="text-3xl font-bold text-gray-900">50</h2>
             <p className="text-xs font-semibold text-blue-600 mt-1">
               12 this month
+            </p>
+          </div>
+        </div>
+
+        {/* Card 4: Total Properties */}
+        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+          <div className="flex items-start justify-between">
+            <span className="text-xs sm:text-sm font-normal text-gray-500">
+              Total Properties
+            </span>
+            <div className="p-2.5 rounded-xl bg-[#F2E7FC] text-[#8E25E3]">
+              <Building2 className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="mt-3">
+            <h2 className="text-3xl font-bold text-gray-900">10</h2>
+            <p className="text-xs font-semibold text-[#8E25E3] mt-1">
+              5 Units | 50% Occupied
             </p>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function Overview(): React.ReactElement {
         <div className="h-[270px] w-full pt-2">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={serviceRequestsData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#D4D4D8" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
               <XAxis
                 dataKey="month"
                 axisLine={false}
@@ -207,7 +207,7 @@ export default function Overview(): React.ReactElement {
           {recentActivities.map((act) => {
             const IconComp = act.icon;
             return (
-              <div key={act.id} className="flex items-center justify-between py-1">
+              <div key={act.id} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-0 pb-3 last:pb-0">
                 <div className="flex items-center gap-3.5">
                   <div className={`p-2.5 rounded-xl flex items-center justify-center ${act.iconBg}`}>
                     <IconComp className="w-4 h-4" />

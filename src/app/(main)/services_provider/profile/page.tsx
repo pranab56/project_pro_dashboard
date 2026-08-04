@@ -1,426 +1,606 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import {
+  Camera,
+  Check,
+  ChevronDown,
+  FileText,
+  Mail,
+  MapPin,
+  Pencil,
+  Phone,
+  Plus,
+  ShieldCheck,
+  Trash2,
+  Upload,
+  User,
+} from "lucide-react";
 import toast from "react-hot-toast";
-import { Save } from "lucide-react";
 
-export default function ProfileTab() {
-    const [profileData, setProfileData] = useState({
-        // Profile Information
-        firstName: "Alex",
-        lastName: "Morgan",
-        username: "Alex",
-        jobTitle: "Morgan",
-        email: "alex.morgan@projexpro.com",
-        phone: "+1 (555) 234-5678",
+export default function ServiceProviderProfilePage() {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
-        // Registered Business Information
-        parentCompanyName: "ProjexPro Management LLC",
-        parentCompanyAddress: "ProjexPro Management LLC",
-        city: "Los Angeles",
-        state: "CA",
-        country: "United States",
-        website: "alexmorgan.com",
-        businessPhone: "+1 (555) 234-5678",
+  // Form State matching screenshot
+  const [personal, setPersonal] = useState({
+    firstName: "James",
+    lastName: "Donovan",
+    email: "james.donovan@email.com",
+    phone: "+1 (512) 555-0142",
+    streetAddress: "2847 Cedar Creek Lane",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78701",
+    bio: "",
+  });
 
-        // Secondary Contact Information
-        secFullName: "Alex",
-        secJobTitle: "Morgan",
-        secEmail: "alex.morgan@projexpro.com",
-        secPhone: "+1 (555) 234-5678",
-    });
+  const [business, setBusiness] = useState({
+    companyName: "Donovan Property Services LLC",
+    officeAddress: "400 Commerce St, Suite 110",
+    city: "Austin",
+    state: "TX",
+    zipCode: "78701",
+    officePhone: "+1 (512) 555-0200",
+    taxId: "82-4917630",
+    yearsInBusiness: "8",
+  });
 
-    const [profilePhoto, setProfilePhoto] = useState<string>("");
-    const [errors, setErrors] = useState<Record<string, string>>({});
+  const [license, setLicense] = useState({
+    type: "",
+    number: "TX-PL-209374",
+    dateIssued: "",
+    stateIssued: "",
+  });
 
-    const photoInputRef = React.useRef<HTMLInputElement | null>(null);
+  const [skills] = useState<string[]>([
+    "Plumbing",
+    "Electrical",
+    "HVAC",
+    "Flooring",
+    "Painting",
+    "Roofing",
+  ]);
 
-    const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const photoUrl = URL.createObjectURL(file);
-            setProfilePhoto(photoUrl);
-            toast.success("Profile photo updated!");
-        }
-    };
+  const [documents, setDocuments] = useState([
+    {
+      id: "1",
+      name: "Government_ID.pdf",
+      size: "1.2 MB",
+      badge: "Government I.D.",
+      badgeColor: "bg-[#DBEAFE] text-[#2563EB]",
+    },
+    {
+      id: "2",
+      name: "Insurance_Certificate_2026.pdf",
+      size: "840 KB",
+      badge: "Proof of Insurance",
+      badgeColor: "bg-[#DCFCE7] text-[#16A34A]",
+    },
+  ]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setProfileData((prev) => ({ ...prev, [name]: value }));
-        if (value.trim()) {
-            setErrors((prev) => ({ ...prev, [name]: "" }));
-        }
-    };
+  const avatarInputRef = useRef<HTMLInputElement | null>(null);
+  const docInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleSave = (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleDocUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const newDoc = {
+        id: Date.now().toString(),
+        name: file.name,
+        size: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
+        badge: "Custom Document",
+        badgeColor: "bg-purple-100 text-[#5B1B95]",
+      };
+      setDocuments([...documents, newDoc]);
+      toast.success("Document uploaded successfully!");
+    }
+  };
 
-        const newErrors: Record<string, string> = {};
+  const handleDeleteDoc = (id: string) => {
+    setDocuments(documents.filter((d) => d.id !== id));
+    toast.success("Document removed.");
+  };
 
-        if (!profileData.firstName.trim()) {
-            newErrors.firstName = "First Name is required";
-        }
-        if (!profileData.lastName.trim()) {
-            newErrors.lastName = "Last Name is required";
-        }
-        if (!profileData.email.trim()) {
-            newErrors.email = "Email Address is required";
-        }
-        if (!profileData.phone.trim()) {
-            newErrors.phone = "Phone Number is required";
-        }
+  return (
+    <div className="space-y-6">
+      {/* Top Header Section */}
+      <div className="flex flex-row items-center justify-between gap-3">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
+            Profile
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
+            Manage your account details, business information, and service preferences.
+          </p>
+        </div>
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            toast.error("Please fill in all required fields");
-            return;
-        }
+        <button
+          type="button"
+          onClick={() => {
+            setIsEditing(!isEditing);
+            if (isEditing) toast.success("Profile saved!");
+          }}
+          className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 font-semibold px-4 py-2.5 rounded-xl shadow-2xs transition-colors cursor-pointer flex items-center gap-2 text-xs sm:text-sm shrink-0"
+        >
+          <Pencil className="w-4 h-4 text-gray-600" />
+          <span>{isEditing ? "Save Profile" : "Edit Profile"}</span>
+        </button>
+      </div>
 
-        toast.success("Profile settings updated successfully!");
-        setErrors({});
-    };
+      {/* Main 2 Column Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Profile Summary Card (4 Cols) */}
+        <div className="lg:col-span-4 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-6 self-start">
+          {/* Avatar Circle */}
+          <div className="flex flex-col items-center text-center">
+            <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
+              <input type="file" ref={avatarInputRef} accept="image/*" className="hidden" />
+              <div className="w-24 h-24 rounded-full bg-[#5B1B95] text-white font-bold text-3xl flex items-center justify-center shadow-md">
+                JD
+              </div>
+              <div className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-[#5B1B95] text-white flex items-center justify-center border-2 border-white shadow-xs">
+                <Camera className="w-3.5 h-3.5" />
+              </div>
+            </div>
 
-    const handleChangePhoto = () => {
-        photoInputRef.current?.click();
-    };
+            <h2 className="text-xl font-bold text-gray-900 mt-4">
+              {personal.firstName} {personal.lastName}
+            </h2>
+            <p className="text-xs text-gray-500 font-normal mt-0.5">
+              Licensed Contractor
+            </p>
+          </div>
 
-    return (
-        <form onSubmit={handleSave} className="space-y-6">
-            {/* Hidden File Input for Avatar Photo */}
-            <input
-                type="file"
-                ref={photoInputRef}
-                accept="image/*"
-                onChange={handlePhotoSelect}
-                className="hidden"
-            />
+          <div className="border-t border-gray-300/50 pt-4 space-y-2.5 text-xs text-gray-600 font-normal">
+            <div className="flex items-center gap-2.5">
+              <Mail className="w-4 h-4 text-gray-400 shrink-0" />
+              <span>{personal.email}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <Phone className="w-4 h-4 text-gray-400 shrink-0" />
+              <span>{personal.phone}</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+              <span>{personal.city}, {personal.state}</span>
+            </div>
+          </div>
 
-            {/* Top Profile Avatar Row */}
-            <div className="flex items-center gap-4 bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5">
-                <div
-                    onClick={handleChangePhoto}
-                    className="relative group cursor-pointer shrink-0"
-                    title="Click to change photo"
+          {/* SKILLS Box */}
+          <div className="border-t border-gray-300/50 pt-4">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+              SKILLS
+            </h3>
+            <div className="flex flex-wrap gap-1.5">
+              {skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="bg-[#F2E7FC] text-[#5B1B95] border border-[#E1D4F4] font-semibold text-xs px-3 py-1 rounded-full"
                 >
-                    {profilePhoto ? (
-                        <img
-                            src={profilePhoto}
-                            alt="Profile Photo"
-                            className="w-16 h-16 rounded-full object-cover shadow-sm border-2 border-[#5B1B95]"
-                        />
-                    ) : (
-                        <div className="w-16 h-16 rounded-full bg-[#5B1B95] text-white flex items-center justify-center font-bold text-xl tracking-wider shadow-sm">
-                            AM
-                        </div>
-                    )}
-                    <div className="absolute inset-0 bg-black/40 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white text-[10px] font-semibold text-center p-1">
-                        Change
-                    </div>
-                </div>
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
 
-                <div className="flex-1 min-w-0">
-                    <h2 className="text-lg font-bold text-gray-900 leading-tight truncate">
-                        Alex Morgan
-                    </h2>
-                    <p className="text-xs text-gray-500 font-medium mt-0.5">
-                        Property Manager · ProjexPro
-                    </p>
-                    <button
-                        type="button"
-                        onClick={handleChangePhoto}
-                        className="mt-2 text-xs font-semibold text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl px-3.5 py-1.5 transition-colors cursor-pointer"
-                    >
-                        Change Photo
-                    </button>
-                </div>
+        {/* Right Details Column (8 Cols) */}
+        <div className="lg:col-span-8 space-y-6">
+          {/* 1. Personal Information */}
+          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+            <h3 className="text-base font-bold text-gray-900">
+              Personal Information
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  value={personal.firstName}
+                  onChange={(e) => setPersonal({ ...personal, firstName: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  value={personal.lastName}
+                  onChange={(e) => setPersonal({ ...personal, lastName: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  value={personal.email}
+                  onChange={(e) => setPersonal({ ...personal, email: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  value={personal.phone}
+                  onChange={(e) => setPersonal({ ...personal, phone: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
             </div>
 
-            {/* 1. Profile Information Box */}
-            <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 tracking-tight">
-                    Profile Information
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Street Address
+              </label>
+              <input
+                type="text"
+                value={personal.streetAddress}
+                onChange={(e) => setPersonal({ ...personal, streetAddress: e.target.value })}
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  City
+                </label>
+                <input
+                  type="text"
+                  value={personal.city}
+                  onChange={(e) => setPersonal({ ...personal, city: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  State
+                </label>
+                <input
+                  type="text"
+                  value={personal.state}
+                  onChange={(e) => setPersonal({ ...personal, state: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  ZIP Code
+                </label>
+                <input
+                  type="text"
+                  value={personal.zipCode}
+                  onChange={(e) => setPersonal({ ...personal, zipCode: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Bio
+              </label>
+              <textarea
+                rows={3}
+                value={personal.bio}
+                onChange={(e) => setPersonal({ ...personal, bio: e.target.value })}
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95] resize-none"
+              />
+            </div>
+          </div>
+
+          {/* 2. Business Information */}
+          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+            <h3 className="text-base font-bold text-gray-900">
+              Business Information
+            </h3>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Business / Company Name
+              </label>
+              <input
+                type="text"
+                value={business.companyName}
+                onChange={(e) => setBusiness({ ...business, companyName: e.target.value })}
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Office / Mailing Address
+              </label>
+              <input
+                type="text"
+                value={business.officeAddress}
+                onChange={(e) => setBusiness({ ...business, officeAddress: e.target.value })}
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  City
+                </label>
+                <input
+                  type="text"
+                  value={business.city}
+                  onChange={(e) => setBusiness({ ...business, city: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  State
+                </label>
+                <input
+                  type="text"
+                  value={business.state}
+                  onChange={(e) => setBusiness({ ...business, state: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  ZIP Code
+                </label>
+                <input
+                  type="text"
+                  value={business.zipCode}
+                  onChange={(e) => setBusiness({ ...business, zipCode: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Office Phone Number
+                </label>
+                <input
+                  type="text"
+                  value={business.officePhone}
+                  onChange={(e) => setBusiness({ ...business, officePhone: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Business Tax I.D. Number
+                </label>
+                <input
+                  type="text"
+                  value={business.taxId}
+                  onChange={(e) => setBusiness({ ...business, taxId: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Years in Business
+                </label>
+                <input
+                  type="text"
+                  value={business.yearsInBusiness}
+                  onChange={(e) => setBusiness({ ...business, yearsInBusiness: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* 3. License Information */}
+          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-gray-900">
+                  License Information
                 </h3>
+                <p className="text-xs text-gray-500 font-normal mt-0.5">
+                  Add all active professional licenses. You may attach a copy of each license document.
+                </p>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            First Name *
-                        </label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            value={profileData.firstName}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${errors.firstName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                                }`}
-                        />
-                        {errors.firstName && (
-                            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
-                                <span>⚠️</span> {errors.firstName}
-                            </p>
-                        )}
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Last Name *
-                        </label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            value={profileData.lastName}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${errors.lastName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                                }`}
-                        />
-                        {errors.lastName && (
-                            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
-                                <span>⚠️</span> {errors.lastName}
-                            </p>
-                        )}
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Username
-                        </label>
-                        <input
-                            type="text"
-                            name="username"
-                            value={profileData.username}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Job Title / Department
-                        </label>
-                        <input
-                            type="text"
-                            name="jobTitle"
-                            value={profileData.jobTitle}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Email Address *
-                        </label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={profileData.email}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                                }`}
-                        />
-                        {errors.email && (
-                            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
-                                <span>⚠️</span> {errors.email}
-                            </p>
-                        )}
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Phone Number *
-                        </label>
-                        <input
-                            type="text"
-                            name="phone"
-                            value={profileData.phone}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${errors.phone ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                                }`}
-                        />
-                        {errors.phone && (
-                            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
-                                <span>⚠️</span> {errors.phone}
-                            </p>
-                        )}
-                    </div>
-                </div>
+              <button
+                type="button"
+                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2 rounded-xl text-xs transition-colors cursor-pointer shrink-0"
+              >
+                Add more
+              </button>
             </div>
 
-            {/* 2. Registered Business Information Box */}
-            <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 tracking-tight">
-                    Registered Business Information
-                </h3>
+            {/* License Box */}
+            <div className="bg-gray-200/40 border border-gray-300/60 rounded-xl p-4 space-y-3">
+              <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+                <ShieldCheck className="w-4 h-4 text-[#5B1B95]" />
+                <span>License 2 — Plumbing</span>
+              </div>
 
-                <div className="space-y-4">
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Parent Company Name
-                        </label>
-                        <input
-                            type="text"
-                            name="parentCompanyName"
-                            value={profileData.parentCompanyName}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Parent Company Address
-                        </label>
-                        <input
-                            type="text"
-                            name="parentCompanyAddress"
-                            value={profileData.parentCompanyAddress}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                City
-                            </label>
-                            <input
-                                type="text"
-                                name="city"
-                                value={profileData.city}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                State
-                            </label>
-                            <input
-                                type="text"
-                                name="state"
-                                value={profileData.state}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Country
-                            </label>
-                            <input
-                                type="text"
-                                name="country"
-                                value={profileData.country}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                website address
-                            </label>
-                            <input
-                                type="text"
-                                name="website"
-                                value={profileData.website}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                Phone Number
-                            </label>
-                            <input
-                                type="text"
-                                name="businessPhone"
-                                value={profileData.businessPhone}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                            />
-                        </div>
-                    </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    License Type
+                  </label>
+                  <input
+                    type="text"
+                    value={license.type}
+                    onChange={(e) => setLicense({ ...license, type: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  />
                 </div>
-            </div>
 
-            {/* 3. Secondary Contact Information Box */}
-            <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 tracking-tight">
-                    Secondary Contact Information
-                </h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Full Name
-                        </label>
-                        <input
-                            type="text"
-                            name="secFullName"
-                            value={profileData.secFullName}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Job Title / Department
-                        </label>
-                        <input
-                            type="text"
-                            name="secJobTitle"
-                            value={profileData.secJobTitle}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Email Address
-                        </label>
-                        <input
-                            type="email"
-                            name="secEmail"
-                            value={profileData.secEmail}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                            Phone Number
-                        </label>
-                        <input
-                            type="text"
-                            name="secPhone"
-                            value={profileData.secPhone}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
-                        />
-                    </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    License Number
+                  </label>
+                  <input
+                    type="text"
+                    value={license.number}
+                    onChange={(e) => setLicense({ ...license, number: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  />
                 </div>
-            </div>
 
-            {/* Save Button */}
-            <div className="flex justify-end pt-2">
-                <button
-                    type="submit"
-                    className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-6 py-3 rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm"
-                >
-                    <Save className="w-4 h-4" />
-                    <span>Save Changes</span>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    Date Issued
+                  </label>
+                  <input
+                    type="text"
+                    value={license.dateIssued}
+                    onChange={(e) => setLicense({ ...license, dateIssued: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">
+                    State Issued
+                  </label>
+                  <input
+                    type="text"
+                    value={license.stateIssued}
+                    onChange={(e) => setLicense({ ...license, stateIssued: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  />
+                </div>
+              </div>
+
+              <div className="text-xs text-gray-500 font-normal pt-1">
+                License document:{" "}
+                <button type="button" className="text-[#5B1B95] font-semibold underline cursor-pointer">
+                  Attach File
                 </button>
+              </div>
             </div>
-        </form>
-    );
+          </div>
+
+          {/* 4. Skills & Specializations */}
+          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+            <div>
+              <h3 className="text-base font-bold text-gray-900">
+                Skills & Specializations
+              </h3>
+              <p className="text-xs text-gray-500 font-normal mt-0.5">
+                Select all service types you offer. These are shown to property managers.
+              </p>
+            </div>
+
+            {/* Select Dropdown pill */}
+            <div className="relative">
+              <div className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 font-semibold flex items-center justify-between cursor-pointer">
+                <span>6 skills selected</span>
+                <ChevronDown className="w-4 h-4 text-gray-500" />
+              </div>
+            </div>
+
+            {/* Skill Pills */}
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="bg-[#F2E7FC] text-[#5B1B95] border border-[#E1D4F4] font-semibold text-xs px-3.5 py-1.5 rounded-full"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* 5. Documents & Verification */}
+          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+            <div>
+              <h3 className="text-base font-bold text-gray-900">
+                Documents & Verification
+              </h3>
+              <p className="text-xs text-gray-500 font-normal mt-0.5">
+                Upload required documents. Accepted formats: PDF, JPG, PNG (max 10 MB each).
+              </p>
+            </div>
+
+            {/* Upload Drag & Drop Area */}
+            <input
+              type="file"
+              ref={docInputRef}
+              accept=".pdf,.jpg,.png"
+              onChange={handleDocUpload}
+              className="hidden"
+            />
+            <div
+              onClick={() => docInputRef.current?.click()}
+              className="border-2 border-dashed border-gray-300 bg-gray-200/30 hover:bg-gray-200/50 rounded-2xl p-6 text-center cursor-pointer transition-all"
+            >
+              <button
+                type="button"
+                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2.5 rounded-xl text-xs transition-colors cursor-pointer inline-flex items-center gap-2 mb-2"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Upload File</span>
+              </button>
+              <p className="text-xs text-gray-600 font-semibold">
+                <span className="text-[#5B1B95] font-bold">Click to upload</span> or drag and drop
+              </p>
+              <p className="text-[10px] text-gray-400 mt-0.5">
+                PDF, JPG or PNG - Max 10 MB
+              </p>
+            </div>
+
+            {/* Uploaded Documents List */}
+            <div className="space-y-2.5">
+              {documents.map((doc) => (
+                <div
+                  key={doc.id}
+                  className="bg-gray-200/40 border border-gray-300/50 rounded-xl p-3.5 flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-purple-100 text-[#5B1B95] flex items-center justify-center shrink-0">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-900">
+                        {doc.name}
+                      </h4>
+                      <p className="text-[10px] text-gray-400 font-normal">
+                        {doc.size}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${doc.badgeColor}`}>
+                      {doc.badge}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteDoc(doc.id)}
+                      className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors p-1"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

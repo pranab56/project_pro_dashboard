@@ -160,10 +160,10 @@ function TrackContent() {
             </span>
             <span
               className={`font-semibold text-xs px-2.5 py-1 rounded-full ${request.priority === "Urgent"
-                  ? "bg-red-100 text-red-600"
-                  : request.priority === "High"
-                    ? "bg-amber-100 text-amber-700"
-                    : "bg-blue-100 text-blue-700"
+                ? "bg-red-100 text-red-600"
+                : request.priority === "High"
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-blue-100 text-blue-700"
                 }`}
             >
               {request.priority} Priority
@@ -218,12 +218,12 @@ function TrackContent() {
                 className="bg-[#8E25E3] h-full rounded-full transition-all duration-500"
                 style={{
                   width: `${request.stage === 1
-                      ? "25%"
-                      : request.stage === 2
-                        ? "50%"
-                        : request.stage === 3
-                          ? "70%"
-                          : "100%"
+                    ? "25%"
+                    : request.stage === 2
+                      ? "50%"
+                      : request.stage === 3
+                        ? "70%"
+                        : "100%"
                     }`,
                 }}
               />
@@ -249,12 +249,12 @@ function TrackContent() {
               className="h-full bg-[#8E25E3] transition-all duration-500"
               style={{
                 width: `${request.stage === 1
-                    ? "0%"
-                    : request.stage === 2
-                      ? "33%"
-                      : request.stage === 3
-                        ? "66%"
-                        : "100%"
+                  ? "0%"
+                  : request.stage === 2
+                    ? "33%"
+                    : request.stage === 3
+                      ? "66%"
+                      : "100%"
                   }`,
               }}
             />
@@ -275,8 +275,8 @@ function TrackContent() {
           <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage >= 2
-                  ? "bg-emerald-500 text-white"
-                  : "bg-gray-200 text-gray-400 border border-gray-300"
+                ? "bg-emerald-500 text-white"
+                : "bg-gray-200 text-gray-400 border border-gray-300"
                 }`}
             >
               <Truck className="w-6 h-6" />
@@ -291,8 +291,8 @@ function TrackContent() {
           <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage >= 3
-                  ? "bg-[#8E25E3] text-white ring-4 ring-purple-200"
-                  : "bg-gray-200 text-gray-400 border border-gray-300"
+                ? "bg-[#8E25E3] text-white ring-4 ring-purple-200"
+                : "bg-gray-200 text-gray-400 border border-gray-300"
                 }`}
             >
               <Wrench className="w-6 h-6" />
@@ -312,8 +312,8 @@ function TrackContent() {
           <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
             <div
               className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage === 4
-                  ? "bg-emerald-500 text-white"
-                  : "bg-gray-200 text-gray-400 border border-gray-300"
+                ? "bg-emerald-500 text-white"
+                : "bg-gray-200 text-gray-400 border border-gray-300"
                 }`}
             >
               <CheckCircle2 className="w-6 h-6" />

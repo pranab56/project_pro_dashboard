@@ -54,9 +54,9 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Living room window glass is cracked and needs full replacement.",
     notes: "Gate code #4412. or Dog at property etc.",
     images: [
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_1.png",
+      "/images/prop_3.png",
+      "/images/prop_5.png",
     ],
   },
   {
@@ -75,8 +75,8 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Hardwood flooring installation in main hallway and living area.",
     notes: "Elevator access key available at front desk.",
     images: [
-      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&w=400&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_2.png",
+      "/images/prop_4.png",
     ],
   },
   {
@@ -95,7 +95,7 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Lawn trimming, bush pruning, and general garden clean up.",
     notes: "Backyard sprinkler system check required.",
     images: [
-      "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_6.png",
     ],
   },
   {
@@ -131,7 +131,7 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Full roof tile leak assessment following heavy storm.",
     notes: "Ladder access located at North wing entrance.",
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_1.png",
     ],
   },
   {
@@ -167,7 +167,7 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Circuit breaker tripping investigation and outlet replacement.",
     notes: "Main breaker panel is in basement.",
     images: [
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_3.png",
     ],
   },
   {
@@ -186,7 +186,7 @@ const mockJobRequests: JobRequestItem[] = [
     scopeDescription: "Kitchen sink pipe leakage fix and new faucet installation.",
     notes: "Tenant will be at home during repair.",
     images: [
-      "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=400&q=80",
+      "/images/prop_5.png",
     ],
   },
 ];
@@ -237,22 +237,22 @@ export default function JobRequestPage(): React.ReactElement {
     switch (level) {
       case "High":
         return (
-          <span className="flex items-center gap-1.5 text-xs font-medium text-gray-700">
+          <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
             <span className="w-2 h-2 rounded-full bg-[#E53935]" />
             High
           </span>
         );
       case "Medium":
         return (
-          <span className="flex items-center gap-1.5 text-xs font-medium text-gray-700">
+          <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
             <span className="w-2 h-2 rounded-full bg-[#D97706]" />
             Medium
           </span>
         );
       case "Low":
         return (
-          <span className="flex items-center gap-1.5 text-xs font-medium text-gray-700">
-            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+          <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
+            <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
             Low
           </span>
         );
@@ -264,46 +264,45 @@ export default function JobRequestPage(): React.ReactElement {
     switch (status) {
       case "Pending":
         return (
-          <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-600 inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEF3C7] text-[#D97706] inline-block">
             Pending
           </span>
         );
       case "In Progress":
         return (
-          <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-[#BFDBFE] text-[#1E40AF] inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#DBEAFE] text-[#2563EB] inline-block">
             In Progress
           </span>
         );
       case "Completed":
         return (
-          <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-600 inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#DCFCE7] text-[#16A34A] inline-block">
             Completed
           </span>
         );
       case "Cancelled":
         return (
-          <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-red-100 text-red-600 inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEE2E2] text-[#DC2626] inline-block">
             Cancelled
           </span>
         );
-
-        
     }
   };
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-medium text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
           Job Request
         </h1>
-        <p className="text-sm text-gray-500 font-normal mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
           View and track all active, pending, and past job requests in one place.
         </p>
       </div>
 
       {/* Top Search & Filter Bar */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
+      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-2.5 sm:p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
         {/* Search Input Box */}
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -312,7 +311,7 @@ export default function JobRequestPage(): React.ReactElement {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by ID, property, type..."
-            className="w-full bg-white border border-gray-300 rounded-lg pl-9 pr-4 py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 transition-all"
+            className="w-full bg-gray-200/50 border border-gray-300/70 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-[#5B1B95] transition-all"
           />
         </div>
 
@@ -321,10 +320,10 @@ export default function JobRequestPage(): React.ReactElement {
           <Filter className="w-4 h-4 text-gray-400 shrink-0" />
           {/* Status Select Filter */}
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[125px] sm:w-[135px] h-9 bg-white border-gray-300 py-5 rounded-lg text-xs font-medium text-gray-700 focus:ring-2 focus:ring-[#6B1294]/20 focus:border-[#6B1294]">
+            <SelectTrigger className="w-[125px] sm:w-[135px] h-9 bg-gray-200/50 border-gray-300 rounded-xl text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#5B1B95]">
               <SelectValue placeholder="All Statuses" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-gray-200">
+            <SelectContent className="bg-white border-gray-200 rounded-xl shadow-lg">
               <SelectItem value="All">All Statuses</SelectItem>
               <SelectItem value="Pending">Pending</SelectItem>
               <SelectItem value="In Progress">In Progress</SelectItem>
@@ -335,10 +334,10 @@ export default function JobRequestPage(): React.ReactElement {
 
           {/* Task Level Filter */}
           <Select value={taskLevelFilter} onValueChange={setTaskLevelFilter}>
-            <SelectTrigger className="w-[130px] sm:w-[140px] h-9 bg-white py-5 border-gray-300 rounded-lg text-xs font-medium text-gray-700 focus:ring-2 focus:ring-[#6B1294]/20 focus:border-[#6B1294]">
+            <SelectTrigger className="w-[130px] sm:w-[140px] h-9 bg-gray-200/50 border-gray-300 rounded-xl text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#5B1B95]">
               <SelectValue placeholder="All Task Levels" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-gray-200">
+            <SelectContent className="bg-white border-gray-200 rounded-xl shadow-lg">
               <SelectItem value="All">All Task Levels</SelectItem>
               <SelectItem value="High">High</SelectItem>
               <SelectItem value="Medium">Medium</SelectItem>
@@ -346,7 +345,7 @@ export default function JobRequestPage(): React.ReactElement {
             </SelectContent>
           </Select>
 
-          <span className="text-xs text-gray-500 font-normal ml-1">
+          <span className="text-xs text-gray-400 font-normal ml-1">
             {filteredJobs.length} results
           </span>
         </div>
@@ -355,9 +354,9 @@ export default function JobRequestPage(): React.ReactElement {
       {/* Main Table Section */}
       <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[760px]">
+          <table className="w-full text-left border-collapse min-w-[780px]">
             <thead>
-              <tr className="border-b border-gray-300/60 text-xs font-medium text-gray-500">
+              <tr className="border-b border-gray-300/60 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                 <th className="py-4 px-5 sm:px-6">
                   <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-700">
                     <span>Job ID</span>
@@ -383,20 +382,20 @@ export default function JobRequestPage(): React.ReactElement {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-300/40">
+            <tbody className="divide-y divide-gray-300/40 text-sm">
               {filteredJobs.map((job) => (
                 <tr
                   key={job.id}
-                  className="hover:bg-gray-100/60 transition-colors"
+                  className="hover:bg-gray-200/40 transition-colors"
                 >
                   {/* Job ID */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-[#8E25E3] whitespace-nowrap">
+                  <td className="py-4 px-5 sm:px-6 text-sm font-bold text-[#5B1B95] whitespace-nowrap">
                     {job.id}
                   </td>
 
                   {/* Property Name & Client */}
                   <td className="py-4 px-5 sm:px-6">
-                    <div className="text-sm font-medium text-gray-900 leading-tight">
+                    <div className="text-sm font-bold text-gray-900 leading-tight">
                       {job.propertyName}
                     </div>
                     <div className="text-xs text-gray-400 font-normal mt-0.5">
@@ -429,7 +428,7 @@ export default function JobRequestPage(): React.ReactElement {
                     <button
                       type="button"
                       onClick={() => setSelectedJob(job)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2.5 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-md transition-all shadow-2xs cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-xl transition-all shadow-2xs cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-gray-500" />
                       <span>View</span>
@@ -456,14 +455,14 @@ export default function JobRequestPage(): React.ReactElement {
       {/* JOB DETAILS MODAL (Matching Screenshot 2) */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#F9FAFB] rounded-3xl p-5 sm:p-7 max-w-xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto space-y-4 border border-gray-300/60 no-scrollbar">
+          <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-gray-300/60 no-scrollbar animate-in zoom-in-95 duration-200">
             {/* Top Close Button & Job Tag Header */}
             <div className="flex items-start justify-between">
               <div>
-                <span className="text-xs font-medium text-gray-400 tracking-wider block">
+                <span className="text-xs font-bold text-gray-400 tracking-wider block">
                   {selectedJob.id}
                 </span>
-                <h2 className="text-xl font-medium text-gray-900 mt-0.5">
+                <h2 className="text-xl font-bold text-gray-900 mt-0.5">
                   {selectedJob.propertyName}
                 </h2>
                 <p className="text-xs text-gray-500 font-normal mt-0.5">
@@ -474,7 +473,7 @@ export default function JobRequestPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => setSelectedJob(null)}
-                className="p-2 rounded-full hover:bg-gray-300/60 text-gray-500 hover:text-gray-800 transition-colors cursor-pointer"
+                className="p-1 rounded-full hover:bg-gray-200 text-gray-400 hover:text-gray-700 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -482,48 +481,48 @@ export default function JobRequestPage(): React.ReactElement {
 
             {/* Pending Acceptance Pill Tag */}
             <div>
-              <span className="px-3.5 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-600 inline-block">
+              <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEF3C7] text-[#D97706] inline-block">
                 Pending Acceptance
               </span>
             </div>
 
             {/* Grid 1: Job Type & Priority Level */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Job Type
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block">
+                <span className="text-sm font-bold text-gray-900 mt-1 block">
                   {selectedJob.serviceRequest}
                 </span>
               </div>
 
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Priority Level
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block">
-                  {selectedJob.taskLevel}
+                <span className="text-sm font-bold text-gray-900 mt-1 block">
+                  {selectedJob.id === "JOB-008" ? "High" : selectedJob.taskLevel}
                 </span>
               </div>
             </div>
 
             {/* Grid 2: Payout & Property */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Payout
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block">
+                <span className="text-sm font-bold text-gray-900 mt-1 block">
                   {selectedJob.payout}
                 </span>
               </div>
 
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Property
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block truncate">
+                <span className="text-sm font-bold text-gray-900 mt-1 block truncate">
                   {selectedJob.propertyName}
                 </span>
               </div>
@@ -531,59 +530,59 @@ export default function JobRequestPage(): React.ReactElement {
 
             {/* Grid 3: Unit & Scheduled Date */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Unit
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block">
+                <span className="text-sm font-bold text-gray-900 mt-1 block">
                   {selectedJob.unit}
                 </span>
               </div>
 
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Scheduled Date
                 </span>
-                <span className="text-sm font-medium text-gray-900 mt-1 block leading-tight">
+                <span className="text-sm font-bold text-gray-900 mt-1 block leading-tight">
                   {selectedJob.scheduledDate}
                 </span>
               </div>
             </div>
 
             {/* Address Row */}
-            <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
                 Address
               </span>
-              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-900 mt-1">
-                <MapPin className="w-4 h-4 text-[#8E25E3] shrink-0" />
+              <div className="flex items-center gap-1.5 text-sm font-bold text-gray-900 mt-1">
+                <MapPin className="w-4 h-4 text-[#5B1B95] shrink-0" />
                 <span>{selectedJob.address}</span>
               </div>
             </div>
 
             {/* Job Scope Description Row */}
-            <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
                 Job Scope Description
               </span>
-              <p className="text-sm text-gray-800 font-normal mt-1 leading-snug">
+              <p className="text-xs text-gray-800 font-normal mt-1 leading-relaxed">
                 {selectedJob.scopeDescription}
               </p>
             </div>
 
             {/* Notes Row */}
-            <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
                 Notes
               </span>
-              <p className="text-sm text-gray-800 font-normal mt-1">
+              <p className="text-xs text-gray-800 font-normal mt-1">
                 {selectedJob.notes}
               </p>
             </div>
 
             {/* Images Grid */}
             {selectedJob.images && selectedJob.images.length > 0 && (
-              <div className="bg-white border border-gray-300/60 rounded-2xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
                 <span className="text-xs text-gray-400 font-normal block mb-2">
                   Images
                 </span>
@@ -601,7 +600,7 @@ export default function JobRequestPage(): React.ReactElement {
             )}
 
             {/* Red Alert Banner */}
-            <div className="bg-red-50/90 border border-red-300/80 rounded-2xl p-3.5 flex items-start gap-2.5 text-xs text-[#E53935]">
+            <div className="bg-red-50/90 border border-red-300/80 rounded-xl p-3.5 flex items-start gap-2 text-xs text-[#E53935]">
               <Clock className="w-4 h-4 text-[#E53935] shrink-0 mt-0.5" />
               <span className="font-normal leading-tight">
                 60 minutes to accept or decline this job before it&apos;s assigned to
@@ -614,7 +613,7 @@ export default function JobRequestPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => handleAcceptJob(selectedJob.id)}
-                className="flex-1 bg-[#8E25E3] hover:bg-[#7B1FD4] text-white font-medium py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer shadow-xs text-center"
+                className="flex-1 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer shadow-xs text-center"
               >
                 Accept
               </button>
@@ -622,7 +621,7 @@ export default function JobRequestPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => handleDeclineJob(selectedJob.id)}
-                className="flex-1 bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 font-medium py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer text-center"
+                className="flex-1 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer text-center"
               >
                 Decline
               </button>

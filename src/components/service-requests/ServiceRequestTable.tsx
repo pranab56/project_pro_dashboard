@@ -63,15 +63,14 @@ export default function ServiceRequestTable({
               {/* PRIORITY */}
               <td className="py-4 px-5 whitespace-nowrap">
                 <span
-                  className={`font-semibold text-xs px-3 py-1 rounded-full ${
-                    req.priority === "Urgent"
+                  className={`font-semibold text-xs px-3 py-1 rounded-full ${req.priority === "Urgent"
                       ? "bg-red-100 text-red-600"
                       : req.priority === "High"
-                      ? "bg-amber-100 text-amber-700"
-                      : req.priority === "Medium"
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-emerald-100 text-emerald-700"
-                  }`}
+                        ? "bg-amber-100 text-amber-700"
+                        : req.priority === "Medium"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-emerald-100 text-emerald-700"
+                    }`}
                 >
                   {req.priority}
                 </span>
@@ -80,17 +79,16 @@ export default function ServiceRequestTable({
               {/* STATUS */}
               <td className="py-4 px-5 whitespace-nowrap">
                 <span
-                  className={`font-semibold text-xs px-3 py-1 rounded-full ${
-                    req.status === "In Progress"
+                  className={`font-semibold text-xs px-3 py-1 rounded-full ${req.status === "In Progress"
                       ? "bg-purple-100 text-purple-700"
                       : req.status === "Assigned"
-                      ? "bg-blue-100 text-blue-700"
-                      : req.status === "Completed"
-                      ? "bg-emerald-100 text-emerald-700"
-                      : req.status === "Pending"
-                      ? "bg-amber-100 text-amber-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
+                        ? "bg-blue-100 text-blue-700"
+                        : req.status === "Completed"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : req.status === "Pending"
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-red-100 text-red-700"
+                    }`}
                 >
                   {req.status}
                 </span>
@@ -100,24 +98,20 @@ export default function ServiceRequestTable({
               <td className="py-4 px-5 whitespace-nowrap">
                 <div className="flex items-center gap-1 mb-1">
                   <div
-                    className={`h-1.5 w-5 rounded-full ${
-                      req.stage >= 1 ? "bg-emerald-500" : "bg-gray-300"
-                    }`}
+                    className={`h-1.5 w-5 rounded-full ${req.stage >= 1 ? "bg-emerald-500" : "bg-gray-300"
+                      }`}
                   />
                   <div
-                    className={`h-1.5 w-5 rounded-full ${
-                      req.stage >= 2 ? "bg-emerald-500" : "bg-gray-300"
-                    }`}
+                    className={`h-1.5 w-5 rounded-full ${req.stage >= 2 ? "bg-emerald-500" : "bg-gray-300"
+                      }`}
                   />
                   <div
-                    className={`h-1.5 w-5 rounded-full ${
-                      req.stage >= 3 ? "bg-[#8E25E3]" : "bg-gray-300"
-                    }`}
+                    className={`h-1.5 w-5 rounded-full ${req.stage >= 3 ? "bg-[#8E25E3]" : "bg-gray-300"
+                      }`}
                   />
                   <div
-                    className={`h-1.5 w-5 rounded-full ${
-                      req.stage >= 4 ? "bg-emerald-500" : "bg-gray-300"
-                    }`}
+                    className={`h-1.5 w-5 rounded-full ${req.stage >= 4 ? "bg-emerald-500" : "bg-gray-300"
+                      }`}
                   />
                 </div>
                 <span className="text-[11px] text-gray-500 font-normal">
