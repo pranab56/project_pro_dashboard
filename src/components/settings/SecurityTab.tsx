@@ -39,7 +39,7 @@ export default function SecurityTab() {
   };
 
   return (
-    <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-6 sm:p-8 max-w-2xl">
+    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-6 sm:p-8 max-w-2xl">
       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-6 tracking-tight">
         Change Password
       </h3>

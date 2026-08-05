@@ -30,7 +30,7 @@ export default function InvoiceStatusBadge({ status }: InvoiceStatusBadgeProps) 
     case "Overdue":
       return (
         <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#FDE8E8] text-[#E53935] border border-[#FCA5A5]">
-          <AlertCircle className="w-3.5 h-3.5 text-[#E53935]" />
+          <Clock className="w-3.5 h-3.5 text-[#E53935]" />
           <span>Overdue</span>
         </span>
       );

@@ -139,7 +139,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
           return (
             <div
               key={stat.id}
-              className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow"
+              className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow"
             >
               <div>
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stat.iconBg}`}>
@@ -170,7 +170,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
       {/* Bottom Main Content Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
         {/* Left Column: Assigned Job Today */}
-        <div className="lg:col-span-4 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
           <div>
             <h2 className="text-lg font-medium text-gray-900">
               Assigned Job Today
@@ -224,7 +224,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
         </div>
 
         {/* Right Column: Job Request */}
-        <div className="lg:col-span-8 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 sm:p-6">
+        <div className="lg:col-span-8 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6">
           <div className="flex items-center justify-between mb-4 sm:mb-5">
             <h2 className="text-lg font-medium text-gray-900">Job Request</h2>
             <Link
@@ -241,7 +241,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
             {jobRequests.map((req) => (
               <div
                 key={req.id}
-                className="bg-white border border-gray-300/60 rounded-2xl p-4 sm:p-5 flex items-center justify-between transition-all hover:bg-gray-50"
+                className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-4 sm:p-5 flex items-center justify-between transition-all hover:bg-gray-50"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">

@@ -238,21 +238,21 @@ export default function JobRequestPage(): React.ReactElement {
       case "High":
         return (
           <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
-            <span className="w-2 h-2 rounded-full bg-[#E53935]" />
+            <span className="w-2 h-2 rounded-full bg-red-500" />
             High
           </span>
         );
       case "Medium":
         return (
           <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
-            <span className="w-2 h-2 rounded-full bg-[#D97706]" />
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
             Medium
           </span>
         );
       case "Low":
         return (
           <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
-            <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
             Low
           </span>
         );
@@ -264,25 +264,25 @@ export default function JobRequestPage(): React.ReactElement {
     switch (status) {
       case "Pending":
         return (
-          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEF3C7] text-[#D97706] inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-amber-100/90 text-amber-800 border border-amber-200/60 inline-block">
             Pending
           </span>
         );
       case "In Progress":
         return (
-          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#DBEAFE] text-[#2563EB] inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-blue-100/90 text-blue-700 border border-blue-200/60 inline-block">
             In Progress
           </span>
         );
       case "Completed":
         return (
-          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#DCFCE7] text-[#16A34A] inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-emerald-100/90 text-emerald-800 border border-emerald-200/60 inline-block">
             Completed
           </span>
         );
       case "Cancelled":
         return (
-          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEE2E2] text-[#DC2626] inline-block">
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-red-100/90 text-red-700 border border-red-200/60 inline-block">
             Cancelled
           </span>
         );
@@ -302,7 +302,7 @@ export default function JobRequestPage(): React.ReactElement {
       </div>
 
       {/* Top Search & Filter Bar */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-2.5 sm:p-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
         {/* Search Input Box */}
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -311,7 +311,7 @@ export default function JobRequestPage(): React.ReactElement {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by ID, property, type..."
-            className="w-full bg-gray-200/50 border border-gray-300/70 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-[#5B1B95] transition-all"
+            className="w-full bg-gray-100/80 border border-gray-200 rounded-lg pl-9 pr-4 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-[#8E25E3] transition-all"
           />
         </div>
 
@@ -320,10 +320,10 @@ export default function JobRequestPage(): React.ReactElement {
           <Filter className="w-4 h-4 text-gray-400 shrink-0" />
           {/* Status Select Filter */}
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[125px] sm:w-[135px] h-9 bg-gray-200/50 border-gray-300 rounded-xl text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#5B1B95]">
+            <SelectTrigger className="w-[125px] sm:w-[135px] h-9 bg-gray-100/80 py-5 border-gray-200 rounded-lg text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#8E25E3]">
               <SelectValue placeholder="All Statuses" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-gray-200 rounded-xl shadow-lg">
+            <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
               <SelectItem value="All">All Statuses</SelectItem>
               <SelectItem value="Pending">Pending</SelectItem>
               <SelectItem value="In Progress">In Progress</SelectItem>
@@ -334,10 +334,10 @@ export default function JobRequestPage(): React.ReactElement {
 
           {/* Task Level Filter */}
           <Select value={taskLevelFilter} onValueChange={setTaskLevelFilter}>
-            <SelectTrigger className="w-[130px] sm:w-[140px] h-9 bg-gray-200/50 border-gray-300 rounded-xl text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#5B1B95]">
+            <SelectTrigger className="w-[130px] sm:w-[140px] h-9 bg-gray-100/80 py-5 border-gray-200 rounded-lg text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#8E25E3]">
               <SelectValue placeholder="All Task Levels" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-gray-200 rounded-xl shadow-lg">
+            <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
               <SelectItem value="All">All Task Levels</SelectItem>
               <SelectItem value="High">High</SelectItem>
               <SelectItem value="Medium">Medium</SelectItem>
@@ -345,18 +345,18 @@ export default function JobRequestPage(): React.ReactElement {
             </SelectContent>
           </Select>
 
-          <span className="text-xs text-gray-400 font-normal ml-1">
+          <span className="text-xs text-gray-500 font-medium ml-1">
             {filteredJobs.length} results
           </span>
         </div>
       </div>
 
       {/* Main Table Section */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl overflow-hidden shadow-2xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[780px]">
             <thead>
-              <tr className="border-b border-gray-300/60 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+              <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
                 <th className="py-4 px-5 sm:px-6">
                   <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-700">
                     <span>Job ID</span>
@@ -382,14 +382,14 @@ export default function JobRequestPage(): React.ReactElement {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-300/40 text-sm">
+            <tbody className="divide-y divide-gray-100 text-sm">
               {filteredJobs.map((job) => (
                 <tr
                   key={job.id}
-                  className="hover:bg-gray-200/40 transition-colors"
+                  className="hover:bg-purple-50/20 transition-colors"
                 >
                   {/* Job ID */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-bold text-[#5B1B95] whitespace-nowrap">
+                  <td className="py-4 px-5 sm:px-6 text-sm font-bold text-[#8E25E3] whitespace-nowrap">
                     {job.id}
                   </td>
 
@@ -404,7 +404,7 @@ export default function JobRequestPage(): React.ReactElement {
                   </td>
 
                   {/* Service Request */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-normal text-gray-600 whitespace-nowrap">
+                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-gray-600 whitespace-nowrap">
                     {job.serviceRequest}
                   </td>
 
@@ -414,7 +414,7 @@ export default function JobRequestPage(): React.ReactElement {
                   </td>
 
                   {/* Assigned Date */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-normal text-gray-500 whitespace-nowrap">
+                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
                     {job.assignedDate}
                   </td>
 
@@ -428,7 +428,7 @@ export default function JobRequestPage(): React.ReactElement {
                     <button
                       type="button"
                       onClick={() => setSelectedJob(job)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-xl transition-all shadow-2xs cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200/80 rounded-lg transition-all shadow-2xs cursor-pointer"
                     >
                       <Eye className="w-3.5 h-3.5 text-gray-500" />
                       <span>View</span>
@@ -455,7 +455,7 @@ export default function JobRequestPage(): React.ReactElement {
       {/* JOB DETAILS MODAL (Matching Screenshot 2) */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-gray-300/60 no-scrollbar animate-in zoom-in-95 duration-200">
+          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-[#E5E7EB] custom-scrollbar animate-in zoom-in-95 duration-200">
             {/* Top Close Button & Job Tag Header */}
             <div className="flex items-start justify-between">
               <div>

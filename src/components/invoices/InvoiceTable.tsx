@@ -42,12 +42,12 @@ export default function InvoiceTable({
             <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
               <th className="py-4 px-5">INVOICE ID</th>
               <th className="py-4 px-5">DESCRIPTION / PROPERTY</th>
-              <th className="py-4 px-5">SERVICE PROVIDER</th>
-              <th className="py-4 px-5">TOTAL AMOUNT</th>
-              <th className="py-4 px-5">DEPOSIT</th>
-              <th className="py-4 px-5">TOTAL DUE</th>
-              <th className="py-4 px-5">STATUS</th>
+              <th className="py-4 px-5">SERVICE PRO</th>
+              <th className="py-4 px-5">TOTAL COST</th>
+              <th className="py-4 px-5">DEPOSIT PAID</th>
+              <th className="py-4 px-5">REMAINING BAL.</th>
               <th className="py-4 px-5">START DATE</th>
+              <th className="py-4 px-5">STATUS</th>
               <th className="py-4 px-5 text-center">ACTIONS</th>
             </tr>
           </thead>
@@ -56,11 +56,11 @@ export default function InvoiceTable({
             {invoices.map((inv) => (
               <tr
                 key={inv.id}
-                className="hover:bg-purple-50/30 transition-colors duration-150 group"
+                className="hover:bg-purple-50/20 transition-colors duration-150 group"
               >
                 {/* INVOICE ID */}
                 <td className="py-4 px-5 whitespace-nowrap">
-                  <span className="font-bold text-[#7C3AED] bg-purple-50 px-2.5 py-1 rounded-lg">
+                  <span className="font-bold text-[#8E25E3]">
                     {inv.id}
                   </span>
                 </td>
@@ -75,34 +75,38 @@ export default function InvoiceTable({
                   </div>
                 </td>
 
-                {/* SERVICE PROVIDER */}
-                <td className="py-4 px-5 whitespace-nowrap font-medium text-gray-700">
+                {/* SERVICE PRO */}
+                <td className="py-4 px-5 whitespace-nowrap font-medium text-gray-700 max-w-[160px] truncate">
                   {inv.serviceProvider}
                 </td>
 
-                {/* TOTAL AMOUNT */}
+                {/* TOTAL COST */}
                 <td className="py-4 px-5 whitespace-nowrap font-bold text-gray-900">
                   {fmtCurrency(inv.totalAmount)}
                 </td>
 
-                {/* DEPOSIT */}
-                <td className="py-4 px-5 whitespace-nowrap font-semibold text-gray-800">
+                {/* DEPOSIT PAID */}
+                <td className="py-4 px-5 whitespace-nowrap font-bold text-gray-900">
                   {fmtCurrency(inv.deposit)}
                 </td>
 
-                {/* TOTAL DUE */}
+                {/* REMAINING BAL. */}
                 <td className="py-4 px-5 whitespace-nowrap font-bold text-gray-900">
                   {fmtCurrency(inv.totalDue)}
+                </td>
+
+                {/* START DATE */}
+                <td
+                  className={`py-4 px-5 whitespace-nowrap font-medium ${
+                    inv.status === "Overdue" ? "text-red-500" : "text-gray-500"
+                  }`}
+                >
+                  {inv.startDate}
                 </td>
 
                 {/* STATUS BADGE */}
                 <td className="py-4 px-5 whitespace-nowrap">
                   <InvoiceStatusBadge status={inv.status} />
-                </td>
-
-                {/* START DATE */}
-                <td className="py-4 px-5 whitespace-nowrap text-gray-500 font-medium">
-                  {inv.startDate}
                 </td>
 
                 {/* ACTIONS */}
@@ -112,7 +116,7 @@ export default function InvoiceTable({
                     <button
                       type="button"
                       onClick={() => onViewInvoice(inv)}
-                      className="w-8 h-8 rounded-xl bg-gray-100 hover:bg-purple-100 text-gray-600 hover:text-[#7C3AED] flex items-center justify-center transition-colors cursor-pointer"
+                      className="w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 flex items-center justify-center transition-colors cursor-pointer border border-gray-200/60"
                       title="View Details"
                     >
                       <Eye className="w-4 h-4" />
@@ -123,10 +127,10 @@ export default function InvoiceTable({
                       <button
                         type="button"
                         onClick={() => onPayInvoice(inv.id)}
-                        className="w-8 h-8 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-700 flex items-center justify-center transition-colors cursor-pointer"
+                        className="w-8 h-8 rounded-lg bg-[#DCFCE7] hover:bg-[#bbf7d0] text-[#16A34A] border border-[#BBF7D0] flex items-center justify-center transition-colors cursor-pointer"
                         title="Approve / Pay"
                       >
-                        <Check className="w-4 h-4 stroke-[3]" />
+                        <Check className="w-4 h-4 stroke-[2.5]" />
                       </button>
                     )}
                   </div>

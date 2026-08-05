@@ -52,7 +52,7 @@ export default function InvoiceDetailModal({
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-6 right-6 p-1.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+          className="absolute top-6 right-6 p-1.5 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -82,7 +82,7 @@ export default function InvoiceDetailModal({
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto no-scrollbar pr-1 space-y-6 flex-1">
+        <div className="overflow-y-auto custom-scrollbar pr-2 space-y-6 flex-1">
           {/* Metadata Grid */}
           <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-xs sm:text-sm bg-gray-50/80 p-4 rounded-2xl border border-gray-100">
             <div>

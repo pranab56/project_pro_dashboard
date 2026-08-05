@@ -45,7 +45,7 @@ export default function Step4ReviewSubmit({
 
       <div className="space-y-4">
         {/* Card 1: Contact Information */}
-        <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 space-y-3">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <User className="w-4 h-4 text-[#6B1294]" />
@@ -90,7 +90,7 @@ export default function Step4ReviewSubmit({
         </div>
 
         {/* Card 2: Company & Portfolio */}
-        <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 space-y-3">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-[#6B1294]" />

@@ -33,7 +33,7 @@ export default function PlanCard({ plan, onEdit, onDelete }: PlanCardProps) {
   const hasMultiplePrices = plan.planPrices.some(p => p.type === 'month' || p.type === 'year');
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm flex flex-col h-full">
+    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-sm flex flex-col h-full">
       <div className="flex justify-center mb-4">
         <Users size={32} className="text-gray-800" />
       </div>

@@ -107,8 +107,8 @@
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #D0D5DD;
-  --input: #D0D5DD;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
   --ring: #A327EE;
   --chart-1: #A327EE;
   --chart-2: #FF9F00;
@@ -171,7 +171,28 @@
   }
 }
 
-/* Custom scrollbar utility classes */
+/* Custom scrollbar utility classes & global visible scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb {
+  background: #9CA3AF;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6B7280;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #9CA3AF #F3F4F6;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -185,16 +206,17 @@
   height: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  background: #F3F4F6;
+  border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.4);
+  background: #9CA3AF;
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(142, 37, 227, 0.6);
+  background: #6B7280;
 }
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+  scrollbar-color: #9CA3AF #F3F4F6;
 }

@@ -99,16 +99,16 @@ export default function InvoicesPage() {
           Invoices & Payments
         </h1>
         <p className="text-xs sm:text-sm text-gray-500 font-medium mt-1">
-          Track and manage all property invoices
+          Track your maintenance expenses, approve outstanding balances, and view payment history.
         </p>
       </div>
 
       {/* 4 Summary Stats Cards */}
       <InvoiceStatsCards
-        totalInvoicesCount={stats.totalCount}
-        pendingAmount={stats.pendingAmount}
-        overdueAmount={stats.overdueAmount}
-        totalBalanceDue={stats.totalBalanceDue}
+        totalBalanceDue={stats.totalBalanceDue || 5000}
+        overdueCount={stats.overdueCount || 6}
+        pendingCount={stats.pendingCount || 5}
+        paidHistoryAmount={54000}
       />
 
       {/* Tabs Filter & Search Row */}

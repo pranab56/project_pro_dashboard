@@ -49,7 +49,7 @@ export default function Step5StatusPending({
 
       {/* Submitted Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="p-4 bg-[#F9FAFB] rounded-xl border border-gray-300/50">
+        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             SUBMITTED ON
           </span>
@@ -58,7 +58,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#F9FAFB] rounded-xl border border-gray-300/50">
+        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             BUSINESS
           </span>
@@ -67,7 +67,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#F9FAFB] rounded-xl border border-gray-300/50">
+        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             CONTACT
           </span>
@@ -76,7 +76,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#F9FAFB] rounded-xl border border-gray-300/50">
+        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             EMAIL
           </span>
@@ -87,7 +87,7 @@ export default function Step5StatusPending({
       </div>
 
       {/* Submitted Details Box */}
-      <div className="p-5 bg-[#F9FAFB] rounded-2xl border border-gray-300/60 space-y-3">
+      <div className="p-5 bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] space-y-3">
         <h3 className="text-sm font-bold text-gray-900">Submitted Details</h3>
         <div className="space-y-2 text-xs">
           <div className="flex justify-between border-b border-gray-300/40 pb-1.5">

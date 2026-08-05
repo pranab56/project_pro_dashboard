@@ -96,7 +96,7 @@ export default function ProfileTab() {
       />
 
       {/* Top Profile Avatar Row */}
-      <div className="flex items-center gap-4 bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5">
+      <div className="flex items-center gap-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5">
         <div
           onClick={handleChangePhoto}
           className="relative group cursor-pointer shrink-0"
@@ -136,7 +136,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 1. Profile Information Box */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Profile Information
         </h3>
@@ -251,7 +251,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 2. Registered Business Information Box */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Registered Business Information
         </h3>
@@ -355,7 +355,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 3. Secondary Contact Information Box */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Secondary Contact Information
         </h3>

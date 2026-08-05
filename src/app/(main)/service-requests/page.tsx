@@ -174,7 +174,7 @@ export default function ServiceRequestsPage() {
       />
 
       {/* Search Input Bar */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-lg p-3.5 sm:p-2">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-3.5 sm:p-2">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input

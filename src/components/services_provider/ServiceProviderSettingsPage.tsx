@@ -71,7 +71,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       </div>
 
       {/* 1. Change Password Box */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl overflow-hidden max-w-2xl shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden max-w-2xl shadow-xs">
         {/* Card Top Banner Header */}
         <div className="bg-gray-100/70 border-b border-gray-300/50 px-6 py-4 flex items-center justify-between">
           <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight flex items-center gap-2">
@@ -169,7 +169,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       </div>
 
       {/* 2. Account Status Box */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-6 sm:p-7 max-w-2xl space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-7 max-w-2xl space-y-4 shadow-xs">
         <div>
           <h2 className="text-base sm:text-lg font-bold text-[#6B1294] tracking-tight flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#6B1294]" />
@@ -232,7 +232,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       {/* Deactivate Confirmation Modal */}
       {isDeactivateModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl border border-gray-300 relative space-y-4">
+          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl border border-[#E5E7EB] relative space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-red-600">
                 <AlertTriangle className="w-5 h-5" />

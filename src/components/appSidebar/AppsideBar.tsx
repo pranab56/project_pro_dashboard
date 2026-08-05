@@ -87,16 +87,16 @@ export default function OptimusSidebar() {
 
   return (
     <>
-      <Sidebar className="border-r border-gray-300/80 bg-[#EBEBEB]">
+      <Sidebar className="border-r border-[#E5E7EB] bg-[#FFFFFF]">
         {/* Header Logo */}
-        <SidebarHeader className="p-4 sm:p-5 border-b border-gray-300 bg-[#f0f0f0]">
+        <SidebarHeader className="h-[81px] px-4 sm:px-5 border-b border-[#E5E7EB] bg-[#FFFFFF] flex items-center justify-start shrink-0">
           <Link href="/" className="block">
             <ProjexProLogo />
           </Link>
         </SidebarHeader>
 
         {/* Main Menu items */}
-        <SidebarContent className="bg-[#f0f0f0] p-3">
+        <SidebarContent className="bg-[#FFFFFF] p-3">
           <SidebarMenu className="space-y-1.5">
             {sidebars.map((item) => {
               const active = isActive(item.path);
@@ -124,7 +124,7 @@ export default function OptimusSidebar() {
         </SidebarContent>
 
         {/* Footer Logout Button */}
-        <SidebarFooter className="p-3 border-t border-gray-300 bg-[#f0f0f0]">
+        <SidebarFooter className="p-3 border-t border-[#E5E7EB] bg-[#FFFFFF]">
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}

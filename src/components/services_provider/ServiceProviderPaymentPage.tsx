@@ -191,7 +191,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
         </div>
 
         {/* Card 2: Unpaid Payouts */}
-        <div className="bg-[#D97706] rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
+        <div className="bg-yellow-500 rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-sm sm:text-base font-semibold text-white/95">
               Unpaid Payouts
@@ -232,7 +232,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       </div>
 
       {/* Payment Methods Section Container */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
             Payment Methods
@@ -284,7 +284,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       </div>
 
       {/* Payment History Section Container */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
             Payment History
@@ -344,7 +344,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       {/* Add Bank Account Modal */}
       {isAddAccountModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-gray-300 relative space-y-4">
+          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-[#E5E7EB] relative space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <Building className="w-5 h-5 text-[#6B1294]" />
@@ -353,7 +353,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => setIsAddAccountModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 cursor-pointer p-1 rounded-full"
+                className="text-gray-400 hover:text-gray-700 hover:bg-gray-200 cursor-pointer p-1.5 rounded-full transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>

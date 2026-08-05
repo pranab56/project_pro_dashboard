@@ -48,7 +48,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex h-[81px] items-center justify-between px-3 sm:px-6 bg-[#f0f0f0] border-b border-gray-300 w-full shrink-0">
+    <header className="flex h-[81px] items-center justify-between px-3 sm:px-6 bg-[#FFFFFF] border-b border-[#E5E7EB] w-full shrink-0">
       {/* Left side - Sidebar Toggle & Slogan Header */}
       <div className="flex items-center gap-2 sm:gap-3">
         <SidebarTrigger className="p-2 text-gray-700 hover:bg-gray-200/80 rounded-xl cursor-pointer" />
@@ -61,7 +61,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => router.push("/notifications")}
-            className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 bg-[#E2E2E5] hover:bg-gray-300/80 rounded-xl transition-colors cursor-pointer border border-gray-300/50"
+            className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 bg-[#FFFFFF] hover:bg-gray-50 rounded-lg transition-colors cursor-pointer border border-[#E5E7EB] shadow-2xs"
             title="Notifications"
           >
             <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -78,7 +78,7 @@ export default function Header() {
           <button
             type="button"
             onClick={handleProfileClick}
-            className="flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3 py-1.5 bg-[#E2E2E5] hover:bg-gray-300/80 rounded-2xl border border-gray-300/50 transition-colors cursor-pointer"
+            className="flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-3 py-1.5 bg-[#FFFFFF] hover:bg-gray-50 rounded-lg border border-[#E5E7EB] transition-colors cursor-pointer shadow-2xs"
           >
             {/* Initial Avatar Badge */}
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#8E25E3] text-white font-bold text-xs flex items-center justify-center shadow-xs">

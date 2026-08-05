@@ -82,12 +82,12 @@ export default function Overview(): React.ReactElement {
       {/* Top 4 Stats Cards Grid - Order matched to Figma: Approval Required, Active Jobs, Completed Jobs, Total Properties */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {/* Card 1: Approval Required */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Approval Required
             </span>
-            <div className="p-2.5 rounded-xl bg-red-100/90 text-red-600">
+            <div className="p-2.5 rounded-lg bg-red-100/90 text-red-600">
               <Receipt className="w-5 h-5" />
             </div>
           </div>
@@ -100,12 +100,12 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 2: Active Jobs */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Active Jobs
             </span>
-            <div className="p-2.5 rounded-xl bg-green-100/90 text-emerald-600">
+            <div className="p-2.5 rounded-lg bg-green-100/90 text-emerald-600">
               <Wrench className="w-5 h-5" />
             </div>
           </div>
@@ -118,12 +118,12 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 3: Completed Jobs */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Completed Jobs
             </span>
-            <div className="p-2.5 rounded-xl bg-blue-100/90 text-blue-600">
+            <div className="p-2.5 rounded-lg bg-blue-100/90 text-blue-600">
               <Wrench className="w-5 h-5" />
             </div>
           </div>
@@ -136,12 +136,12 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 4: Total Properties */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Total Properties
             </span>
-            <div className="p-2.5 rounded-xl bg-[#F2E7FC] text-[#8E25E3]">
+            <div className="p-2.5 rounded-lg bg-[#F2E7FC] text-[#8E25E3]">
               <Building2 className="w-5 h-5" />
             </div>
           </div>
@@ -155,9 +155,9 @@ export default function Overview(): React.ReactElement {
       </div>
 
       {/* Service Requests Bar Chart Section */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
         <div className="mb-4">
-          <h2 className="text-lg font-bold text-gray-900">Service Requests</h2>
+          <h2 className="text-lg font-medium text-gray-900">Service Requests</h2>
           <p className="text-xs text-gray-500 font-normal mt-0.5">Yearly volume</p>
         </div>
 
@@ -200,8 +200,8 @@ export default function Overview(): React.ReactElement {
       </div>
 
       {/* Recent Activity Section */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">Recent Activity</h2>
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>
 
         <div className="space-y-4">
           {recentActivities.map((act) => {

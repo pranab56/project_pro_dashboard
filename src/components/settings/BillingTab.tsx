@@ -30,7 +30,7 @@ export default function BillingTab() {
   return (
     <div className="space-y-6">
       {/* 1. Current Plan Card */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Current Plan
         </h3>
@@ -55,7 +55,7 @@ export default function BillingTab() {
           </div>
 
           <div className="text-left sm:text-right">
-            <span className="text-3xl font-extrabold text-gray-900">$99</span>
+            <span className="text-3xl font-semibold text-[#5B1B95]">$99</span>
             <span className="text-xs text-gray-500 font-medium ml-1">/month</span>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function BillingTab() {
       </div>
 
       {/* 2. Payment Method Card */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Payment Method
         </h3>
@@ -116,7 +116,7 @@ export default function BillingTab() {
       </div>
 
       {/* 3. Billing History Card */}
-      <div className="bg-[#F9FAFB] border border-gray-300/60 rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Billing History
         </h3>

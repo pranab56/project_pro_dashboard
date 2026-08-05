@@ -130,7 +130,7 @@ export default function ServiceProviderProfilePage() {
       {/* Main 2 Column Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Profile Summary Card (4 Cols) */}
-        <div className="lg:col-span-4 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-6 self-start">
+        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-6 self-start">
           {/* Avatar Circle */}
           <div className="flex flex-col items-center text-center">
             <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
@@ -187,7 +187,7 @@ export default function ServiceProviderProfilePage() {
         {/* Right Details Column (8 Cols) */}
         <div className="lg:col-span-8 space-y-6">
           {/* 1. Personal Information */}
-          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
             <h3 className="text-base font-bold text-gray-900">
               Personal Information
             </h3>
@@ -304,7 +304,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 2. Business Information */}
-          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
             <h3 className="text-base font-bold text-gray-900">
               Business Information
             </h3>
@@ -407,7 +407,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 3. License Information */}
-          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-gray-900">
@@ -493,7 +493,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 4. Skills & Specializations */}
-          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
             <div>
               <h3 className="text-base font-bold text-gray-900">
                 Skills & Specializations
@@ -525,7 +525,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 5. Documents & Verification */}
-          <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
             <div>
               <h3 className="text-base font-bold text-gray-900">
                 Documents & Verification

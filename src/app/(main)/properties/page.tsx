@@ -265,7 +265,7 @@ export default function PropertiesPage() {
             {/* Top Title & Add Button Row */}
             <div className="flex flex-row items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 tracking-relaxed">
                         Properties
                     </h1>
                     <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
@@ -284,7 +284,7 @@ export default function PropertiesPage() {
             </div>
 
             {/* Search & Filter Controls Bar */}
-            <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Search Input */}
                 <div className="relative w-full md:w-7/12">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -293,12 +293,12 @@ export default function PropertiesPage() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         placeholder="Search properties..."
-                        className="w-full pl-10 pr-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#5B1B95] transition-all"
+                        className="w-full pl-10 pr-4 py-2.5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#5B1B95] transition-all"
                     />
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex items-center gap-1.5 bg-gray-200/50 p-1.5 rounded-xl w-full md:w-auto overflow-x-auto">
+                <div className="flex items-center gap-1.5 bg-[#FFFFFF] border border-[#E5E7EB] p-1.5 rounded-lg w-full md:w-auto overflow-x-auto">
                     {(["all", "residential", "commercial", "mixed-use"] as FilterType[]).map((tab) => {
                         const isSelected = selectedFilter === tab;
                         const labels: Record<FilterType, string> = {
@@ -329,7 +329,7 @@ export default function PropertiesPage() {
                 {filteredProperties.map((prop) => (
                     <div
                         key={prop.id}
-                        className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl overflow-hidden shadow-2xs flex flex-col justify-between transition-all hover:shadow-md"
+                        className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-2xs flex flex-col justify-between transition-all hover:shadow-md"
                     >
                         {/* Top Image & Overlay Badges */}
                         <div className="h-52 w-full relative overflow-hidden bg-gray-200">
@@ -377,13 +377,13 @@ export default function PropertiesPage() {
                                 </h3>
 
                                 {/* Location */}
-                                <div className="text-xs text-gray-500 font-normal flex items-center gap-1.5 mb-2 line-clamp-1">
+                                <div className="text-sm text-gray-500 font-normal flex items-center gap-1.5 mb-2 line-clamp-1">
                                     <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                                     <span>{prop.address}</span>
                                 </div>
 
                                 {/* Category & Units Info */}
-                                <div className="text-xs text-gray-500 font-normal flex items-center gap-1.5">
+                                <div className="text-sm text-gray-500 font-normal flex items-center gap-1.5">
                                     <Tag className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                                     <span>
                                         {prop.category}
@@ -456,13 +456,19 @@ export default function PropertiesPage() {
             {/* Add / Edit Property Modal Dialog */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-                    <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-8 sm:max-w-2xl w-full shadow-2xl max-h-[94vh] overflow-y-auto border border-gray-300/60 animate-in fade-in zoom-in-95 duration-200 ease-out">
+                    <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-8 sm:max-w-2xl w-full shadow-2xl max-h-[94vh] overflow-y-auto custom-scrollbar border border-[#E5E7EB] animate-in fade-in zoom-in-95 duration-200 ease-out">
                         {/* Modal Header */}
-                        <div className="mb-5">
+                        <div className="flex items-center justify-between mb-5">
                             <h2 className="text-xl font-bold text-gray-900">
-                                {editingId ? "Edit Property:" : "Add New Property:"}
+                                {editingId ? "Edit Property" : "Add New Property"}
                             </h2>
-
+                            <button
+                                type="button"
+                                onClick={() => setIsModalOpen(false)}
+                                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
                         </div>
 
                         <form onSubmit={handleFormSubmit} className="space-y-4">
@@ -525,7 +531,7 @@ export default function PropertiesPage() {
                                                 setErrors((prev) => ({ ...prev, subCategory: "" }));
                                             }}
                                         >
-                                            <SelectTrigger className="w-full h-[48px] px-4 bg-gray-200/50 border border-gray-300 rounded-xl text-sm py-5.5 text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
+                                            <SelectTrigger className="w-full h-[48px] px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm py-5.5 text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                                 <SelectValue placeholder="e.g. Single-family home" />
                                             </SelectTrigger>
                                             <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
@@ -550,7 +556,7 @@ export default function PropertiesPage() {
                                                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
                                             }}
                                             placeholder="e.g. Sunset Apartments"
-                                            className={`w-full px-4 py-3 bg-gray-200/50 border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
+                                            className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg   text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
                                                 }`}
                                         />
                                     </div>
@@ -570,7 +576,7 @@ export default function PropertiesPage() {
                                                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
                                             }}
                                             placeholder="e.g. Sunset Apartments"
-                                            className={`w-full px-4 py-3 bg-gray-200/50 border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
+                                            className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
                                                 }`}
                                         />
                                     </div>
@@ -588,7 +594,7 @@ export default function PropertiesPage() {
                                                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, subCategory: "" }));
                                             }}
                                             placeholder="e.g. Office Building"
-                                            className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                            className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
                                         />
                                     </div>
                                 </>
@@ -607,7 +613,7 @@ export default function PropertiesPage() {
                                         if (e.target.value.trim()) setErrors((prev) => ({ ...prev, address: "" }));
                                     }}
                                     placeholder="Full property address"
-                                    className={`w-full px-4 py-3 bg-gray-200/50 border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
+                                    className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
                                         }`}
                                 />
                             </div>
@@ -623,7 +629,7 @@ export default function PropertiesPage() {
                                         value={formUnitNumber}
                                         onChange={(e) => setFormUnitNumber(e.target.value)}
                                         placeholder="e.g. A, 1A, 101"
-                                        className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                        className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
                                     />
                                 </div>
 
@@ -637,7 +643,7 @@ export default function PropertiesPage() {
                                             value={formTotalUnits}
                                             onChange={(e) => setFormTotalUnits(e.target.value)}
                                             placeholder="e.g. 24"
-                                            className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300 rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                            className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
                                         />
                                     </div>
                                 ) : (
@@ -649,7 +655,7 @@ export default function PropertiesPage() {
                                             value={formFloorRange || "e.g. 1-5"}
                                             onValueChange={(val) => setFormFloorRange(val)}
                                         >
-                                            <SelectTrigger className="w-full h-[48px] px-4 bg-gray-200/50 border border-gray-300 rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
+                                            <SelectTrigger className="w-full h-[48px] px-4 py-5.5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                                 <SelectValue placeholder="e.g. 1-5" />
                                             </SelectTrigger>
                                             <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
@@ -672,7 +678,7 @@ export default function PropertiesPage() {
                                     value={formStatus}
                                     onValueChange={(val) => setFormStatus(val as PropertyStatus)}
                                 >
-                                    <SelectTrigger className="w-full h-[48px] py-5.5 px-4 bg-gray-200/50 border border-gray-300 rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
+                                    <SelectTrigger className="w-full h-[48px] py-5.5 px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                         <SelectValue placeholder="Active" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">

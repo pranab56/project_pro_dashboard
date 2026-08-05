@@ -2,10 +2,11 @@
 
 import {
   Calendar,
-  CheckCircle2,
+  Check,
   ChevronLeft,
   MapPin,
-  PackageCheck,
+  Package,
+  Phone,
   Truck,
   User,
   Wrench,
@@ -125,42 +126,37 @@ function TrackContent() {
 
   return (
     <div className="space-y-6">
-      {/* Top Navigation Bar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => router.push("/service-requests")}
-            className="px-3.5 py-2 bg-[#F9FAFB] border border-gray-300 hover:bg-gray-100 rounded-xl text-gray-700 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>Service Requests</span>
-          </button>
-          <span className="font-bold text-[#8E25E3] text-sm sm:text-base">
-            {request.id}
-          </span>
+      {/* Top Header Row with Title & Approved Status Button */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight">
+            Project Progress: Job #{request.id}
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 font-normal mt-1">
+            Real-time milestone tracking for {request.title} at {request.property}.
+          </p>
         </div>
 
         <button
           type="button"
           onClick={handleComplete}
-          className="px-5 py-2.5 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-800 font-semibold rounded-xl text-sm transition-colors cursor-pointer"
+          className="px-6 py-2.5 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-xs self-start sm:self-auto"
         >
-          Complete
+          Approved
         </button>
       </div>
 
       {/* Top Info Cards Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Info Card (2 Cols) */}
-        <div className="lg:col-span-2 bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="bg-[#F2E7FC] text-[#8E25E3] font-bold text-xs px-2.5 py-1 rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Info Card (7 Cols) */}
+        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="bg-[#F2E7FC] text-[#6B1294] font-bold text-xs px-3 py-1 rounded-full">
               {request.id}
             </span>
             <span
-              className={`font-semibold text-xs px-2.5 py-1 rounded-full ${request.priority === "Urgent"
-                ? "bg-red-100 text-red-600"
+              className={`font-semibold text-xs px-3 py-1 rounded-full ${request.priority === "Urgent"
+                ? "bg-[#FEE2E2] text-[#EF4444]"
                 : request.priority === "High"
                   ? "bg-amber-100 text-amber-700"
                   : "bg-blue-100 text-blue-700"
@@ -168,40 +164,41 @@ function TrackContent() {
             >
               {request.priority} Priority
             </span>
-            <span className="bg-purple-100 text-purple-700 font-semibold text-xs px-2.5 py-1 rounded-full">
+            <span className="bg-[#F3E8FF] text-[#7C3AED] font-semibold text-xs px-3 py-1 rounded-full">
               {request.status}
             </span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-xl font-bold text-gray-900 tracking-tight">
             {request.title}
           </h2>
 
           <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 font-normal">
             <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-gray-400" />
-              {request.property} · {request.address}
+              <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              <span>{request.property} · {request.address}</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-gray-400" />
-              Created {request.createdDate}
+              <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              <span>Received {request.createdDate}</span>
             </span>
           </div>
         </div>
 
-        {/* Right Contractor Card (1 Col) */}
-        <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
-          <h3 className="text-sm font-bold text-gray-900 mb-4">Contractor</h3>
+        {/* Right Contractor Card (5 Cols) */}
+        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+          <h3 className="text-sm font-bold text-gray-900 mb-3">Assigned To</h3>
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+            <div className="w-11 h-11 rounded-full bg-[#DBEAFE] text-[#2563EB] flex items-center justify-center font-bold shrink-0">
               <User className="w-5 h-5" />
             </div>
             <div>
               <h4 className="font-bold text-sm text-gray-900">
                 {request.contractor}
               </h4>
-              <p className="text-xs text-gray-500 font-normal mt-0.5">
-                {request.contractorPhone || "+1 (555) 000-0000"}
+              <p className="text-xs text-gray-500 font-normal flex items-center gap-1.5 mt-1">
+                <Phone className="w-3 h-3 text-gray-400" />
+                <span>{request.contractorPhone || "+1 (555) 000-0000"}</span>
               </p>
             </div>
           </div>
@@ -209,119 +206,91 @@ function TrackContent() {
       </div>
 
       {/* Project Progress Stepper Timeline Card */}
-      <div className="bg-[#F9FAFB] border border-gray-300/50 rounded-2xl p-6 sm:p-8 shadow-xs">
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-lg font-bold text-gray-900">Project Progress</h3>
-          <div className="bg-[#DEDEE1] px-4 py-1.5 rounded-full flex items-center gap-2">
-            <div className="w-24 bg-gray-300 rounded-full h-2 overflow-hidden">
-              <div
-                className="bg-[#8E25E3] h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${request.stage === 1
-                    ? "25%"
-                    : request.stage === 2
-                      ? "50%"
-                      : request.stage === 3
-                        ? "70%"
-                        : "100%"
-                    }`,
-                }}
-              />
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs">
+        {/* Header Title & Progress Pill */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+          <h3 className="text-base sm:text-lg font-medium">
+            Real–time milestone tracking for this work order.
+          </h3>
+          <div className="bg-[#F4EFFC] border border-[#E1D4F4] px-3.5 py-1.5 rounded-full flex items-center gap-3 shrink-0 self-start sm:self-auto">
+            <div className="w-24 sm:w-28 bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div className="bg-[#6B1294] h-full rounded-full w-[70%]" />
             </div>
-            <span className="text-xs font-bold text-[#8E25E3]">
-              {request.stage === 1
-                ? "25%"
-                : request.stage === 2
-                  ? "50%"
-                  : request.stage === 3
-                    ? "70%"
-                    : "100%"}{" "}
-              Complete
+            <span className="text-xs font-bold text-[#6B1294]">
+              70% Complete
             </span>
           </div>
         </div>
 
-        {/* 4 Step Horizontal Timeline */}
-        <div className="relative flex flex-col md:flex-row items-start justify-between gap-8 md:gap-0 px-4">
-          {/* Connecting Line */}
-          <div className="hidden md:block absolute top-6 left-12 right-12 h-1 bg-gray-300 -z-0">
-            <div
-              className="h-full bg-[#8E25E3] transition-all duration-500"
-              style={{
-                width: `${request.stage === 1
-                  ? "0%"
-                  : request.stage === 2
-                    ? "33%"
-                    : request.stage === 3
-                      ? "66%"
-                      : "100%"
-                  }`,
-              }}
-            />
+        {/* 5-Step Horizontal Stepper Timeline */}
+        <div className="relative flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-0 px-2 sm:px-4">
+          {/* Background Connecting Line */}
+          <div className="hidden md:block absolute top-6 left-[10%] right-[10%] h-[3px] bg-gray-200 -z-0">
+            <div className="h-full bg-[#6B1294] w-[50%]" />
           </div>
 
-          {/* Step 1: Project Started */}
-          <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
-            <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md">
-              <PackageCheck className="w-6 h-6" />
+          {/* Step 1: Received */}
+          <div className="flex flex-col items-center text-center z-10 flex-1">
+            <div className="relative">
+              <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-xs">
+                <Package className="w-5 h-5 text-white" />
+              </div>
+              <div className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white">
+                <Check className="w-2.5 h-2.5 stroke-[3]" />
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-sm text-gray-900 mt-2">Project Started</h4>
-              <p className="text-xs text-gray-500 mt-0.5">{request.createdDate}</p>
-            </div>
+            <h4 className="font-bold text-sm text-gray-900 mt-3">Received</h4>
+            <p className="text-xs text-gray-400 font-normal mt-0.5">{request.createdDate}</p>
           </div>
 
-          {/* Step 2: Awaiting Supplies */}
-          <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
-            <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage >= 2
-                ? "bg-emerald-500 text-white"
-                : "bg-gray-200 text-gray-400 border border-gray-300"
-                }`}
-            >
-              <Truck className="w-6 h-6" />
+          {/* Step 2: Assigned */}
+          <div className="flex flex-col items-center text-center z-10 flex-1">
+            <div className="relative">
+              <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center shadow-xs">
+                <Truck className="w-5 h-5 text-white" />
+              </div>
+              <div className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white">
+                <Check className="w-2.5 h-2.5 stroke-[3]" />
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-sm text-gray-900 mt-2">Awaiting Supplies</h4>
-              <p className="text-xs text-gray-500 mt-0.5">{request.createdDate}</p>
-            </div>
+            <h4 className="font-bold text-sm text-gray-900 mt-3">Assigned</h4>
+            <p className="text-xs text-gray-400 font-normal mt-0.5">Work order accpted</p>
           </div>
 
-          {/* Step 3: In Progress */}
-          <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
-            <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage >= 3
-                ? "bg-[#8E25E3] text-white ring-4 ring-purple-200"
-                : "bg-gray-200 text-gray-400 border border-gray-300"
-                }`}
-            >
-              <Wrench className="w-6 h-6" />
+          {/* Step 3: On-Site (CURRENT) */}
+          <div className="flex flex-col items-center text-center z-10 flex-1">
+            <div className="w-16 h-16 rounded-full bg-[#E9D5FF]/70 flex items-center justify-center -my-2">
+              <div className="w-12 h-12 rounded-full bg-[#6B1294] text-white flex items-center justify-center shadow-md">
+                <Wrench className="w-5 h-5 text-white" />
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-sm text-[#8E25E3] mt-2">In Progress</h4>
-              <p className="text-xs text-gray-500 mt-0.5">Active work underway on site</p>
-              {request.stage === 3 && (
-                <span className="inline-block mt-1 bg-purple-100 text-[#8E25E3] font-extrabold text-[10px] px-2 py-0.5 rounded-md">
-                  CURRENT
-                </span>
-              )}
-            </div>
+            <h4 className="font-bold text-sm text-[#6B1294] mt-3">On-Site</h4>
+            <p className="text-xs text-gray-400 font-normal mt-0.5">Work in progress</p>
+            <span className="inline-block mt-1.5 bg-[#F0E6FC] text-[#6B1294] font-extrabold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              CURRENT
+            </span>
           </div>
 
-          {/* Step 4: Completed */}
-          <div className="flex flex-row md:flex-col items-center md:items-center gap-4 md:gap-2 z-10 text-center flex-1">
-            <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-colors ${request.stage === 4
-                ? "bg-emerald-500 text-white"
-                : "bg-gray-200 text-gray-400 border border-gray-300"
-                }`}
-            >
-              <CheckCircle2 className="w-6 h-6" />
+          {/* Step 4: Review */}
+          <div className="flex flex-col items-center text-center z-10 flex-1">
+            <div className="w-12 h-12 rounded-full border-2 border-gray-300 bg-gray-50/80 text-gray-400 flex items-center justify-center">
+              <Check className="w-5 h-5 text-gray-400 stroke-[2]" />
             </div>
-            <div>
-              <h4 className="font-bold text-sm text-gray-900 mt-2">Completed</h4>
-              <p className="text-xs text-gray-500 mt-0.5">Job finished and verified</p>
+            <h4 className="font-medium text-sm text-gray-400 mt-3">Review</h4>
+            <p className="text-xs text-gray-400 font-normal mt-0.5 max-w-[130px]">
+              Awaiting Manager Approval
+            </p>
+          </div>
+
+          {/* Step 5: Completed */}
+          <div className="flex flex-col items-center text-center z-10 flex-1">
+            <div className="w-12 h-12 rounded-full border-2 border-gray-300 bg-gray-50/80 text-gray-400 flex items-center justify-center">
+              <Check className="w-5 h-5 text-gray-400 stroke-[2]" />
             </div>
+            <h4 className="font-medium text-sm text-gray-400 mt-3">Completed</h4>
+            <p className="text-xs text-gray-400 font-normal mt-0.5">
+              Finished & Approved
+            </p>
           </div>
         </div>
       </div>
