@@ -154,6 +154,33 @@ export default function Overview(): React.ReactElement {
         </div>
       </div>
 
+
+      {/* Recent Activity Section */}
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>
+
+        <div className="space-y-4">
+          {recentActivities.map((act) => {
+            const IconComp = act.icon;
+            return (
+              <div key={act.id} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-0 pb-3 last:pb-0">
+                <div className="flex items-center gap-3.5">
+                  <div className={`p-2.5 rounded-xl flex items-center justify-center ${act.iconBg}`}>
+                    <IconComp className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-semibold text-gray-800">
+                    {act.text}
+                  </span>
+                </div>
+                <span className="text-xs text-gray-400 font-normal whitespace-nowrap">
+                  {act.time}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Service Requests Bar Chart Section */}
       <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
         <div className="mb-4">
@@ -199,31 +226,7 @@ export default function Overview(): React.ReactElement {
         </div>
       </div>
 
-      {/* Recent Activity Section */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>
 
-        <div className="space-y-4">
-          {recentActivities.map((act) => {
-            const IconComp = act.icon;
-            return (
-              <div key={act.id} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-0 pb-3 last:pb-0">
-                <div className="flex items-center gap-3.5">
-                  <div className={`p-2.5 rounded-xl flex items-center justify-center ${act.iconBg}`}>
-                    <IconComp className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-800">
-                    {act.text}
-                  </span>
-                </div>
-                <span className="text-xs text-gray-400 font-normal whitespace-nowrap">
-                  {act.time}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
     </div>
   );
 }
