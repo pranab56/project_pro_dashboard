@@ -45,7 +45,7 @@ export default function Step4ReviewSubmit({
 
       <div className="space-y-4">
         {/* Card 1: Contact Information */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 space-y-3">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <User className="w-4 h-4 text-[#6B1294]" />
@@ -90,7 +90,7 @@ export default function Step4ReviewSubmit({
         </div>
 
         {/* Card 2: Company & Portfolio */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 space-y-3">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-[#6B1294]" />
@@ -143,14 +143,13 @@ export default function Step4ReviewSubmit({
         {/* Confirmation Checkbox Box */}
         <div
           onClick={() => setIsConfirmed(!isConfirmed)}
-          className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-3 cursor-pointer"
+          className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center gap-3 cursor-pointer"
         >
           <div
-            className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 ${
-              isConfirmed
-                ? "bg-emerald-600 border-emerald-600 text-white"
-                : "border-emerald-500 bg-white"
-            }`}
+            className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 ${isConfirmed
+              ? "bg-emerald-600 border-emerald-600 text-white"
+              : "border-emerald-500 bg-white"
+              }`}
           >
             {isConfirmed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
           </div>
@@ -166,7 +165,7 @@ export default function Step4ReviewSubmit({
         <button
           type="button"
           onClick={onBack}
-          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
+          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>
@@ -174,7 +173,7 @@ export default function Step4ReviewSubmit({
         <button
           type="button"
           onClick={handleSubmitClick}
-          className="py-3.5 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl text-sm transition-colors cursor-pointer shadow-sm flex items-center gap-2"
+          className="py-3.5 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-sm flex items-center gap-2"
         >
           <Send className="w-4 h-4" />
           <span>Submit for Review</span>

@@ -47,7 +47,7 @@ export default function InvoiceDetailModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-      <div className="bg-white rounded-xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl overflow-hidden relative max-h-[95vh] flex flex-col animate-in fade-in zoom-in-95 duration-200 ease-out">
+      <div className="bg-white rounded-lg p-6 sm:p-8 max-w-2xl w-full shadow-2xl overflow-hidden relative max-h-[95vh] flex flex-col animate-in fade-in zoom-in-95 duration-200 ease-out">
         {/* Close Button */}
         <button
           type="button"
@@ -84,7 +84,7 @@ export default function InvoiceDetailModal({
         {/* Scrollable Body */}
         <div className="overflow-y-auto custom-scrollbar pr-2 space-y-6 flex-1">
           {/* Metadata Grid */}
-          <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-xs sm:text-sm bg-gray-50/80 p-4 rounded-2xl border border-gray-100">
+          <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-xs sm:text-sm bg-gray-50/80 p-4 rounded-lg border border-gray-100">
             <div>
               <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                 PROPERTY NAME
@@ -156,7 +156,7 @@ export default function InvoiceDetailModal({
           </div>
 
           {/* Line Items Table Box */}
-          <div className="bg-[#EDEDF0] rounded-2xl p-4">
+          <div className="bg-[#EDEDF0] rounded-lg p-4">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr className="border-b border-gray-300/60 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
@@ -214,15 +214,15 @@ export default function InvoiceDetailModal({
               {isPaid
                 ? "Total Paid"
                 : isDeposit
-                ? "Deposit Amount"
-                : "Final Balance Due"}
+                  ? "Deposit Amount"
+                  : "Final Balance Due"}
             </span>
             <span className="text-2xl sm:text-3xl font-extrabold text-[#7C3AED]">
               {isPaid
                 ? fmt(invoice.totalAmount)
                 : isDeposit
-                ? fmt(invoice.depositAmountRequired || 820)
-                : fmt(invoice.finalBalanceDue || invoice.totalDue)}
+                  ? fmt(invoice.depositAmountRequired || 820)
+                  : fmt(invoice.finalBalanceDue || invoice.totalDue)}
             </span>
           </div>
 
@@ -231,9 +231,8 @@ export default function InvoiceDetailModal({
             <button
               type="button"
               onClick={handleDownloadPDF}
-              className={`py-3.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-2xl text-xs sm:text-sm transition-colors cursor-pointer flex items-center justify-center gap-2 ${
-                isPaid ? "w-full" : "flex-1"
-              }`}
+              className={`py-3.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-lg text-xs sm:text-sm transition-colors cursor-pointer flex items-center justify-center gap-2 ${isPaid ? "w-full" : "flex-1"
+                }`}
             >
               <Download className="w-4 h-4 text-gray-600" />
               <span>Download PDF</span>
@@ -243,7 +242,7 @@ export default function InvoiceDetailModal({
               <button
                 type="button"
                 onClick={handlePayNow}
-                className="flex-1 py-3.5 px-4 bg-[#10B981] hover:bg-[#059669] text-white font-semibold rounded-2xl text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                className="flex-1 py-3.5 px-4 bg-[#10B981] hover:bg-[#059669] text-white font-semibold rounded-lg text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <Check className="w-4 h-4 stroke-[3]" />
                 <span>Pay Now</span>

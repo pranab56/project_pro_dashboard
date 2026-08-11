@@ -63,17 +63,16 @@ export default function NotificationItem({
   return (
     <div
       onClick={() => !item.read && onMarkAsRead(item.id)}
-      className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col sm:flex-row items-start justify-between gap-4 ${
-        !item.read
-          ? "bg-[#F2E7FC]/40 border-[#DDD6FE] shadow-2xs"
-          : "bg-[#E2E2E5]/80 hover:bg-[#E2E2E5] border-gray-300/50"
-      }`}
+      className={`p-4 sm:p-5 rounded-lg border transition-all cursor-pointer flex flex-col sm:flex-row items-start justify-between gap-4 ${!item.read
+        ? "bg-[#F2E7FC]/40 border-[#DDD6FE] shadow-2xs"
+        : "bg-[#E2E2E5]/80 hover:bg-[#E2E2E5] border-gray-300/50"
+        }`}
     >
       {/* Icon + Main Info */}
       <div className="flex items-start gap-3.5 flex-1 min-w-0">
         {/* Category Icon Badge */}
         <div
-          className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${getCategoryBg()}`}
+          className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${getCategoryBg()}`}
         >
           {getCategoryIcon()}
         </div>
@@ -81,9 +80,8 @@ export default function NotificationItem({
         <div className="space-y-1 min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <h4
-              className={`text-sm sm:text-base font-bold tracking-tight ${
-                !item.read ? "text-gray-900" : "text-gray-700"
-              }`}
+              className={`text-sm sm:text-base font-bold tracking-tight ${!item.read ? "text-gray-900" : "text-gray-700"
+                }`}
             >
               {item.title}
             </h4>

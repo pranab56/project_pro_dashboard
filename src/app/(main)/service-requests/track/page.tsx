@@ -3,7 +3,6 @@
 import {
   Calendar,
   Check,
-  ChevronLeft,
   MapPin,
   Package,
   Phone,
@@ -11,7 +10,7 @@ import {
   User,
   Wrench,
 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useState, Suspense } from "react";
 import toast from "react-hot-toast";
 
@@ -107,7 +106,6 @@ const mockRequests: Record<string, ServiceRequest> = {
 };
 
 function TrackContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const reqId = searchParams.get("id") || "SR-001";
 
@@ -123,6 +121,8 @@ function TrackContent() {
     });
     toast.success(`Request ${request.id} marked as Completed`);
   };
+
+
 
   return (
     <div className="space-y-6">
@@ -149,11 +149,12 @@ function TrackContent() {
       {/* Top Info Cards Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Info Card (7 Cols) */}
-        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-7 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-xs flex flex-col justify-between space-y-4">
           <div className="flex items-center gap-2">
             <span className="bg-[#F2E7FC] text-[#6B1294] font-bold text-xs px-3 py-1 rounded-full">
               {request.id}
             </span>
+
             <span
               className={`font-semibold text-xs px-3 py-1 rounded-full ${request.priority === "Urgent"
                 ? "bg-[#FEE2E2] text-[#EF4444]"
@@ -164,6 +165,7 @@ function TrackContent() {
             >
               {request.priority} Priority
             </span>
+
             <span className="bg-[#F3E8FF] text-[#7C3AED] font-semibold text-xs px-3 py-1 rounded-full">
               {request.status}
             </span>
@@ -186,7 +188,7 @@ function TrackContent() {
         </div>
 
         {/* Right Contractor Card (5 Cols) */}
-        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-xs flex flex-col justify-between">
           <h3 className="text-sm font-bold text-gray-900 mb-3">Assigned To</h3>
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-full bg-[#DBEAFE] text-[#2563EB] flex items-center justify-center font-bold shrink-0">
@@ -206,7 +208,7 @@ function TrackContent() {
       </div>
 
       {/* Project Progress Stepper Timeline Card */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 sm:p-8 shadow-xs">
         {/* Header Title & Progress Pill */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
           <h3 className="text-base sm:text-lg font-medium">

@@ -39,7 +39,7 @@ export default function Step5StatusPending({
       </div>
 
       {/* Blue Info Notice Box */}
-      <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-3 text-blue-900">
+      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start gap-3 text-blue-900">
         <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
         <p className="text-xs font-medium leading-relaxed">
           Your application is currently being reviewed by our Property care team.
@@ -49,7 +49,7 @@ export default function Step5StatusPending({
 
       {/* Submitted Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
+        <div className="p-4 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             SUBMITTED ON
           </span>
@@ -58,7 +58,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
+        <div className="p-4 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             BUSINESS
           </span>
@@ -67,7 +67,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
+        <div className="p-4 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             CONTACT
           </span>
@@ -76,7 +76,7 @@ export default function Step5StatusPending({
           </span>
         </div>
 
-        <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#E5E7EB]">
+        <div className="p-4 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB]">
           <span className="text-[10px] uppercase font-bold text-gray-400 block">
             EMAIL
           </span>
@@ -87,7 +87,7 @@ export default function Step5StatusPending({
       </div>
 
       {/* Submitted Details Box */}
-      <div className="p-5 bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] space-y-3">
+      <div className="p-5 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB] space-y-3">
         <h3 className="text-sm font-bold text-gray-900">Submitted Details</h3>
         <div className="space-y-2 text-xs">
           <div className="flex justify-between border-b border-gray-300/40 pb-1.5">
@@ -118,7 +118,7 @@ export default function Step5StatusPending({
       </div>
 
       {/* Take Actions Box */}
-      <div className="p-5 bg-[#F2E7FC]/80 border border-purple-200 rounded-2xl space-y-3">
+      <div className="p-5 bg-[#F2E7FC]/80 border border-purple-200 rounded-lg space-y-3">
         <span className="text-xs uppercase font-bold tracking-wider text-[#6B1294] block">
           TAKE ACTIONS
         </span>
@@ -126,7 +126,7 @@ export default function Step5StatusPending({
           <button
             type="button"
             onClick={onEdit}
-            className="py-2.5 px-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold rounded-xl text-xs border border-gray-300/80 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs"
+            className="py-2.5 px-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold rounded-lg text-xs border border-gray-300/80 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs"
           >
             <Pencil className="w-3.5 h-3.5 text-[#6B1294]" />
             <span>Edit Information</span>
@@ -138,7 +138,7 @@ export default function Step5StatusPending({
               toast.success("Application request deleted.");
               onReset();
             }}
-            className="py-2.5 px-4 bg-red-50 hover:bg-red-100 text-[#E53935] font-semibold rounded-xl text-xs border border-red-200 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs"
+            className="py-2.5 px-4 bg-red-50 hover:bg-red-100 text-[#E53935] font-semibold rounded-lg text-xs border border-red-200 transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs"
           >
             <Trash2 className="w-3.5 h-3.5 text-[#E53935]" />
             <span>Delete</span>
@@ -147,7 +147,7 @@ export default function Step5StatusPending({
           <button
             type="button"
             onClick={() => router.push("/properties")}
-            className="py-2.5 px-5 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl text-xs transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs ml-auto"
+            className="py-2.5 px-5 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg text-xs transition-colors cursor-pointer flex items-center gap-1.5 shadow-2xs ml-auto"
           >
             <span>Go to Dashboard</span>
             <ArrowRight className="w-3.5 h-3.5" />

@@ -276,7 +276,7 @@ export default function PropertiesPage() {
                 <button
                     type="button"
                     onClick={handleOpenAddModal}
-                    className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0"
+                    className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0"
                 >
                     <Plus className="w-4 h-4" />
                     <span>Add Property</span>
@@ -284,7 +284,7 @@ export default function PropertiesPage() {
             </div>
 
             {/* Search & Filter Controls Bar */}
-            <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-2 sm:p-2.5 flex flex-col md:flex-row items-center justify-between gap-4">
                 {/* Search Input */}
                 <div className="relative w-full md:w-7/12">
                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -329,7 +329,7 @@ export default function PropertiesPage() {
                 {filteredProperties.map((prop) => (
                     <div
                         key={prop.id}
-                        className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-2xs flex flex-col justify-between transition-all hover:shadow-md"
+                        className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden shadow-2xs flex flex-col justify-between transition-all hover:shadow-md"
                     >
                         {/* Top Image & Overlay Badges */}
                         <div className="h-52 w-full relative overflow-hidden bg-gray-200">
@@ -398,7 +398,7 @@ export default function PropertiesPage() {
                                 <button
                                     type="button"
                                     onClick={() => handleOpenEditModal(prop)}
-                                    className="flex-1 py-2.5 px-3 border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    className="flex-1 py-2.5 px-3 border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold text-xs sm:text-sm rounded-lg flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                                 >
                                     <Pencil className="w-3.5 h-3.5" />
                                     <span>Edit</span>
@@ -406,7 +406,7 @@ export default function PropertiesPage() {
                                 <button
                                     type="button"
                                     onClick={() => setDeletingProperty(prop)}
-                                    className="flex-1 py-2.5 px-3 border border-gray-300 hover:bg-red-50 text-[#E53935] font-semibold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                                    className="flex-1 py-2.5 px-3 border border-gray-300 hover:bg-red-50 text-[#E53935] font-semibold text-xs sm:text-sm rounded-lg flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                                 >
                                     <Trash2 className="w-3.5 h-3.5" />
                                     <span>Delete</span>
@@ -434,7 +434,7 @@ export default function PropertiesPage() {
                             <button
                                 type="button"
                                 onClick={() => setDeletingProperty(null)}
-                                className="flex-1 py-3 px-4 border border-gray-300 rounded-xl text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
+                                className="flex-1 py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
                             >
                                 Cancel
                             </button>
@@ -444,7 +444,7 @@ export default function PropertiesPage() {
                                     handleDelete(deletingProperty.id);
                                     setDeletingProperty(null);
                                 }}
-                                className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer shadow-sm"
+                                className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer shadow-sm"
                             >
                                 Delete
                             </button>
@@ -456,7 +456,7 @@ export default function PropertiesPage() {
             {/* Add / Edit Property Modal Dialog */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-                    <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-8 sm:max-w-2xl w-full shadow-2xl max-h-[94vh] overflow-y-auto custom-scrollbar border border-[#E5E7EB] animate-in fade-in zoom-in-95 duration-200 ease-out">
+                    <div className="bg-[#FFFFFF] rounded-lg p-6 sm:p-8 sm:max-w-2xl w-full shadow-2xl max-h-[94vh] overflow-y-auto custom-scrollbar border border-[#E5E7EB] animate-in fade-in zoom-in-95 duration-200 ease-out">
                         {/* Modal Header */}
                         <div className="flex items-center justify-between mb-5">
                             <h2 className="text-xl font-bold text-gray-900">
@@ -481,7 +481,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType("residential")}
-                                        className={`py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "residential"
+                                        className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "residential"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                                             }`}
@@ -493,7 +493,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType("commercial")}
-                                        className={`py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "commercial"
+                                        className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "commercial"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                                             }`}
@@ -505,7 +505,7 @@ export default function PropertiesPage() {
                                     <button
                                         type="button"
                                         onClick={() => setFormType("mixed-use")}
-                                        className={`py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "mixed-use"
+                                        className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "mixed-use"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
                                             }`}
@@ -534,7 +534,7 @@ export default function PropertiesPage() {
                                             <SelectTrigger className="w-full h-[48px] px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm py-5.5 text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                                 <SelectValue placeholder="e.g. Single-family home" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+                                            <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                                                 <SelectItem className="py-3" value="Apartment Complex">Apartment Complex</SelectItem>
                                                 <SelectItem className="py-3" value="Single-family home">Single-family home</SelectItem>
                                                 <SelectItem className="py-3" value="Condominium">Condominium</SelectItem>
@@ -658,7 +658,7 @@ export default function PropertiesPage() {
                                             <SelectTrigger className="w-full h-[48px] px-4 py-5.5 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                                 <SelectValue placeholder="e.g. 1-5" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+                                            <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                                                 <SelectItem value="e.g. 1-5">e.g. 1-5</SelectItem>
                                                 <SelectItem value="1-10">1-10 Floors</SelectItem>
                                                 <SelectItem value="11-20">11-20 Floors</SelectItem>
@@ -681,7 +681,7 @@ export default function PropertiesPage() {
                                     <SelectTrigger className="w-full h-[48px] py-5.5 px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                         <SelectValue placeholder="Active" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+                                    <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                                         <SelectItem className="py-3" value="Active">Active</SelectItem>
                                         <SelectItem className="py-3" value="Pending">Pending</SelectItem>
                                         <SelectItem className="py-3" value="Inactive">Inactive</SelectItem>
@@ -705,7 +705,7 @@ export default function PropertiesPage() {
                                     onClick={() => fileInputRef.current?.click()}
                                     onDragOver={(e) => e.preventDefault()}
                                     onDrop={handleDrop}
-                                    className="border-2 border-dashed border-gray-300 bg-gray-200/30 hover:bg-gray-200/50 rounded-xl p-5 text-center cursor-pointer transition-all"
+                                    className="border-2 border-dashed border-gray-300 bg-gray-200/30 hover:bg-gray-200/50 rounded-lg p-5 text-center cursor-pointer transition-all"
                                 >
                                     {formImage ? (
                                         <div className="relative group">
@@ -742,14 +742,14 @@ export default function PropertiesPage() {
                             <div className="flex gap-3 pt-3">
                                 <button
                                     type="submit"
-                                    className="flex-1 py-3.5 px-4 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold rounded-xl shadow-xs text-sm sm:text-base transition-colors cursor-pointer"
+                                    className="flex-1 py-3.5 px-4 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold rounded-lg shadow-xs text-sm sm:text-base transition-colors cursor-pointer"
                                 >
                                     {editingId ? "Save Changes" : "Add Property"}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="flex-1 py-3.5 px-4 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold rounded-xl text-sm sm:text-base transition-colors cursor-pointer"
+                                    className="flex-1 py-3.5 px-4 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold rounded-lg text-sm sm:text-base transition-colors cursor-pointer"
                                 >
                                     Cancel
                                 </button>

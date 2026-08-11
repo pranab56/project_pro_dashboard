@@ -82,7 +82,7 @@ export default function Overview(): React.ReactElement {
       {/* Top 4 Stats Cards Grid - Order matched to Figma: Approval Required, Active Jobs, Completed Jobs, Total Properties */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {/* Card 1: Approval Required */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Approval Required
@@ -100,7 +100,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 2: Active Jobs */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Active Jobs
@@ -118,7 +118,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 3: Completed Jobs */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Completed Jobs
@@ -136,7 +136,7 @@ export default function Overview(): React.ReactElement {
         </div>
 
         {/* Card 4: Total Properties */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
           <div className="flex items-start justify-between">
             <span className="text-xs sm:text-sm font-normal text-gray-500">
               Total Properties
@@ -154,9 +154,7 @@ export default function Overview(): React.ReactElement {
         </div>
       </div>
 
-
-      {/* Recent Activity Section */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6">
         <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>
 
         <div className="space-y-4">
@@ -165,7 +163,7 @@ export default function Overview(): React.ReactElement {
             return (
               <div key={act.id} className="flex items-center justify-between py-1 border-b border-gray-100 last:border-0 pb-3 last:pb-0">
                 <div className="flex items-center gap-3.5">
-                  <div className={`p-2.5 rounded-xl flex items-center justify-center ${act.iconBg}`}>
+                  <div className={`p-2.5 rounded-lg flex items-center justify-center ${act.iconBg}`}>
                     <IconComp className="w-4 h-4" />
                   </div>
                   <span className="text-sm font-semibold text-gray-800">
@@ -182,7 +180,7 @@ export default function Overview(): React.ReactElement {
       </div>
 
       {/* Service Requests Bar Chart Section */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6">
         <div className="mb-4">
           <h2 className="text-lg font-medium text-gray-900">Service Requests</h2>
           <p className="text-xs text-gray-500 font-normal mt-0.5">Yearly volume</p>
@@ -226,6 +224,7 @@ export default function Overview(): React.ReactElement {
         </div>
       </div>
 
+      {/* Recent Activity Section */}
 
     </div>
   );

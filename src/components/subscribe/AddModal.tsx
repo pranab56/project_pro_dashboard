@@ -120,7 +120,7 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <div className="bg-[#EBEBEB] rounded-xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-200 ease-out">
+      <div className="bg-[#EBEBEB] rounded-lg p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-gray-300/60 max-h-[92vh] overflow-y-auto custom-scrollbar animate-in fade-in zoom-in-95 duration-200 ease-out">
         {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900">Create a New Plan</h2>
@@ -140,10 +140,10 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
               Plan Title *
             </label>
             <Select value={form.title} onValueChange={(val) => handleTitleChange(val as PackageBody['title'])}>
-              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize">
+              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize">
                 <SelectValue placeholder="Select Plan Title" />
               </SelectTrigger>
-              <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+              <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                 <SelectItem value="free">Free</SelectItem>
                 <SelectItem value="basic">Basic</SelectItem>
                 <SelectItem value="premium">Premium</SelectItem>
@@ -161,10 +161,10 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
               disabled={isFree}
               onValueChange={(val) => setForm((p) => ({ ...p, type: val as PackageBody['type'] }))}
             >
-              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize disabled:opacity-60">
+              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize disabled:opacity-60">
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
-              <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+              <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                 <SelectItem value="month">Month</SelectItem>
                 <SelectItem value="year">Year</SelectItem>
                 {isFree && <SelectItem value="free">Free</SelectItem>}
@@ -188,9 +188,8 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 if (e.target.value) setErrors((prev) => ({ ...prev, price: '' }));
               }}
               disabled={isFree}
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all disabled:opacity-60 ${
-                errors.price ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
-              }`}
+              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all disabled:opacity-60 ${errors.price ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
+                }`}
             />
             {errors.price && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -212,9 +211,8 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 setForm((p) => ({ ...p, productId: e.target.value }));
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, productId: '' }));
               }}
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                errors.productId ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
-              }`}
+              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.productId ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
+                }`}
             />
             {errors.productId && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -232,10 +230,10 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
               value={form.platform}
               onValueChange={(val) => setForm((p) => ({ ...p, platform: val as PackageBody['platform'] }))}
             >
-              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize">
+              <SelectTrigger className="w-full h-[46px] px-4 py-6 bg-[#E2E2E5] border border-transparent rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none capitalize">
                 <SelectValue placeholder="Select Platform" />
               </SelectTrigger>
-              <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[60]">
+              <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
                 <SelectItem value="apple">Apple</SelectItem>
                 <SelectItem value="google">Google</SelectItem>
               </SelectContent>
@@ -256,9 +254,8 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 setForm((p) => ({ ...p, participantCount: e.target.value }));
                 if (e.target.value) setErrors((prev) => ({ ...prev, participantCount: '' }));
               }}
-              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                errors.participantCount ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
-              }`}
+              className={`w-full px-4 py-3 bg-[#E2E2E5] border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.participantCount ? 'border-red-500 bg-red-50/20' : 'border-gray-300 focus:border-[#6B1294]'
+                }`}
             />
             {errors.participantCount && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -279,19 +276,19 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
                 value={form.currentBenefit}
                 onChange={(e) => setForm((p) => ({ ...p, currentBenefit: e.target.value }))}
                 onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefit())}
-                className="flex-1 px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-xl text-sm text-gray-900 focus:bg-white focus:outline-none transition-all"
+                className="flex-1 px-4 py-3 bg-[#E2E2E5] border border-transparent rounded-lg text-sm text-gray-900 focus:bg-white focus:outline-none transition-all"
               />
               <button
                 type="button"
                 onClick={addBenefit}
-                className="px-4 py-3 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl cursor-pointer transition-colors flex items-center justify-center"
+                className="px-4 py-3 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg cursor-pointer transition-colors flex items-center justify-center"
               >
                 <Plus className="w-4 h-4" />
               </button>
             </div>
             <div className="space-y-2">
               {form.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center justify-between px-4 py-2 bg-gray-100/80 rounded-xl">
+                <div key={index} className="flex items-center justify-between px-4 py-2 bg-gray-100/80 rounded-lg">
                   <span className="text-sm font-medium text-gray-800">{benefit}</span>
                   <button
                     type="button"
@@ -310,14 +307,14 @@ export default function AddModal({ isOpen, onClose, onAdd, isLoading = false }: 
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3.5 px-4 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-xl text-gray-800 font-semibold text-sm sm:text-base transition-colors cursor-pointer"
+              className="flex-1 py-3.5 px-4 bg-[#E2E2E5] hover:bg-gray-300 border border-gray-300/60 rounded-lg text-gray-800 font-semibold text-sm sm:text-base transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 py-3.5 px-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl shadow-sm text-sm sm:text-base transition-colors cursor-pointer disabled:opacity-60"
+              className="flex-1 py-3.5 px-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg shadow-sm text-sm sm:text-base transition-colors cursor-pointer disabled:opacity-60"
             >
               {isLoading ? 'Adding...' : 'Add Plan'}
             </button>

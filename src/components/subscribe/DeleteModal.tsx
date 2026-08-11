@@ -32,7 +32,7 @@ export default function DeleteModal({ isOpen, onClose, plan, onDelete, isLoading
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-3 px-4 border border-gray-300 rounded-xl text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
+            className="flex-1 py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -40,7 +40,7 @@ export default function DeleteModal({ isOpen, onClose, plan, onDelete, isLoading
             type="button"
             onClick={() => onDelete(plan._id)}
             disabled={isLoading}
-            className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer shadow-sm disabled:opacity-60"
+            className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer shadow-sm disabled:opacity-60"
           >
             {isLoading ? 'Deleting...' : 'Delete'}
           </button>

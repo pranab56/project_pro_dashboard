@@ -21,7 +21,7 @@ export default function SettingsTabsNav({
   ];
 
   return (
-    <div className="w-full lg:w-64 shrink-0 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-2 sm:p-3 h-fit overflow-x-auto">
+    <div className="w-full lg:w-64 shrink-0 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-2 sm:p-3 h-fit overflow-x-auto">
       <div className="flex flex-row lg:flex-col gap-1.5">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
@@ -32,11 +32,10 @@ export default function SettingsTabsNav({
               key={item.id}
               type="button"
               onClick={() => onTabChange(item.id)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer w-full text-left ${
-                isActive
-                  ? "bg-[#E1D4F4] text-[#6B1294] shadow-2xs"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/60"
-              }`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all cursor-pointer w-full text-left ${isActive
+                ? "bg-[#E1D4F4] text-[#6B1294] shadow-2xs"
+                : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/60"
+                }`}
             >
               <Icon className={`w-4 h-4 ${isActive ? "text-[#6B1294]" : "text-gray-500"}`} />
               <span>{item.label}</span>

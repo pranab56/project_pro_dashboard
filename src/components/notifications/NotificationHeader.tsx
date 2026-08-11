@@ -39,7 +39,7 @@ export default function NotificationHeader({
           <button
             type="button"
             onClick={onMarkAllAsRead}
-            className="bg-[#E2E2E5] hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2.5 rounded-xl border border-gray-300/60 text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5"
+            className="bg-[#E2E2E5] hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2.5 rounded-lg border border-gray-300/60 text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5"
           >
             <CheckCheck className="w-4 h-4 text-[#8E25E3]" />
             <span>Mark all as read</span>
@@ -50,7 +50,7 @@ export default function NotificationHeader({
           <button
             type="button"
             onClick={onClearAll}
-            className="bg-red-50 hover:bg-red-100 text-[#E53935] font-semibold px-4 py-2.5 rounded-xl border border-red-200 text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5"
+            className="bg-red-50 hover:bg-red-100 text-[#E53935] font-semibold px-4 py-2.5 rounded-lg border border-red-200 text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5"
           >
             <Trash2 className="w-4 h-4 text-[#E53935]" />
             <span>Clear all</span>

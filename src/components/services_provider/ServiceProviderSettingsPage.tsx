@@ -71,7 +71,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       </div>
 
       {/* 1. Change Password Box */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden max-w-2xl shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden max-w-2xl shadow-xs">
         {/* Card Top Banner Header */}
         <div className="bg-gray-100/70 border-b border-gray-300/50 px-6 py-4 flex items-center justify-between">
           <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight flex items-center gap-2">
@@ -94,11 +94,10 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
                 if (e.target.value) setPasswordErrors((p) => ({ ...p, currentPassword: "" }));
               }}
               placeholder="••••••••••••"
-              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                passwordErrors.currentPassword
-                  ? "border-red-500 bg-red-50/20"
-                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${passwordErrors.currentPassword
+                ? "border-red-500 bg-red-50/20"
+                : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {passwordErrors.currentPassword && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -119,11 +118,10 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
                 if (e.target.value) setPasswordErrors((p) => ({ ...p, newPassword: "" }));
               }}
               placeholder="••••••••••••"
-              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                passwordErrors.newPassword
-                  ? "border-red-500 bg-red-50/20"
-                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${passwordErrors.newPassword
+                ? "border-red-500 bg-red-50/20"
+                : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {passwordErrors.newPassword && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -144,11 +142,10 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
                 if (e.target.value) setPasswordErrors((p) => ({ ...p, confirmPassword: "" }));
               }}
               placeholder="••••••••••••"
-              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-                passwordErrors.confirmPassword
-                  ? "border-red-500 bg-red-50/20"
-                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${passwordErrors.confirmPassword
+                ? "border-red-500 bg-red-50/20"
+                : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {passwordErrors.confirmPassword && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -160,7 +157,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3.5 px-6 bg-[#5B1B95] hover:bg-[#4C127D] text-white font-semibold rounded-xl text-sm transition-colors cursor-pointer shadow-xs"
+              className="w-full py-3.5 px-6 bg-[#5B1B95] hover:bg-[#4C127D] text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-xs"
             >
               Update Password
             </button>
@@ -169,7 +166,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       </div>
 
       {/* 2. Account Status Box */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 sm:p-7 max-w-2xl space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 sm:p-7 max-w-2xl space-y-4 shadow-xs">
         <div>
           <h2 className="text-base sm:text-lg font-bold text-[#6B1294] tracking-tight flex items-center gap-2">
             <Shield className="w-5 h-5 text-[#6B1294]" />
@@ -182,7 +179,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
           {/* Action Card A: Pause Account */}
-          <div className="bg-[#E2E2E5]/50 border border-gray-300/60 rounded-2xl p-5 flex flex-col justify-between">
+          <div className="bg-[#E2E2E5]/50 border border-gray-300/60 rounded-lg p-5 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-2">
                 <h3 className="text-sm sm:text-base font-bold text-gray-900">
@@ -192,14 +189,12 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
                 <button
                   type="button"
                   onClick={handleTogglePause}
-                  className={`w-12 h-6 rounded-full p-0.5 transition-colors cursor-pointer relative shrink-0 ${
-                    isAccountPaused ? "bg-[#6B1294]" : "bg-gray-300"
-                  }`}
+                  className={`w-12 h-6 rounded-full p-0.5 transition-colors cursor-pointer relative shrink-0 ${isAccountPaused ? "bg-[#6B1294]" : "bg-gray-300"
+                    }`}
                 >
                   <div
-                    className={`w-5 h-5 rounded-full bg-white shadow-md transition-transform transform ${
-                      isAccountPaused ? "translate-x-6" : "translate-x-0"
-                    }`}
+                    className={`w-5 h-5 rounded-full bg-white shadow-md transition-transform transform ${isAccountPaused ? "translate-x-6" : "translate-x-0"
+                      }`}
                   />
                 </button>
               </div>
@@ -211,12 +206,12 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
           </div>
 
           {/* Action Card B: Deactivate Account */}
-          <div className="bg-[#E2E2E5]/50 border border-gray-300/60 rounded-2xl p-5 flex flex-col justify-between">
+          <div className="bg-[#E2E2E5]/50 border border-gray-300/60 rounded-lg p-5 flex flex-col justify-between">
             <div>
               <button
                 type="button"
                 onClick={() => setIsDeactivateModalOpen(true)}
-                className="bg-[#C62828] hover:bg-[#B71C1C] text-white font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition-colors cursor-pointer w-fit shadow-2xs"
+                className="bg-[#C62828] hover:bg-[#B71C1C] text-white font-semibold px-4 py-2 rounded-lg text-xs sm:text-sm transition-colors cursor-pointer w-fit shadow-2xs"
               >
                 Deactivate Account
               </button>
@@ -232,7 +227,7 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
       {/* Deactivate Confirmation Modal */}
       {isDeactivateModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 max-w-md w-full shadow-2xl border border-[#E5E7EB] relative space-y-4">
+          <div className="bg-[#FFFFFF] rounded-lg p-6 sm:p-7 max-w-md w-full shadow-2xl border border-[#E5E7EB] relative space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-red-600">
                 <AlertTriangle className="w-5 h-5" />
@@ -257,14 +252,14 @@ export default function ServiceProviderSettingsPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => setIsDeactivateModalOpen(false)}
-                className="flex-1 py-2.5 px-4 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
+                className="flex-1 py-2.5 px-4 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg text-gray-800 font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleConfirmDeactivate}
-                className="flex-1 py-2.5 px-4 bg-[#C62828] hover:bg-[#B71C1C] text-white font-semibold rounded-xl text-xs sm:text-sm transition-colors cursor-pointer shadow-2xs"
+                className="flex-1 py-2.5 px-4 bg-[#C62828] hover:bg-[#B71C1C] text-white font-semibold rounded-lg text-xs sm:text-sm transition-colors cursor-pointer shadow-2xs"
               >
                 Deactivate
               </button>

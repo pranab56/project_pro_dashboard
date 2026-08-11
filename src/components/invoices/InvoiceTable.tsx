@@ -26,7 +26,7 @@ export default function InvoiceTable({
 
   if (invoices.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-12 text-center border border-gray-200 shadow-xs">
+      <div className="bg-white rounded-lg p-12 text-center border border-gray-200 shadow-xs">
         <p className="text-gray-500 font-medium text-base">
           No invoices match your current search or filter criteria.
         </p>
@@ -35,7 +35,7 @@ export default function InvoiceTable({
   }
 
   return (
-    <div className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-2xs">
+    <div className="bg-white border border-gray-200/90 rounded-lg overflow-hidden shadow-2xs">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[950px]">
           <thead>
@@ -97,9 +97,8 @@ export default function InvoiceTable({
 
                 {/* START DATE */}
                 <td
-                  className={`py-4 px-5 whitespace-nowrap font-medium ${
-                    inv.status === "Overdue" ? "text-red-500" : "text-gray-500"
-                  }`}
+                  className={`py-4 px-5 whitespace-nowrap font-medium ${inv.status === "Overdue" ? "text-red-500" : "text-gray-500"
+                    }`}
                 >
                   {inv.startDate}
                 </td>

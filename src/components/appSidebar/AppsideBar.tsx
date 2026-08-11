@@ -58,7 +58,7 @@ const serviceProviderSidebars: SidebarItem[] = [
   { name: "Dashboard", path: "/services_provider/overview", icon: LayoutGrid },
   { name: "Job Request", path: "/services_provider/job_request", icon: Wrench },
   { name: "Profile", path: "/services_provider/profile", icon: User },
-  { name: "Payment Information", path: "/services_provider/payment", icon: Receipt },
+  { name: "Invoices & Payments", path: "/services_provider/payment", icon: Receipt },
   { name: "Settings", path: "/services_provider/settings", icon: Settings },
 ];
 
@@ -128,7 +128,7 @@ export default function OptimusSidebar() {
           <button
             type="button"
             onClick={() => setShowLogoutModal(true)}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-2xl text-[#E53935] hover:bg-red-50/80 font-semibold text-sm transition-colors cursor-pointer"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-[#E53935] hover:bg-red-50/80 font-semibold text-sm transition-colors cursor-pointer"
           >
             <LogOut className="h-5 w-5 text-[#E53935]" />
             <span>Logout</span>
@@ -154,14 +154,14 @@ export default function OptimusSidebar() {
               <button
                 type="button"
                 onClick={() => setShowLogoutModal(false)}
-                className="flex-1 py-3 px-4 border border-gray-300 rounded-xl text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
+                className="flex-1 py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={confirmLogout}
-                className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer shadow-sm"
+                className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer shadow-sm"
               >
                 Yes, Logout
               </button>

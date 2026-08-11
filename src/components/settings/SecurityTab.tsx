@@ -39,7 +39,7 @@ export default function SecurityTab() {
   };
 
   return (
-    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-6 sm:p-8 max-w-2xl">
+    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 sm:p-8 max-w-2xl">
       <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-6 tracking-tight">
         Change Password
       </h3>
@@ -57,9 +57,8 @@ export default function SecurityTab() {
               if (e.target.value) setErrors((prev) => ({ ...prev, currentPassword: "" }));
             }}
             placeholder="••••••••••••"
-            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-              errors.currentPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-            }`}
+            className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.currentPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+              }`}
           />
           {errors.currentPassword && (
             <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -80,9 +79,8 @@ export default function SecurityTab() {
               if (e.target.value) setErrors((prev) => ({ ...prev, newPassword: "" }));
             }}
             placeholder="••••••••••••"
-            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-              errors.newPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-            }`}
+            className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.newPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+              }`}
           />
           {errors.newPassword && (
             <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -103,9 +101,8 @@ export default function SecurityTab() {
               if (e.target.value) setErrors((prev) => ({ ...prev, confirmPassword: "" }));
             }}
             placeholder="••••••••••••"
-            className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${
-              errors.confirmPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-            }`}
+            className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.confirmPassword ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+              }`}
           />
           {errors.confirmPassword && (
             <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -117,7 +114,7 @@ export default function SecurityTab() {
         <div className="pt-2">
           <button
             type="submit"
-            className="w-full py-3.5 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl text-sm transition-colors cursor-pointer shadow-xs"
+            className="w-full py-3.5 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-xs"
           >
             Update Password
           </button>

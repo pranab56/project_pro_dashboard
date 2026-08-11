@@ -13,18 +13,18 @@ interface PlanCardProps {
 
 export default function PlanCard({ plan, onEdit, onDelete }: PlanCardProps) {
   const [selectedCycle, setSelectedCycle] = useState<'month' | 'year' | 'free'>(
-    plan.planPrices.find(p => p.type === 'month') ? 'month' : 
-    plan.planPrices.find(p => p.type === 'year') ? 'year' : 'free'
+    plan.planPrices.find(p => p.type === 'month') ? 'month' :
+      plan.planPrices.find(p => p.type === 'year') ? 'year' : 'free'
   );
 
   const getDisplayPrice = () => {
     const priceObj = plan.planPrices.find(p => p.type === selectedCycle);
     if (!priceObj) return { price: '0.00', cycleText: '' };
-    
+
     const price = priceObj.price === 0 ? '0.00' : priceObj.price.toFixed(2);
-    const cycleText = selectedCycle === 'month' ? '/month' : 
-                     selectedCycle === 'year' ? '/year' : '';
-    
+    const cycleText = selectedCycle === 'month' ? '/month' :
+      selectedCycle === 'year' ? '/year' : '';
+
     return { price, cycleText };
   };
 
@@ -33,7 +33,7 @@ export default function PlanCard({ plan, onEdit, onDelete }: PlanCardProps) {
   const hasMultiplePrices = plan.planPrices.some(p => p.type === 'month' || p.type === 'year');
 
   return (
-    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-sm flex flex-col h-full">
+    <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-sm flex flex-col h-full">
       <div className="flex justify-center mb-4">
         <Users size={32} className="text-gray-800" />
       </div>
@@ -45,11 +45,10 @@ export default function PlanCard({ plan, onEdit, onDelete }: PlanCardProps) {
           {plan.planPrices.find(p => p.type === 'month') && (
             <Button
               onClick={() => setSelectedCycle('month')}
-              className={`px-4 py-1 text-sm rounded-full h-8 ${
-                selectedCycle === 'month'
+              className={`px-4 py-1 text-sm rounded-full h-8 ${selectedCycle === 'month'
                   ? 'bg-blue-500 hover:bg-blue-600 text-white'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-              }`}
+                }`}
             >
               Monthly
             </Button>
@@ -57,11 +56,10 @@ export default function PlanCard({ plan, onEdit, onDelete }: PlanCardProps) {
           {plan.planPrices.find(p => p.type === 'year') && (
             <Button
               onClick={() => setSelectedCycle('year')}
-              className={`px-4 py-1 text-sm rounded-full h-8 ${
-                selectedCycle === 'year'
+              className={`px-4 py-1 text-sm rounded-full h-8 ${selectedCycle === 'year'
                   ? 'bg-blue-500 hover:bg-blue-600 text-white'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-              }`}
+                }`}
             >
               Yearly
             </Button>

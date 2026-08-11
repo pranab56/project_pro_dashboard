@@ -33,7 +33,7 @@ export default function DeleteFaqModal({
           Are you sure you want to delete this FAQ? This action cannot be undone.
         </p>
 
-        <p className="text-gray-700 text-xs font-medium bg-gray-100/80 px-4 py-3 rounded-xl w-full text-left line-clamp-3 mb-6">
+        <p className="text-gray-700 text-xs font-medium bg-gray-100/80 px-4 py-3 rounded-lg w-full text-left line-clamp-3 mb-6">
           &quot;{question}&quot;
         </p>
 
@@ -41,7 +41,7 @@ export default function DeleteFaqModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-3 px-4 border border-gray-300 rounded-xl text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
+            className="flex-1 py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-semibold text-sm hover:bg-gray-100 transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -49,7 +49,7 @@ export default function DeleteFaqModal({
             type="button"
             onClick={onDelete}
             disabled={isLoading}
-            className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-xl transition-colors cursor-pointer shadow-sm disabled:opacity-60"
+            className="flex-1 py-3 px-4 bg-[#E53935] hover:bg-red-700 text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer shadow-sm disabled:opacity-60"
           >
             {isLoading ? 'Deleting...' : 'Delete'}
           </button>

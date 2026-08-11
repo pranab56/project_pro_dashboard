@@ -27,8 +27,8 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
 
       {/* 3 Step Cards */}
       <div className="space-y-3">
-        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] flex items-start gap-4">
-          <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
+        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB] flex items-start gap-4">
+          <div className="p-2.5 rounded-lg bg-purple-100 text-[#6B1294] shrink-0">
             <FileText className="w-5 h-5" />
           </div>
           <div>
@@ -44,8 +44,8 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] flex items-start gap-4">
-          <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
+        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB] flex items-start gap-4">
+          <div className="p-2.5 rounded-lg bg-purple-100 text-[#6B1294] shrink-0">
             <Shield className="w-5 h-5" />
           </div>
           <div>
@@ -56,8 +56,8 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB] flex items-start gap-4">
-          <div className="p-2.5 rounded-xl bg-purple-100 text-[#6B1294] shrink-0">
+        <div className="p-4 sm:p-5 bg-[#FFFFFF] rounded-lg border border-[#E5E7EB] flex items-start gap-4">
+          <div className="p-2.5 rounded-lg bg-purple-100 text-[#6B1294] shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
@@ -72,7 +72,7 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
       </div>
 
       {/* Warning Notice Box */}
-      <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3 text-amber-800">
+      <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3 text-amber-800">
         <Info className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
         <p className="text-xs font-medium leading-relaxed">
           Your submitted information will be reviewed by the platform

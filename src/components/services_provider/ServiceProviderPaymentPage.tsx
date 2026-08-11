@@ -11,6 +11,7 @@ import {
   Download,
   X,
   Building,
+  Lock,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import {
@@ -37,6 +38,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
     {
       id: "1",
       bankName: "Chase Bank",
+      accountHolder: "James Wilson",
       accountType: "Checking",
       last4: "4892",
       routingLast4: "0142",
@@ -45,9 +47,11 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
   ]);
 
   const [newBankName, setNewBankName] = useState("");
+  const [newAccountHolder, setNewAccountHolder] = useState("");
   const [newAccountType, setNewAccountType] = useState("Checking");
-  const [newAccountNumber, setNewAccountNumber] = useState("");
   const [newRoutingNumber, setNewRoutingNumber] = useState("");
+  const [newAccountNumber, setNewAccountNumber] = useState("");
+  const [newConfirmAccountNumber, setNewConfirmAccountNumber] = useState("");
   const [modalErrors, setModalErrors] = useState<Record<string, string>>({});
 
   const paymentHistory: PaymentHistoryItem[] = [
@@ -101,8 +105,14 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
     e.preventDefault();
     const errs: Record<string, string> = {};
     if (!newBankName.trim()) errs.bankName = "Bank Name is required";
-    if (!newAccountNumber.trim()) errs.accountNumber = "Account Number is required";
+    if (!newAccountHolder.trim()) errs.accountHolder = "Account Holder (Name on Account) is required";
     if (!newRoutingNumber.trim()) errs.routingNumber = "Routing Number is required";
+    if (!newAccountNumber.trim()) errs.accountNumber = "Account Number is required";
+    if (!newConfirmAccountNumber.trim()) {
+      errs.confirmAccountNumber = "Confirm Account Number is required";
+    } else if (newAccountNumber.trim() !== newConfirmAccountNumber.trim()) {
+      errs.confirmAccountNumber = "Account Numbers do not match";
+    }
 
     if (Object.keys(errs).length > 0) {
       setModalErrors(errs);
@@ -117,6 +127,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       {
         id: Date.now().toString(),
         bankName: newBankName,
+        accountHolder: newAccountHolder,
         accountType: newAccountType,
         last4,
         routingLast4,
@@ -126,7 +137,9 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
 
     toast.success("Bank account added successfully!");
     setNewBankName("");
+    setNewAccountHolder("");
     setNewAccountNumber("");
+    setNewConfirmAccountNumber("");
     setNewRoutingNumber("");
     setModalErrors({});
     setIsAddAccountModalOpen(false);
@@ -161,7 +174,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       {/* Header Section */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-          Payment Information
+          Invoices & Payments
         </h1>
         <p className="text-xs sm:text-sm text-gray-500 font-normal mt-1">
           Track your earnings, monitor your pending payouts, and see exactly when your money will arrive.
@@ -171,12 +184,12 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       {/* Top 3 Summary Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Card 1: Total Earnings */}
-        <div className="bg-[#16A34A] rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
+        <div className="bg-[#16A34A] rounded-lg p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-sm sm:text-base font-semibold text-white/95">
               Total Earnings
             </span>
-            <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
+            <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
               <DollarSign className="w-5 h-5 stroke-[2.5]" />
             </div>
           </div>
@@ -191,12 +204,12 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
         </div>
 
         {/* Card 2: Unpaid Payouts */}
-        <div className="bg-yellow-500 rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
+        <div className="bg-yellow-500 rounded-lg p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-sm sm:text-base font-semibold text-white/95">
-              Unpaid Payouts
+              Pending Payouts
             </span>
-            <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
+            <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
               <Clock className="w-5 h-5 stroke-[2.5]" />
             </div>
           </div>
@@ -205,18 +218,18 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
               $1,230
             </div>
             <p className="text-xs text-white/80 font-normal mt-2">
-              En route to Account
+              Processing for deposit
             </p>
           </div>
         </div>
 
         {/* Card 3: Open Invoices */}
-        <div className="bg-[#7C3AED] rounded-2xl p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
+        <div className="bg-[#7C3AED] rounded-lg p-6 text-white shadow-sm flex flex-col justify-between min-h-[140px] relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-sm sm:text-base font-semibold text-white/95">
               Open Invoices
             </span>
-            <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
+            <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white">
               <TrendingUp className="w-5 h-5 stroke-[2.5]" />
             </div>
           </div>
@@ -232,7 +245,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       </div>
 
       {/* Payment Methods Section Container */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
             Payment Methods
@@ -240,7 +253,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
           <button
             type="button"
             onClick={() => setIsAddAccountModalOpen(true)}
-            className="bg-[#5B1B95] hover:bg-[#4C127D] text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="bg-[#5B1B95] hover:bg-[#4C127D] text-white px-4 py-3 rounded-lg text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
             <Plus className="w-4 h-4" />
             <span>Add account</span>
@@ -248,7 +261,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
         </div>
 
         {/* Tab / Category Pill */}
-        <div className="bg-[#F2E7FC] border border-[#6B1294]/30 text-[#6B1294] py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 font-semibold text-xs sm:text-sm w-full text-center">
+        <div className="bg-[#F2E7FC] border border-[#6B1294]/30 text-[#6B1294] py-3 px-4 rounded-lg flex items-center justify-center gap-2 font-semibold text-xs sm:text-sm w-full text-center">
           <Landmark className="w-4 h-4" />
           <span>Bank Account</span>
         </div>
@@ -258,17 +271,20 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
           {bankAccounts.map((acc) => (
             <div
               key={acc.id}
-              className="bg-white border border-[#6B1294]/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:shadow-xs transition-all"
+              className="bg-white border border-[#6B1294]/30 rounded-lg p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:shadow-xs transition-all"
             >
               <div className="space-y-1">
                 <h3 className="text-sm font-bold text-gray-900">
                   {acc.bankName} — {acc.accountType}
                 </h3>
+                <p className="text-xs text-gray-700 font-medium">
+                  Account Holder: <span className="font-semibold text-gray-900">{acc.accountHolder}</span>
+                </p>
                 <p className="text-xs text-gray-500 font-mono tracking-widest">
-                  •••• •••• {acc.last4}
+                  Account #: •••• •••• {acc.last4}
                 </p>
                 <p className="text-xs text-gray-400 font-normal">
-                  Routing: •••••{acc.routingLast4}
+                  Routing #: •••••{acc.routingLast4}
                 </p>
               </div>
 
@@ -284,7 +300,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       </div>
 
       {/* Payment History Section Container */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4 shadow-xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4 shadow-xs">
         <div className="flex items-center justify-between">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
             Payment History
@@ -292,7 +308,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
           <button
             type="button"
             onClick={handleExport}
-            className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
           >
             <Download className="w-3.5 h-3.5 text-gray-500" />
             <span>Export</span>
@@ -300,7 +316,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-xl">
+        <div className="overflow-x-auto rounded-lg">
           <table className="w-full text-left border-collapse min-w-[700px]">
             <thead>
               <tr className="border-b border-gray-300/60 text-xs font-bold text-gray-500 uppercase tracking-wider">
@@ -344,12 +360,15 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
       {/* Add Bank Account Modal */}
       {isAddAccountModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-[#E5E7EB] relative space-y-4">
+          <div className="bg-[#FFFFFF] rounded-lg p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-[#E5E7EB] relative space-y-4 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <Building className="w-5 h-5 text-[#6B1294]" />
-                <span>Add Bank Account</span>
-              </h2>
+              <div>
+                <span className="text-xs font-semibold text-[#6B1294] italic block">Enter Bank Details</span>
+                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <Building className="w-5 h-5 text-[#6B1294]" />
+                  <span>Add Bank Account</span>
+                </h2>
+              </div>
               <button
                 type="button"
                 onClick={() => setIsAddAccountModalOpen(false)}
@@ -360,6 +379,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
             </div>
 
             <form onSubmit={handleAddAccountSubmit} className="space-y-4">
+              {/* (1). Bank Name */}
               <div>
                 <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Bank Name *
@@ -372,9 +392,9 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                     if (e.target.value) setModalErrors((p) => ({ ...p, bankName: "" }));
                   }}
                   placeholder="e.g. Chase Bank, Bank of America"
-                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.bankName
-                      ? "border-red-500 bg-red-50/20"
-                      : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.bankName
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                     }`}
                 />
                 {modalErrors.bankName && (
@@ -384,6 +404,32 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                 )}
               </div>
 
+              {/* (2). Account Holder (Name on Account) */}
+              <div>
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
+                  Account Holder (Name on Account) *
+                </label>
+                <input
+                  type="text"
+                  value={newAccountHolder}
+                  onChange={(e) => {
+                    setNewAccountHolder(e.target.value);
+                    if (e.target.value) setModalErrors((p) => ({ ...p, accountHolder: "" }));
+                  }}
+                  placeholder="e.g. John Doe"
+                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.accountHolder
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                    }`}
+                />
+                {modalErrors.accountHolder && (
+                  <p className="text-red-500 text-xs mt-1 font-semibold">
+                    ⚠️ {modalErrors.accountHolder}
+                  </p>
+                )}
+              </div>
+
+              {/* (3). Account Type */}
               <div>
                 <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Account Type *
@@ -392,10 +438,10 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                   value={newAccountType}
                   onValueChange={(val) => setNewAccountType(val)}
                 >
-                  <SelectTrigger className="w-full h-[46px] px-4 py-3 bg-white border border-gray-300 py-5.5 rounded-xl text-sm text-gray-900 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 focus:outline-none transition-all cursor-pointer shadow-none">
+                  <SelectTrigger className="w-full h-[46px] px-4 py-3 bg-white border border-gray-300 py-5.5 rounded-lg text-sm text-gray-900 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 focus:outline-none transition-all cursor-pointer shadow-none">
                     <SelectValue placeholder="Select Account Type" />
                   </SelectTrigger>
-                  <SelectContent className="bg-white rounded-xl border border-gray-200 shadow-lg z-[70]">
+                  <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[70]">
                     <SelectItem value="Checking">Checking</SelectItem>
                     <SelectItem value="Savings">Savings</SelectItem>
                     <SelectItem value="Business">Business</SelectItem>
@@ -403,30 +449,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                 </Select>
               </div>
 
-              <div>
-                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                  Account Number *
-                </label>
-                <input
-                  type="text"
-                  value={newAccountNumber}
-                  onChange={(e) => {
-                    setNewAccountNumber(e.target.value);
-                    if (e.target.value) setModalErrors((p) => ({ ...p, accountNumber: "" }));
-                  }}
-                  placeholder="••••••••4892"
-                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.accountNumber
-                      ? "border-red-500 bg-red-50/20"
-                      : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                    }`}
-                />
-                {modalErrors.accountNumber && (
-                  <p className="text-red-500 text-xs mt-1 font-semibold">
-                    ⚠️ {modalErrors.accountNumber}
-                  </p>
-                )}
-              </div>
-
+              {/* (4). Routing Number */}
               <div>
                 <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
                   Routing Number *
@@ -439,9 +462,9 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                     if (e.target.value) setModalErrors((p) => ({ ...p, routingNumber: "" }));
                   }}
                   placeholder="••••••0142"
-                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.routingNumber
-                      ? "border-red-500 bg-red-50/20"
-                      : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.routingNumber
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
                     }`}
                 />
                 {modalErrors.routingNumber && (
@@ -451,20 +474,73 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
                 )}
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsAddAccountModalOpen(false)}
-                  className="flex-1 py-3 px-4 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 py-3 px-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl shadow-xs text-sm transition-colors cursor-pointer"
-                >
-                  Save Account
-                </button>
+              {/* (5). Account Number */}
+              <div>
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
+                  Account Number *
+                </label>
+                <input
+                  type="password"
+                  value={newAccountNumber}
+                  onChange={(e) => {
+                    setNewAccountNumber(e.target.value);
+                    if (e.target.value) setModalErrors((p) => ({ ...p, accountNumber: "" }));
+                  }}
+                  placeholder="••••••••4892"
+                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.accountNumber
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                    }`}
+                />
+                {modalErrors.accountNumber && (
+                  <p className="text-red-500 text-xs mt-1 font-semibold">
+                    ⚠️ {modalErrors.accountNumber}
+                  </p>
+                )}
+              </div>
+
+              {/* (6). Confirm Account Number */}
+              <div>
+                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
+                  Confirm Account Number *
+                </label>
+                <input
+                  type="password"
+                  value={newConfirmAccountNumber}
+                  onChange={(e) => {
+                    setNewConfirmAccountNumber(e.target.value);
+                    if (e.target.value) setModalErrors((p) => ({ ...p, confirmAccountNumber: "" }));
+                  }}
+                  placeholder="••••••••4892"
+                  className={`w-full h-[46px] px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${modalErrors.confirmAccountNumber
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                    }`}
+                />
+                {modalErrors.confirmAccountNumber && (
+                  <p className="text-red-500 text-xs mt-1 font-semibold">
+                    ⚠️ {modalErrors.confirmAccountNumber}
+                  </p>
+                )}
+              </div>
+
+              <div className="pt-2 flex flex-col space-y-2">
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddAccountModalOpen(false)}
+                    className="flex-1 py-3 px-4 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg text-gray-800 font-semibold text-sm transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 py-3 px-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg shadow-xs text-sm transition-colors cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <Lock className="w-4 h-4 text-white" />
+                    <span>Save Account</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
@@ -473,3 +549,4 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
     </div>
   );
 }
+

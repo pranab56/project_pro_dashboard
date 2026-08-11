@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AlertCircle, Check, Clock } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import { InvoiceStatus } from "@/types/invoice";
 
 interface InvoiceStatusBadgeProps {

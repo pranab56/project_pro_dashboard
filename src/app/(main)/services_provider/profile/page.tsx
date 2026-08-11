@@ -3,18 +3,15 @@
 import React, { useState, useRef } from "react";
 import {
   Camera,
-  Check,
   ChevronDown,
   FileText,
   Mail,
   MapPin,
   Pencil,
   Phone,
-  Plus,
   ShieldCheck,
   Trash2,
   Upload,
-  User,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -120,7 +117,7 @@ export default function ServiceProviderProfilePage() {
             setIsEditing(!isEditing);
             if (isEditing) toast.success("Profile saved!");
           }}
-          className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 font-semibold px-4 py-2.5 rounded-xl shadow-2xs transition-colors cursor-pointer flex items-center gap-2 text-xs sm:text-sm shrink-0"
+          className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 font-semibold px-4 py-2.5 rounded-lg shadow-2xs transition-colors cursor-pointer flex items-center gap-2 text-xs sm:text-sm shrink-0"
         >
           <Pencil className="w-4 h-4 text-gray-600" />
           <span>{isEditing ? "Save Profile" : "Edit Profile"}</span>
@@ -130,7 +127,7 @@ export default function ServiceProviderProfilePage() {
       {/* Main 2 Column Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Profile Summary Card (4 Cols) */}
-        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-6 self-start">
+        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-6 self-start">
           {/* Avatar Circle */}
           <div className="flex flex-col items-center text-center">
             <div className="relative group cursor-pointer" onClick={() => avatarInputRef.current?.click()}>
@@ -187,7 +184,7 @@ export default function ServiceProviderProfilePage() {
         {/* Right Details Column (8 Cols) */}
         <div className="lg:col-span-8 space-y-6">
           {/* 1. Personal Information */}
-          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-4">
             <h3 className="text-base font-bold text-gray-900">
               Personal Information
             </h3>
@@ -201,7 +198,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.firstName}
                   onChange={(e) => setPersonal({ ...personal, firstName: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
 
@@ -213,7 +210,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.lastName}
                   onChange={(e) => setPersonal({ ...personal, lastName: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
 
@@ -225,7 +222,7 @@ export default function ServiceProviderProfilePage() {
                   type="email"
                   value={personal.email}
                   onChange={(e) => setPersonal({ ...personal, email: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
 
@@ -237,7 +234,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.phone}
                   onChange={(e) => setPersonal({ ...personal, phone: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
             </div>
@@ -250,7 +247,7 @@ export default function ServiceProviderProfilePage() {
                 type="text"
                 value={personal.streetAddress}
                 onChange={(e) => setPersonal({ ...personal, streetAddress: e.target.value })}
-                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
               />
             </div>
 
@@ -263,7 +260,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.city}
                   onChange={(e) => setPersonal({ ...personal, city: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -274,7 +271,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.state}
                   onChange={(e) => setPersonal({ ...personal, state: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -285,7 +282,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={personal.zipCode}
                   onChange={(e) => setPersonal({ ...personal, zipCode: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
             </div>
@@ -298,13 +295,13 @@ export default function ServiceProviderProfilePage() {
                 rows={3}
                 value={personal.bio}
                 onChange={(e) => setPersonal({ ...personal, bio: e.target.value })}
-                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95] resize-none"
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95] resize-none"
               />
             </div>
           </div>
 
           {/* 2. Business Information */}
-          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-4">
             <h3 className="text-base font-bold text-gray-900">
               Business Information
             </h3>
@@ -317,7 +314,7 @@ export default function ServiceProviderProfilePage() {
                 type="text"
                 value={business.companyName}
                 onChange={(e) => setBusiness({ ...business, companyName: e.target.value })}
-                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
               />
             </div>
 
@@ -329,7 +326,7 @@ export default function ServiceProviderProfilePage() {
                 type="text"
                 value={business.officeAddress}
                 onChange={(e) => setBusiness({ ...business, officeAddress: e.target.value })}
-                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
               />
             </div>
 
@@ -342,7 +339,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.city}
                   onChange={(e) => setBusiness({ ...business, city: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -353,7 +350,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.state}
                   onChange={(e) => setBusiness({ ...business, state: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -364,7 +361,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.zipCode}
                   onChange={(e) => setBusiness({ ...business, zipCode: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
             </div>
@@ -378,7 +375,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.officePhone}
                   onChange={(e) => setBusiness({ ...business, officePhone: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -389,7 +386,7 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.taxId}
                   onChange={(e) => setBusiness({ ...business, taxId: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
               <div>
@@ -400,14 +397,14 @@ export default function ServiceProviderProfilePage() {
                   type="text"
                   value={business.yearsInBusiness}
                   onChange={(e) => setBusiness({ ...business, yearsInBusiness: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                  className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                 />
               </div>
             </div>
           </div>
 
           {/* 3. License Information */}
-          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-gray-900">
@@ -420,14 +417,14 @@ export default function ServiceProviderProfilePage() {
 
               <button
                 type="button"
-                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2 rounded-xl text-xs transition-colors cursor-pointer shrink-0"
+                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2 rounded-lg text-xs transition-colors cursor-pointer shrink-0"
               >
                 Add more
               </button>
             </div>
 
             {/* License Box */}
-            <div className="bg-gray-200/40 border border-gray-300/60 rounded-xl p-4 space-y-3">
+            <div className="bg-gray-200/40 border border-gray-300/60 rounded-lg p-4 space-y-3">
               <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
                 <ShieldCheck className="w-4 h-4 text-[#5B1B95]" />
                 <span>License 2 — Plumbing</span>
@@ -442,7 +439,7 @@ export default function ServiceProviderProfilePage() {
                     type="text"
                     value={license.type}
                     onChange={(e) => setLicense({ ...license, type: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                   />
                 </div>
 
@@ -454,7 +451,7 @@ export default function ServiceProviderProfilePage() {
                     type="text"
                     value={license.number}
                     onChange={(e) => setLicense({ ...license, number: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                   />
                 </div>
 
@@ -466,7 +463,7 @@ export default function ServiceProviderProfilePage() {
                     type="text"
                     value={license.dateIssued}
                     onChange={(e) => setLicense({ ...license, dateIssued: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                   />
                 </div>
 
@@ -478,7 +475,7 @@ export default function ServiceProviderProfilePage() {
                     type="text"
                     value={license.stateIssued}
                     onChange={(e) => setLicense({ ...license, stateIssued: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
+                    className="w-full px-4 py-2.5 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 focus:outline-none focus:border-[#5B1B95]"
                   />
                 </div>
               </div>
@@ -493,7 +490,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 4. Skills & Specializations */}
-          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-4">
             <div>
               <h3 className="text-base font-bold text-gray-900">
                 Skills & Specializations
@@ -505,7 +502,7 @@ export default function ServiceProviderProfilePage() {
 
             {/* Select Dropdown pill */}
             <div className="relative">
-              <div className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300/70 rounded-xl text-sm text-gray-900 font-semibold flex items-center justify-between cursor-pointer">
+              <div className="w-full px-4 py-3 bg-gray-200/50 border border-gray-300/70 rounded-lg text-sm text-gray-900 font-semibold flex items-center justify-between cursor-pointer">
                 <span>6 skills selected</span>
                 <ChevronDown className="w-4 h-4 text-gray-500" />
               </div>
@@ -525,7 +522,7 @@ export default function ServiceProviderProfilePage() {
           </div>
 
           {/* 5. Documents & Verification */}
-          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 shadow-2xs space-y-4">
             <div>
               <h3 className="text-base font-bold text-gray-900">
                 Documents & Verification
@@ -545,11 +542,11 @@ export default function ServiceProviderProfilePage() {
             />
             <div
               onClick={() => docInputRef.current?.click()}
-              className="border-2 border-dashed border-gray-300 bg-gray-200/30 hover:bg-gray-200/50 rounded-2xl p-6 text-center cursor-pointer transition-all"
+              className="border-2 border-dashed border-gray-300 bg-gray-200/30 hover:bg-gray-200/50 rounded-lg p-6 text-center cursor-pointer transition-all"
             >
               <button
                 type="button"
-                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2.5 rounded-xl text-xs transition-colors cursor-pointer inline-flex items-center gap-2 mb-2"
+                className="bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold px-4 py-2.5 rounded-lg text-xs transition-colors cursor-pointer inline-flex items-center gap-2 mb-2"
               >
                 <Upload className="w-4 h-4" />
                 <span>Upload File</span>
@@ -567,10 +564,10 @@ export default function ServiceProviderProfilePage() {
               {documents.map((doc) => (
                 <div
                   key={doc.id}
-                  className="bg-gray-200/40 border border-gray-300/50 rounded-xl p-3.5 flex items-center justify-between"
+                  className="bg-gray-200/40 border border-gray-300/50 rounded-lg p-3.5 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-purple-100 text-[#5B1B95] flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-lg bg-purple-100 text-[#5B1B95] flex items-center justify-center shrink-0">
                       <FileText className="w-5 h-5" />
                     </div>
                     <div>

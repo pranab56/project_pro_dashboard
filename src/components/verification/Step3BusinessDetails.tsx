@@ -92,9 +92,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, companyName: "" }));
               }}
               placeholder="Acme Property Management"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.companyName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.companyName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.companyName && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -116,9 +115,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, legalName: "" }));
               }}
               placeholder="Acme Property Management LLC"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.legalName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.legalName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.legalName && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -137,7 +135,7 @@ export default function Step3BusinessDetails({
               value={formData.dbaName}
               onChange={onChange}
               placeholder="Acme Property Management"
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
             <p className="text-[11px] text-gray-500 font-normal mt-1">
               Only fill this out if your company operates under a different name from
@@ -158,9 +156,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, website: "" }));
               }}
               placeholder="https://acmeproperty.com"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.website ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.website ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.website && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -182,9 +179,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, address: "" }));
               }}
               placeholder="123 Business Blvd, Suite 400"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.address ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.address && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -207,9 +203,8 @@ export default function Step3BusinessDetails({
                   if (e.target.value.trim()) setErrors((prev) => ({ ...prev, city: "" }));
                 }}
                 placeholder="Los Angeles"
-                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                  errors.city ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                }`}
+                className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.city ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  }`}
               />
               {errors.city && (
                 <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -231,9 +226,8 @@ export default function Step3BusinessDetails({
                   if (e.target.value.trim()) setErrors((prev) => ({ ...prev, state: "" }));
                 }}
                 placeholder="CA"
-                className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                  errors.state ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                }`}
+                className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.state ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  }`}
               />
               {errors.state && (
                 <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -256,9 +250,8 @@ export default function Step3BusinessDetails({
                 if (e.target.value.trim()) setErrors((prev) => ({ ...prev, taxId: "" }));
               }}
               placeholder="XX-XXXXXXX"
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.taxId ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.taxId ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.taxId && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -285,19 +278,17 @@ export default function Step3BusinessDetails({
                 onClick={() =>
                   onUpdateForm((p) => ({ ...p, portfolioSize: size }))
                 }
-                className={`w-full px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
-                  formData.portfolioSize === size
+                className={`w-full px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${formData.portfolioSize === size
                     ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
                     : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
-                }`}
+                  }`}
               >
                 <span>{size}</span>
                 <div
-                  className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                    formData.portfolioSize === size
+                  className={`w-4 h-4 rounded-full border flex items-center justify-center ${formData.portfolioSize === size
                       ? "border-[#6B1294] bg-[#6B1294]"
                       : "border-gray-400"
-                  }`}
+                    }`}
                 >
                   {formData.portfolioSize === size && (
                     <div className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -325,19 +316,17 @@ export default function Step3BusinessDetails({
                 onClick={() =>
                   onUpdateForm((p) => ({ ...p, maintenance: opt }))
                 }
-                className={`w-full px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${
-                  formData.maintenance === opt
+                className={`w-full px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${formData.maintenance === opt
                     ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
                     : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
-                }`}
+                  }`}
               >
                 <span>{opt}</span>
                 <div
-                  className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-2 ${
-                    formData.maintenance === opt
+                  className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-2 ${formData.maintenance === opt
                       ? "border-[#6B1294] bg-[#6B1294]"
                       : "border-gray-400"
-                  }`}
+                    }`}
                 >
                   {formData.maintenance === opt && (
                     <div className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -370,18 +359,16 @@ export default function Step3BusinessDetails({
                   key={pt}
                   type="button"
                   onClick={() => handlePropertyTypeToggle(pt)}
-                  className={`px-4 py-3 rounded-xl border text-left text-sm font-medium transition-all cursor-pointer flex items-center gap-3 ${
-                    isSelected
+                  className={`px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center gap-3 ${isSelected
                       ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
                       : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
-                  }`}
+                    }`}
                 >
                   <div
-                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                      isSelected
+                    className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${isSelected
                         ? "bg-[#6B1294] border-[#6B1294] text-white"
                         : "border-gray-400 bg-white"
-                    }`}
+                      }`}
                   >
                     {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                   </div>
@@ -398,7 +385,7 @@ export default function Step3BusinessDetails({
         <button
           type="button"
           onClick={onBack}
-          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
+          className="py-3 px-5 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg text-gray-800 font-semibold text-sm transition-colors cursor-pointer flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>
@@ -406,7 +393,7 @@ export default function Step3BusinessDetails({
         <button
           type="button"
           onClick={handleContinue}
-          className="py-3 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-xl text-sm transition-colors cursor-pointer shadow-sm flex items-center gap-2"
+          className="py-3 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-sm flex items-center gap-2"
         >
           <span>Continue</span>
           <ArrowRight className="w-4 h-4" />

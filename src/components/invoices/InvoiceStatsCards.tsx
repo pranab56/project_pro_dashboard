@@ -28,7 +28,7 @@ export default function InvoiceStatsCards({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {/* 1. Total Balance Due Card (Green) */}
-      <div className="bg-green-500 text-white rounded-2xl p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
+      <div className="bg-green-500 text-white rounded-lg p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
         <div>
           <p className="text-xs sm:text-sm font-medium text-white/90">
             Total Balance Due
@@ -37,13 +37,13 @@ export default function InvoiceStatsCards({
             {formatCurrency(totalBalanceDue)}
           </h3>
         </div>
-        <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
+        <div className="w-11 h-11 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
           <CheckCircle2 className="w-6 h-6 stroke-[2.2]" />
         </div>
       </div>
 
       {/* 2. Overdue Invoices Card (Red) */}
-      <div className="bg-red-500 text-white rounded-2xl p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
+      <div className="bg-red-500 text-white rounded-lg p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
         <div>
           <p className="text-xs sm:text-sm font-medium text-white/90">
             Overdue Invoices
@@ -52,13 +52,13 @@ export default function InvoiceStatsCards({
             {overdueCount}
           </h3>
         </div>
-        <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
+        <div className="w-11 h-11 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
           <AlertCircle className="w-6 h-6 stroke-[2.2]" />
         </div>
       </div>
 
       {/* 3. Pending Approvals Card (Amber/Orange) */}
-      <div className="bg-yellow-500 text-white rounded-2xl p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
+      <div className="bg-yellow-500 text-white rounded-lg p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
         <div>
           <p className="text-xs sm:text-sm font-medium text-white/90">
             Pending Approvals
@@ -67,13 +67,13 @@ export default function InvoiceStatsCards({
             {pendingCount}
           </h3>
         </div>
-        <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
+        <div className="w-11 h-11 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
           <Clock className="w-6 h-6 stroke-[2.2]" />
         </div>
       </div>
 
       {/* 4. Paid History Card (Indigo/Purple) */}
-      <div className="bg-[#6366F1] text-white rounded-2xl p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
+      <div className="bg-[#6366F1] text-white rounded-lg p-5 shadow-xs flex items-center justify-between transition-all hover:shadow-md">
         <div>
           <p className="text-xs sm:text-sm font-medium text-white/90">
             Paid History
@@ -82,7 +82,7 @@ export default function InvoiceStatsCards({
             {formatCurrency(paidHistoryAmount)}
           </h3>
         </div>
-        <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
+        <div className="w-11 h-11 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center text-white shrink-0">
           <DollarSign className="w-6 h-6 stroke-[2.2]" />
         </div>
       </div>

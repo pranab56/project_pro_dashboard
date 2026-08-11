@@ -26,7 +26,7 @@ export default function ServiceRequestHeader({
       <button
         type="button"
         onClick={onOpenModal}
-        className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0"
+        className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-lg sm:rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0"
       >
         <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         <span>New Service Request</span>

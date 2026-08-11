@@ -96,7 +96,7 @@ export default function ProfileTab() {
       />
 
       {/* Top Profile Avatar Row */}
-      <div className="flex items-center gap-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5">
+      <div className="flex items-center gap-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5">
         <div
           onClick={handleChangePhoto}
           className="relative group cursor-pointer shrink-0"
@@ -128,7 +128,7 @@ export default function ProfileTab() {
           <button
             type="button"
             onClick={handleChangePhoto}
-            className="mt-2 text-xs font-semibold text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-xl px-3.5 py-1.5 transition-colors cursor-pointer"
+            className="mt-2 text-xs font-semibold text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg px-3.5 py-1.5 transition-colors cursor-pointer"
           >
             Change Photo
           </button>
@@ -136,7 +136,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 1. Profile Information Box */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Profile Information
         </h3>
@@ -151,9 +151,8 @@ export default function ProfileTab() {
               name="firstName"
               value={profileData.firstName}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.firstName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.firstName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.firstName && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -171,9 +170,8 @@ export default function ProfileTab() {
               name="lastName"
               value={profileData.lastName}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.lastName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.lastName ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.lastName && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -191,7 +189,7 @@ export default function ProfileTab() {
               name="username"
               value={profileData.username}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -204,7 +202,7 @@ export default function ProfileTab() {
               name="jobTitle"
               value={profileData.jobTitle}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -217,9 +215,8 @@ export default function ProfileTab() {
               name="email"
               value={profileData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.email ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.email ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -237,9 +234,8 @@ export default function ProfileTab() {
               name="phone"
               value={profileData.phone}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-gray-900 focus:outline-none transition-all ${
-                errors.phone ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-              }`}
+              className={`w-full px-4 py-3 bg-white border rounded-lg text-sm text-gray-900 focus:outline-none transition-all ${errors.phone ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                }`}
             />
             {errors.phone && (
               <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
@@ -251,7 +247,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 2. Registered Business Information Box */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Registered Business Information
         </h3>
@@ -266,7 +262,7 @@ export default function ProfileTab() {
               name="parentCompanyName"
               value={profileData.parentCompanyName}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -279,7 +275,7 @@ export default function ProfileTab() {
               name="parentCompanyAddress"
               value={profileData.parentCompanyAddress}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -293,7 +289,7 @@ export default function ProfileTab() {
                 name="city"
                 value={profileData.city}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
               />
             </div>
 
@@ -306,7 +302,7 @@ export default function ProfileTab() {
                 name="state"
                 value={profileData.state}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
               />
             </div>
 
@@ -319,7 +315,7 @@ export default function ProfileTab() {
                 name="country"
                 value={profileData.country}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
               />
             </div>
           </div>
@@ -334,7 +330,7 @@ export default function ProfileTab() {
                 name="website"
                 value={profileData.website}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
               />
             </div>
 
@@ -347,7 +343,7 @@ export default function ProfileTab() {
                 name="businessPhone"
                 value={profileData.businessPhone}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+                className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
               />
             </div>
           </div>
@@ -355,7 +351,7 @@ export default function ProfileTab() {
       </div>
 
       {/* 3. Secondary Contact Information Box */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Secondary Contact Information
         </h3>
@@ -370,7 +366,7 @@ export default function ProfileTab() {
               name="secFullName"
               value={profileData.secFullName}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -383,7 +379,7 @@ export default function ProfileTab() {
               name="secJobTitle"
               value={profileData.secJobTitle}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -396,7 +392,7 @@ export default function ProfileTab() {
               name="secEmail"
               value={profileData.secEmail}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
 
@@ -409,7 +405,7 @@ export default function ProfileTab() {
               name="secPhone"
               value={profileData.secPhone}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-xl text-sm text-gray-900 focus:outline-none transition-all"
+              className="w-full px-4 py-3 bg-white border border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20 rounded-lg text-sm text-gray-900 focus:outline-none transition-all"
             />
           </div>
         </div>
@@ -419,7 +415,7 @@ export default function ProfileTab() {
       <div className="flex justify-end pt-2">
         <button
           type="submit"
-          className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-6 py-3 rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm"
+          className="bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold px-6 py-3 rounded-lg shadow-xs transition-colors cursor-pointer flex items-center gap-2 text-sm"
         >
           <Save className="w-4 h-4" />
           <span>Save Changes</span>

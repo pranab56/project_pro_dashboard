@@ -302,7 +302,7 @@ export default function JobRequestPage(): React.ReactElement {
       </div>
 
       {/* Top Search & Filter Bar */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
         {/* Search Input Box */}
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -352,7 +352,7 @@ export default function JobRequestPage(): React.ReactElement {
       </div>
 
       {/* Main Table Section */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-2xs">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[780px]">
             <thead>
@@ -455,7 +455,7 @@ export default function JobRequestPage(): React.ReactElement {
       {/* JOB DETAILS MODAL (Matching Screenshot 2) */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-[#E5E7EB] custom-scrollbar animate-in zoom-in-95 duration-200">
+          <div className="bg-[#FFFFFF] rounded-lg p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-[#E5E7EB] custom-scrollbar animate-in zoom-in-95 duration-200">
             {/* Top Close Button & Job Tag Header */}
             <div className="flex items-start justify-between">
               <div>
@@ -488,7 +488,7 @@ export default function JobRequestPage(): React.ReactElement {
 
             {/* Grid 1: Job Type & Priority Level */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Job Type
                 </span>
@@ -497,7 +497,7 @@ export default function JobRequestPage(): React.ReactElement {
                 </span>
               </div>
 
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Priority Level
                 </span>
@@ -509,18 +509,18 @@ export default function JobRequestPage(): React.ReactElement {
 
             {/* Grid 2: Payout & Property */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
-                  Payout
+                  Payout Fee
                 </span>
                 <span className="text-sm font-bold text-gray-900 mt-1 block">
                   {selectedJob.payout}
                 </span>
               </div>
 
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
-                  Property
+                  Property Name
                 </span>
                 <span className="text-sm font-bold text-gray-900 mt-1 block truncate">
                   {selectedJob.propertyName}
@@ -530,16 +530,16 @@ export default function JobRequestPage(): React.ReactElement {
 
             {/* Grid 3: Unit & Scheduled Date */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
-                  Unit
+                  Unit / Suit #
                 </span>
                 <span className="text-sm font-bold text-gray-900 mt-1 block">
                   {selectedJob.unit}
                 </span>
               </div>
 
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block">
                   Scheduled Date
                 </span>
@@ -550,9 +550,9 @@ export default function JobRequestPage(): React.ReactElement {
             </div>
 
             {/* Address Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
-                Address
+                Job Site Address
               </span>
               <div className="flex items-center gap-1.5 text-sm font-bold text-gray-900 mt-1">
                 <MapPin className="w-4 h-4 text-[#5B1B95] shrink-0" />
@@ -561,7 +561,7 @@ export default function JobRequestPage(): React.ReactElement {
             </div>
 
             {/* Job Scope Description Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
                 Job Scope Description
               </span>
@@ -571,18 +571,18 @@ export default function JobRequestPage(): React.ReactElement {
             </div>
 
             {/* Notes Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
               <span className="text-xs text-gray-400 font-normal block">
-                Notes
+                Site Information
               </span>
               <p className="text-xs text-gray-800 font-normal mt-1">
-                {selectedJob.notes}
+                {"Gate code #4412 . Pet on Property . Occupied"}
               </p>
             </div>
 
             {/* Images Grid */}
             {selectedJob.images && selectedJob.images.length > 0 && (
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-xl p-3.5">
+              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
                 <span className="text-xs text-gray-400 font-normal block mb-2">
                   Images
                 </span>
@@ -592,7 +592,7 @@ export default function JobRequestPage(): React.ReactElement {
                       key={idx}
                       src={img}
                       alt={`Job detail ${idx + 1}`}
-                      className="w-24 h-16 object-cover rounded-xl border border-gray-300/60 shadow-2xs shrink-0"
+                      className="w-24 h-16 object-cover rounded-lg border border-gray-300/60 shadow-2xs shrink-0"
                     />
                   ))}
                 </div>
@@ -600,7 +600,7 @@ export default function JobRequestPage(): React.ReactElement {
             )}
 
             {/* Red Alert Banner */}
-            <div className="bg-red-50/90 border border-red-300/80 rounded-xl p-3.5 flex items-start gap-2 text-xs text-[#E53935]">
+            <div className="bg-red-50/90 border border-red-300/80 rounded-lg p-3.5 flex items-start gap-2 text-xs text-[#E53935]">
               <Clock className="w-4 h-4 text-[#E53935] shrink-0 mt-0.5" />
               <span className="font-normal leading-tight">
                 60 minutes to accept or decline this job before it&apos;s assigned to
@@ -613,7 +613,7 @@ export default function JobRequestPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => handleAcceptJob(selectedJob.id)}
-                className="flex-1 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer shadow-xs text-center"
+                className="flex-1 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer shadow-xs text-center"
               >
                 Accept
               </button>
@@ -621,7 +621,7 @@ export default function JobRequestPage(): React.ReactElement {
               <button
                 type="button"
                 onClick={() => handleDeclineJob(selectedJob.id)}
-                className="flex-1 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold py-3 px-4 rounded-xl text-sm transition-colors cursor-pointer text-center"
+                className="flex-1 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer text-center"
               >
                 Decline
               </button>

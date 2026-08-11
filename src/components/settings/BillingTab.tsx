@@ -30,13 +30,13 @@ export default function BillingTab() {
   return (
     <div className="space-y-6">
       {/* 1. Current Plan Card */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Current Plan
         </h3>
 
         {/* Banner */}
-        <div className="bg-[#E1D4F4]/80 border border-purple-200 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-[#E1D4F4]/80 border border-purple-200 rounded-lg p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <h4 className="text-lg font-bold text-gray-900">
@@ -65,14 +65,14 @@ export default function BillingTab() {
           <button
             type="button"
             onClick={handleChangePlan}
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gray-300 transition-colors cursor-pointer"
+            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-5 py-2.5 rounded-lg text-xs sm:text-sm border border-gray-300 transition-colors cursor-pointer"
           >
             Change Plan
           </button>
           <button
             type="button"
             onClick={handleCancelPlan}
-            className="bg-red-50/80 hover:bg-red-100 text-[#E53935] border border-red-300 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-colors cursor-pointer"
+            className="bg-red-50/80 hover:bg-red-100 text-[#E53935] border border-red-300 font-semibold px-5 py-2.5 rounded-lg text-xs sm:text-sm transition-colors cursor-pointer"
           >
             Cancel Plan
           </button>
@@ -80,12 +80,12 @@ export default function BillingTab() {
       </div>
 
       {/* 2. Payment Method Card */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Payment Method
         </h3>
 
-        <div className="bg-white border border-gray-300/60 rounded-2xl p-4 flex items-center justify-between">
+        <div className="bg-white border border-gray-300/60 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-black text-white px-2.5 py-1 text-xs font-black tracking-widest rounded-md shrink-0">
               VISA
@@ -108,7 +108,7 @@ export default function BillingTab() {
         <button
           type="button"
           onClick={handleAddPayment}
-          className="bg-[#E1D4F4] hover:bg-purple-200 text-[#5B1B95] font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5 border border-purple-200 w-fit"
+          className="bg-[#E1D4F4] hover:bg-purple-200 text-[#5B1B95] font-semibold px-4 py-2.5 rounded-lg text-xs sm:text-sm transition-colors cursor-pointer flex items-center gap-1.5 border border-purple-200 w-fit"
         >
           <Plus className="w-4 h-4" />
           <span>Add Payment Method</span>
@@ -116,7 +116,7 @@ export default function BillingTab() {
       </div>
 
       {/* 3. Billing History Card */}
-      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 space-y-4">
+      <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 sm:p-6 space-y-4">
         <h3 className="text-base font-bold text-gray-900 tracking-tight">
           Billing History
         </h3>
