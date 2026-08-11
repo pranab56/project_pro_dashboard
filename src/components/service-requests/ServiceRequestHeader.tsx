@@ -19,7 +19,7 @@ export default function ServiceRequestHeader({
           Service Requests
         </h1>
         <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
-          {activeCount} active · Click a Job ID to track progress
+          {activeCount} Active Work Orders . Track Job-site updates & progress in real-time.
         </p>
       </div>
 

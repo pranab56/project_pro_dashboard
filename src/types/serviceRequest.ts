@@ -13,6 +13,7 @@ export interface ServiceRequest {
   contractor: string;
   contractorPhone?: string;
   createdDate: string;
+  scheduledDate?: string;
   isOccupied?: boolean;
   tenantName?: string;
   tenantPhone?: string;
