@@ -2,6 +2,7 @@
 
 import {
     Building2,
+    Eye,
     Home,
     MapPin,
     Pencil,
@@ -37,6 +38,10 @@ interface Property {
     status: PropertyStatus;
     image: string;
 }
+
+const residentialCategories = ["Apartment Complex", "Single-family home", "Condominium", "Townhouse", "Other"];
+const commercialCategories = ["Office Building", "Retail / Office", "Shopping Center", "Warehouse", "Other"];
+const mixedUseCategories = ["Mixed Residential & Retail", "Live/Work Spaces", "Multi-use Plaza", "Other"];
 
 const initialProperties: Property[] = [
     {
@@ -108,12 +113,14 @@ export default function PropertiesPage() {
     // Modal State
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [editingId, setEditingId] = useState<string | null>(null);
+    const [viewingProperty, setViewingProperty] = useState<Property | null>(null);
     const [deletingProperty, setDeletingProperty] = useState<Property | null>(null);
 
     // Modal Form State
-    const [formType, setFormType] = useState<PropertyType>("commercial");
+    const [formType, setFormType] = useState<PropertyType>("residential");
     const [formName, setFormName] = useState<string>("");
-    const [formSubCategory, setFormSubCategory] = useState<string>("");
+    const [formSubCategory, setFormSubCategory] = useState<string>("Apartment Complex");
+    const [formCustomSubCategory, setFormCustomSubCategory] = useState<string>("");
     const [formAddress, setFormAddress] = useState<string>("");
     const [formTotalUnits, setFormTotalUnits] = useState<string>("");
     const [formUnitNumber, setFormUnitNumber] = useState<string>("");
@@ -148,9 +155,10 @@ export default function PropertiesPage() {
     // Open Modal for Create
     const handleOpenAddModal = () => {
         setEditingId(null);
-        setFormType("commercial");
+        setFormType("residential");
         setFormName("");
-        setFormSubCategory("");
+        setFormSubCategory("Apartment Complex");
+        setFormCustomSubCategory("");
         setFormAddress("");
         setFormTotalUnits("");
         setFormUnitNumber("");
@@ -166,7 +174,21 @@ export default function PropertiesPage() {
         setEditingId(prop.id);
         setFormType(prop.type);
         setFormName(prop.name);
-        setFormSubCategory(prop.category);
+
+        const currentSubCats = prop.type === "residential"
+            ? residentialCategories
+            : prop.type === "commercial"
+            ? commercialCategories
+            : mixedUseCategories;
+
+        if (currentSubCats.includes(prop.category)) {
+            setFormSubCategory(prop.category);
+            setFormCustomSubCategory("");
+        } else {
+            setFormSubCategory("Other");
+            setFormCustomSubCategory(prop.category);
+        }
+
         setFormAddress(prop.address);
         setFormTotalUnits(prop.totalUnits ? prop.totalUnits.toString() : "");
         setFormUnitNumber(prop.unitNumber || "");
@@ -203,6 +225,9 @@ export default function PropertiesPage() {
         }
 
         const finalImage = formImage || `/images/prop_${(properties.length % 6) + 1}.png`;
+        const computedCategory = (formSubCategory === "Other" && formCustomSubCategory.trim())
+            ? formCustomSubCategory.trim()
+            : (formSubCategory || (formType === "commercial" ? "Office Building" : "Apartment Complex"));
 
         if (editingId) {
             // Edit existing
@@ -213,7 +238,7 @@ export default function PropertiesPage() {
                             ...p,
                             name: formName,
                             address: formAddress,
-                            category: formSubCategory || p.category,
+                            category: computedCategory,
                             totalUnits: formTotalUnits ? Number(formTotalUnits) : undefined,
                             unitNumber: formUnitNumber || undefined,
                             type: formType,
@@ -230,7 +255,7 @@ export default function PropertiesPage() {
                 id: Date.now().toString(),
                 name: formName,
                 address: formAddress,
-                category: formSubCategory || (formType === "commercial" ? "Office Building" : "Apartment Complex"),
+                category: computedCategory,
                 totalUnits: formTotalUnits ? Number(formTotalUnits) : undefined,
                 unitNumber: formUnitNumber || undefined,
                 type: formType,
@@ -332,11 +357,14 @@ export default function PropertiesPage() {
                         className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg overflow-hidden shadow-2xs flex flex-col justify-between transition-all hover:shadow-md"
                     >
                         {/* Top Image & Overlay Badges */}
-                        <div className="h-52 w-full relative overflow-hidden bg-gray-200">
+                        <div
+                            onClick={() => setViewingProperty(prop)}
+                            className="h-52 w-full relative overflow-hidden bg-gray-200 cursor-pointer group/img"
+                        >
                             <img
                                 src={prop.image}
                                 alt={prop.name}
-                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105"
                             />
 
                             {/* Type Badge (Top-Left) */}
@@ -372,7 +400,10 @@ export default function PropertiesPage() {
                         {/* Card Content Details */}
                         <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                             <div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-1.5 line-clamp-1">
+                                <h3
+                                    onClick={() => setViewingProperty(prop)}
+                                    className="text-lg font-bold text-gray-900 mb-1.5 line-clamp-1 cursor-pointer hover:text-[#5B1B95] transition-colors"
+                                >
                                     {prop.name}
                                 </h3>
 
@@ -397,11 +428,11 @@ export default function PropertiesPage() {
                             <div className="flex items-center gap-3 pt-3 border-t border-gray-300/50">
                                 <button
                                     type="button"
-                                    onClick={() => handleOpenEditModal(prop)}
+                                    onClick={() => setViewingProperty(prop)}
                                     className="flex-1 py-2.5 px-3 border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold text-xs sm:text-sm rounded-lg flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
                                 >
-                                    <Pencil className="w-3.5 h-3.5" />
-                                    <span>Edit</span>
+                                    <Eye className="w-3.5 h-3.5 text-gray-500" />
+                                    <span>View</span>
                                 </button>
                                 <button
                                     type="button"
@@ -453,6 +484,124 @@ export default function PropertiesPage() {
                 </div>
             )}
 
+            {/* View Property Details Modal */}
+            {viewingProperty && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                    <div className="bg-[#FFFFFF] rounded-xl p-6 sm:p-8 sm:max-w-xl w-full shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar border border-[#E5E7EB] animate-in fade-in zoom-in-95 duration-200 ease-out space-y-6">
+                        {/* Modal Header */}
+                        <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+                            <div>
+                                <h2 className="text-xl font-bold text-gray-900">Property Details</h2>
+                                <p className="text-xs text-gray-500 font-normal mt-0.5">View complete property information</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setViewingProperty(null)}
+                                className="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Property Cover Image & Overlay Badges */}
+                        <div className="h-56 w-full relative rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
+                            <img
+                                src={viewingProperty.image}
+                                alt={viewingProperty.name}
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute top-3.5 left-3.5">
+                                {viewingProperty.type === "residential" ? (
+                                    <span className="bg-[#E5D7F6] text-[#5B1B95] border border-[#E1D4F4] font-semibold text-xs px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                        <Home className="w-3.5 h-3.5" />
+                                        Residential
+                                    </span>
+                                ) : (
+                                    <span className="bg-[#DBEAFE] text-[#2563EB] border border-[#BFDBFE] font-semibold text-xs px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                        <Building2 className="w-3.5 h-3.5" />
+                                        Commercial
+                                    </span>
+                                )}
+                            </div>
+                            <div className="absolute top-3.5 right-3.5">
+                                <span
+                                    className={`font-semibold text-xs px-3 py-1 rounded-full border shadow-xs ${
+                                        viewingProperty.status === "Active"
+                                            ? "bg-[#DCFCE7] text-[#16A34A] border-[#BBF7D0]"
+                                            : viewingProperty.status === "Pending"
+                                                ? "bg-[#FEF3C7] text-[#D97706] border-[#FDE68A]"
+                                                : "bg-gray-200 text-gray-600 border-gray-300"
+                                    }`}
+                                >
+                                    {viewingProperty.status}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Main Info */}
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="text-2xl font-bold text-gray-900">{viewingProperty.name}</h3>
+                                <div className="text-sm text-gray-600 font-medium flex items-center gap-1.5 mt-1">
+                                    <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+                                    <span>{viewingProperty.address}</span>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50/80 rounded-lg border border-gray-200/80">
+                                <div>
+                                    <span className="text-xs text-gray-400 font-medium block">Category</span>
+                                    <span className="text-sm font-semibold text-gray-800">{viewingProperty.category}</span>
+                                </div>
+                                <div>
+                                    <span className="text-xs text-gray-400 font-medium block">Property Type</span>
+                                    <span className="text-sm font-semibold text-gray-800 capitalize">{viewingProperty.type}</span>
+                                </div>
+                                {viewingProperty.totalUnits !== undefined && (
+                                    <div>
+                                        <span className="text-xs text-gray-400 font-medium block">Total Units</span>
+                                        <span className="text-sm font-semibold text-gray-800">{viewingProperty.totalUnits} Units</span>
+                                    </div>
+                                )}
+                                {viewingProperty.unitNumber && (
+                                    <div>
+                                        <span className="text-xs text-gray-400 font-medium block">Unit Number</span>
+                                        <span className="text-sm font-semibold text-gray-800">Unit {viewingProperty.unitNumber}</span>
+                                    </div>
+                                )}
+                                <div>
+                                    <span className="text-xs text-gray-400 font-medium block">Current Status</span>
+                                    <span className="text-sm font-semibold text-gray-800">{viewingProperty.status}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Modal Actions */}
+                        <div className="flex gap-3 pt-2">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    const target = viewingProperty;
+                                    setViewingProperty(null);
+                                    handleOpenEditModal(target);
+                                }}
+                                className="flex-1 py-3 px-4 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold rounded-lg shadow-xs text-sm sm:text-base transition-colors cursor-pointer flex items-center justify-center gap-2"
+                            >
+                                <Pencil className="w-4 h-4" />
+                                <span>Edit Property Details</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setViewingProperty(null)}
+                                className="py-3 px-5 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold rounded-lg text-sm sm:text-base transition-colors cursor-pointer"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Add / Edit Property Modal Dialog */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
@@ -460,7 +609,7 @@ export default function PropertiesPage() {
                         {/* Modal Header */}
                         <div className="flex items-center justify-between mb-5">
                             <h2 className="text-xl font-bold text-gray-900">
-                                {editingId ? "Edit Property" : "Add New Property"}
+                                {editingId ? "Edit Property Details" : "Add New Property"}
                             </h2>
                             <button
                                 type="button"
@@ -480,7 +629,10 @@ export default function PropertiesPage() {
                                 <div className="grid grid-cols-3 gap-2.5">
                                     <button
                                         type="button"
-                                        onClick={() => setFormType("residential")}
+                                        onClick={() => {
+                                            setFormType("residential");
+                                            setFormSubCategory("Apartment Complex");
+                                        }}
                                         className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "residential"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -492,7 +644,10 @@ export default function PropertiesPage() {
 
                                     <button
                                         type="button"
-                                        onClick={() => setFormType("commercial")}
+                                        onClick={() => {
+                                            setFormType("commercial");
+                                            setFormSubCategory("Office Building");
+                                        }}
                                         className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "commercial"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -504,7 +659,10 @@ export default function PropertiesPage() {
 
                                     <button
                                         type="button"
-                                        onClick={() => setFormType("mixed-use")}
+                                        onClick={() => {
+                                            setFormType("mixed-use");
+                                            setFormSubCategory("Mixed Residential & Retail");
+                                        }}
                                         className={`py-3 px-3 rounded-lg font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all ${formType === "mixed-use"
                                             ? "border-2 border-[#5B1B95] bg-[#F2E7FC] text-[#5B1B95]"
                                             : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"
@@ -516,89 +674,63 @@ export default function PropertiesPage() {
                                 </div>
                             </div>
 
-                            {/* Dynamic Fields based on Residential vs Commercial */}
-                            {formType === "residential" ? (
-                                <>
-                                    {/* Sub-Category */}
-                                    <div>
-                                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                            Sub-Category *
-                                        </label>
-                                        <Select
-                                            value={formSubCategory || "Apartment Complex"}
-                                            onValueChange={(val) => {
-                                                setFormSubCategory(val);
-                                                setErrors((prev) => ({ ...prev, subCategory: "" }));
-                                            }}
-                                        >
-                                            <SelectTrigger className="w-full h-[48px] px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm py-5.5 text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
-                                                <SelectValue placeholder="e.g. Single-family home" />
-                                            </SelectTrigger>
-                                            <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
-                                                <SelectItem className="py-3" value="Apartment Complex">Apartment Complex</SelectItem>
-                                                <SelectItem className="py-3" value="Single-family home">Single-family home</SelectItem>
-                                                <SelectItem className="py-3" value="Condominium">Condominium</SelectItem>
-                                                <SelectItem className="py-3" value="Townhouse">Townhouse</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
+                            {/* Sub-Category Dropdown (Includes 'Other' option for all 3 tabs) */}
+                            <div>
+                                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
+                                    Sub-Category *
+                                </label>
+                                <Select
+                                    value={formSubCategory}
+                                    onValueChange={(val) => {
+                                        setFormSubCategory(val);
+                                        setErrors((prev) => ({ ...prev, subCategory: "" }));
+                                    }}
+                                >
+                                    <SelectTrigger className="w-full h-[48px] px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm py-5.5 text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
+                                        <SelectValue placeholder="Select Sub-Category" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">
+                                        {(formType === "residential"
+                                            ? residentialCategories
+                                            : formType === "commercial"
+                                            ? commercialCategories
+                                            : mixedUseCategories
+                                        ).map((cat) => (
+                                            <SelectItem key={cat} className="py-3 cursor-pointer" value={cat}>
+                                                {cat}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
 
-                                    {/* Property Name */}
-                                    <div>
-                                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                            Property Name *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formName}
-                                            onChange={(e) => {
-                                                setFormName(e.target.value);
-                                                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
-                                            }}
-                                            placeholder="e.g. Sunset Apartments"
-                                            className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg   text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
-                                                }`}
-                                        />
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    {/* Building / Plaza Name */}
-                                    <div>
-                                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                            Building / Plaza Name *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formName}
-                                            onChange={(e) => {
-                                                setFormName(e.target.value);
-                                                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
-                                            }}
-                                            placeholder="e.g. Sunset Apartments"
-                                            className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
-                                                }`}
-                                        />
-                                    </div>
+                                {formSubCategory === "Other" && (
+                                    <input
+                                        type="text"
+                                        value={formCustomSubCategory}
+                                        onChange={(e) => setFormCustomSubCategory(e.target.value)}
+                                        placeholder="Please specify custom sub-category..."
+                                        className="w-full mt-2 px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                    />
+                                )}
+                            </div>
 
-                                    {/* Sub-Category */}
-                                    <div>
-                                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
-                                            Sub-Category *
-                                        </label>
-                                        <input
-                                            type="text"
-                                            value={formSubCategory}
-                                            onChange={(e) => {
-                                                setFormSubCategory(e.target.value);
-                                                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, subCategory: "" }));
-                                            }}
-                                            placeholder="e.g. Office Building"
-                                            className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
-                                        />
-                                    </div>
-                                </>
-                            )}
+                            {/* Property Name */}
+                            <div>
+                                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1.5">
+                                    {formType === "commercial" ? "Building / Plaza Name *" : "Property Name *"}
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formName}
+                                    onChange={(e) => {
+                                        setFormName(e.target.value);
+                                        if (e.target.value.trim()) setErrors((prev) => ({ ...prev, name: "" }));
+                                    }}
+                                    placeholder="e.g. Sunset Apartments"
+                                    className={`w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.name ? "border-red-500 bg-red-50/20" : "border-gray-300 focus:border-[#5B1B95]"
+                                        }`}
+                                />
+                            </div>
 
                             {/* Property / Building Address */}
                             <div>
@@ -629,7 +761,7 @@ export default function PropertiesPage() {
                                         value={formUnitNumber}
                                         onChange={(e) => setFormUnitNumber(e.target.value)}
                                         placeholder="e.g. A, 1A, 101"
-                                        className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                        className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
                                     />
                                 </div>
 
@@ -643,7 +775,7 @@ export default function PropertiesPage() {
                                             value={formTotalUnits}
                                             onChange={(e) => setFormTotalUnits(e.target.value)}
                                             placeholder="e.g. 24"
-                                            className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
+                                            className="w-full px-4 py-3 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-[#5B1B95] transition-all"
                                         />
                                     </div>
                                 ) : (
@@ -678,7 +810,7 @@ export default function PropertiesPage() {
                                     value={formStatus}
                                     onValueChange={(val) => setFormStatus(val as PropertyStatus)}
                                 >
-                                    <SelectTrigger className="w-full h-[48px] py-5.5 px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg  text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
+                                    <SelectTrigger className="w-full h-[48px] py-5.5 px-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg text-sm text-gray-900 focus:outline-none transition-all cursor-pointer shadow-none">
                                         <SelectValue placeholder="Active" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white rounded-lg border border-gray-200 shadow-lg z-[60]">

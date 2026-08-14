@@ -51,6 +51,7 @@ const mockRequests: Record<string, ServiceRequest> = {
     tenantName: "Nichole",
     tenantPhone: "+555 2552 552",
   },
+
   "SR-002": {
     id: "SR-002",
     title: "HVAC Not Cooling — 3rd Floor",
@@ -64,6 +65,7 @@ const mockRequests: Record<string, ServiceRequest> = {
     contractorPhone: "+1 (555) 482-9901",
     createdDate: "Jun 21, 2026",
   },
+
   "SR-003": {
     id: "SR-003",
     title: "Electrical Panel Inspection",
@@ -77,6 +79,7 @@ const mockRequests: Record<string, ServiceRequest> = {
     contractorPhone: "+1 (555) 619-3388",
     createdDate: "Jun 20, 2026",
   },
+
   "SR-004": {
     id: "SR-004",
     title: "Landscaping & Lawn Care",
@@ -90,6 +93,7 @@ const mockRequests: Record<string, ServiceRequest> = {
     contractorPhone: "+1 (555) 204-1144",
     createdDate: "Jun 18, 2026",
   },
+
   "SR-005": {
     id: "SR-005",
     title: "Elevator #2 Maintenance",
@@ -103,6 +107,7 @@ const mockRequests: Record<string, ServiceRequest> = {
     contractorPhone: "+1 (555) 777-9090",
     createdDate: "Jun 17, 2026",
   },
+
 };
 
 function TrackContent() {
@@ -123,6 +128,9 @@ function TrackContent() {
   };
 
 
+  const handleAcceptJob = (userId: number) => {
+    console.log(userId)
+  }
 
   return (
     <div className="space-y-6">
@@ -136,7 +144,6 @@ function TrackContent() {
             Real-time milestone tracking for {request.title} at {request.property}.
           </p>
         </div>
-
         <button
           type="button"
           onClick={handleComplete}
@@ -145,6 +152,7 @@ function TrackContent() {
           Approved
         </button>
       </div>
+
 
       {/* Top Info Cards Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -205,6 +213,7 @@ function TrackContent() {
             </div>
           </div>
         </div>
+
       </div>
 
       {/* Project Progress Stepper Timeline Card */}
@@ -244,6 +253,8 @@ function TrackContent() {
             <h4 className="font-bold text-sm text-gray-900 mt-3">Received</h4>
             <p className="text-xs text-gray-400 font-normal mt-0.5">{request.createdDate}</p>
           </div>
+
+
 
           {/* Step 2: Assigned */}
           <div className="flex flex-col items-center text-center z-10 flex-1">
@@ -294,11 +305,13 @@ function TrackContent() {
               Finished & Approved
             </p>
           </div>
+
         </div>
       </div>
     </div>
   );
 }
+
 
 export default function TrackPage() {
   return (

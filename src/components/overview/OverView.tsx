@@ -1,6 +1,7 @@
 "use client";
 
 import { Building2, CheckCircle2, Receipt, Wrench } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import {
   Bar,
@@ -82,12 +83,15 @@ export default function Overview(): React.ReactElement {
       {/* Top 4 Stats Cards Grid - Order matched to Figma: Approval Required, Active Jobs, Completed Jobs, Total Properties */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {/* Card 1: Approval Required */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <Link
+          href="/invoices"
+          className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#5B1B95]/40 transition-all cursor-pointer group"
+        >
           <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
+            <span className="text-xs sm:text-sm font-normal text-gray-500 group-hover:text-gray-900 transition-colors">
               Approval Required
             </span>
-            <div className="p-2.5 rounded-lg bg-red-100/90 text-red-600">
+            <div className="p-2.5 rounded-lg bg-red-100/90 text-red-600 group-hover:scale-105 transition-transform">
               <Receipt className="w-5 h-5" />
             </div>
           </div>
@@ -97,15 +101,18 @@ export default function Overview(): React.ReactElement {
               Need Attention
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Card 2: Active Jobs */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <Link
+          href="/service-requests"
+          className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#5B1B95]/40 transition-all cursor-pointer group"
+        >
           <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
+            <span className="text-xs sm:text-sm font-normal text-gray-500 group-hover:text-gray-900 transition-colors">
               Active Jobs
             </span>
-            <div className="p-2.5 rounded-lg bg-green-100/90 text-emerald-600">
+            <div className="p-2.5 rounded-lg bg-green-100/90 text-emerald-600 group-hover:scale-105 transition-transform">
               <Wrench className="w-5 h-5" />
             </div>
           </div>
@@ -115,15 +122,18 @@ export default function Overview(): React.ReactElement {
               3 urgent
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Card 3: Completed Jobs */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <Link
+          href="/service-requests"
+          className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#5B1B95]/40 transition-all cursor-pointer group"
+        >
           <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
+            <span className="text-xs sm:text-sm font-normal text-gray-500 group-hover:text-gray-900 transition-colors">
               Completed Jobs
             </span>
-            <div className="p-2.5 rounded-lg bg-blue-100/90 text-blue-600">
+            <div className="p-2.5 rounded-lg bg-blue-100/90 text-blue-600 group-hover:scale-105 transition-transform">
               <Wrench className="w-5 h-5" />
             </div>
           </div>
@@ -133,15 +143,18 @@ export default function Overview(): React.ReactElement {
               12 this month
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Card 4: Total Properties */}
-        <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
+        <Link
+          href="/properties"
+          className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#5B1B95]/40 transition-all cursor-pointer group"
+        >
           <div className="flex items-start justify-between">
-            <span className="text-xs sm:text-sm font-normal text-gray-500">
+            <span className="text-xs sm:text-sm font-normal text-gray-500 group-hover:text-gray-900 transition-colors">
               Total Properties
             </span>
-            <div className="p-2.5 rounded-lg bg-[#F2E7FC] text-[#8E25E3]">
+            <div className="p-2.5 rounded-lg bg-[#F2E7FC] text-[#8E25E3] group-hover:scale-105 transition-transform">
               <Building2 className="w-5 h-5" />
             </div>
           </div>
@@ -151,7 +164,7 @@ export default function Overview(): React.ReactElement {
               5 Units | 50% Occupied
             </p>
           </div>
-        </div>
+        </Link>
       </div>
 
       <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6">

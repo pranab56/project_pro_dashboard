@@ -139,12 +139,13 @@ export default function ServiceProviderOverview(): React.ReactElement {
         {stats.map((stat) => {
           const IconComp = stat.icon;
           return (
-            <div
+            <Link
               key={stat.id}
-              className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow"
+              href={stat.href}
+              className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#8E25E3]/40 transition-all cursor-pointer group"
             >
               <div>
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.iconBg}`}>
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.iconBg} group-hover:scale-105 transition-transform`}>
                   <IconComp className="w-5 h-5" />
                 </div>
                 <div className="mt-4">
@@ -157,14 +158,13 @@ export default function ServiceProviderOverview(): React.ReactElement {
                 </div>
               </div>
               <div className="mt-4">
-                <Link
-                  href={stat.href}
-                  className={`text-xs font-medium underline decoration-solid underline-offset-2 ${stat.linkColor} hover:opacity-80 transition-opacity`}
+                <span
+                  className={`text-xs font-medium underline decoration-solid underline-offset-2 ${stat.linkColor} group-hover:opacity-80 transition-opacity`}
                 >
                   Click for Details
-                </Link>
+                </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -179,6 +179,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
             </h2>
             <p className="text-xs text-gray-500 font-normal mt-0.5 mb-6">
               Payout on completion: $200.23
+              
             </p>
 
             <div className="space-y-6 relative pl-1">

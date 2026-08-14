@@ -11,11 +11,18 @@ interface InvoiceStatusBadgeProps {
 export default function InvoiceStatusBadge({ status }: InvoiceStatusBadgeProps) {
   switch (status) {
     case "Deposit":
+      return (
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#FFEDD5] text-[#EA580C] border border-[#FDBA74]">
+          <Clock className="w-3.5 h-3.5 text-[#EA580C]" />
+          <span>Deposit</span>
+        </span>
+      );
+
     case "Pending":
       return (
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#FDF3D6] text-[#D97706] border border-[#FDE68A]">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A]">
           <Clock className="w-3.5 h-3.5 text-[#D97706]" />
-          <span>{status}</span>
+          <span>Pending</span>
         </span>
       );
 
