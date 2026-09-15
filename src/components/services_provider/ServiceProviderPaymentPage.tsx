@@ -194,7 +194,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            <div className="text-3xl sm:text-4xl font-medium tracking-tight">
               $1,000
             </div>
             <p className="text-xs text-white/80 font-normal mt-2">
@@ -214,7 +214,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            <div className="text-3xl sm:text-4xl font-medium tracking-tight">
               $1,230
             </div>
             <p className="text-xs text-white/80 font-normal mt-2">
@@ -234,7 +234,7 @@ export default function ServiceProviderPaymentPage(): React.ReactElement {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            <div className="text-3xl sm:text-4xl font-medium tracking-tight">
               $230
             </div>
             <p className="text-xs text-white/80 font-normal mt-2">

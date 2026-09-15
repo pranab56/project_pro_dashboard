@@ -121,13 +121,12 @@ export default function RegisterPage() {
             <button
               type="button"
               onClick={() => setRole('manager')}
-              className={`flex items-center justify-center gap-1.5 py-3.5 px-4 rounded-lg font-semibold text-sm text-white transition-all cursor-pointer shadow-sm ${
-                isManager ? 'bg-[#6B1294]' : 'bg-[#6B1294] opacity-90'
-              }`}
+              className={`flex items-center justify-center gap-1.5 py-3.5 px-4 rounded-lg font-semibold text-sm text-white transition-all cursor-pointer shadow-sm ${isManager ? 'bg-[#6B1294]' : 'bg-[#6B1294] opacity-90'
+                }`}
             >
               <span>Property Manager</span>
               {isManager && (
-                <span className="flex items-center justify-center w-4 h-4 bg-white text-[#6B1294] rounded-full text-[10px] font-extrabold">
+                <span className="flex items-center justify-center w-4 h-4 bg-white text-[#6B1294] rounded-full text-[10px] font-medium">
                   ✓
                 </span>
               )}
@@ -137,13 +136,12 @@ export default function RegisterPage() {
             <button
               type="button"
               onClick={() => setRole('provider')}
-              className={`flex items-center justify-center gap-1.5 py-3.5 px-4 rounded-lg font-semibold text-sm text-white transition-all cursor-pointer shadow-sm ${
-                !isManager ? 'bg-[#E68A00]' : 'bg-[#E68A00] opacity-90'
-              }`}
+              className={`flex items-center justify-center gap-1.5 py-3.5 px-4 rounded-lg font-semibold text-sm text-white transition-all cursor-pointer shadow-sm ${!isManager ? 'bg-[#E68A00]' : 'bg-[#E68A00] opacity-90'
+                }`}
             >
               <span>Service Provider</span>
               {!isManager && (
-                <span className="flex items-center justify-center w-4 h-4 bg-white text-[#E68A00] rounded-full text-[10px] font-extrabold">
+                <span className="flex items-center justify-center w-4 h-4 bg-white text-[#E68A00] rounded-full text-[10px] font-medium">
                   ✓
                 </span>
               )}
@@ -163,9 +161,8 @@ export default function RegisterPage() {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="Enter your first name here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                    errors.firstName ? 'border-red-500' : 'border-transparent'
-                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
+                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.firstName ? 'border-red-500' : 'border-transparent'
+                    } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
                 />
                 {errors.firstName && (
                   <p className="mt-1 text-xs text-red-500 font-medium">{errors.firstName}</p>
@@ -182,9 +179,8 @@ export default function RegisterPage() {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Enter your last name here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                    errors.lastName ? 'border-red-500' : 'border-transparent'
-                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
+                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.lastName ? 'border-red-500' : 'border-transparent'
+                    } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
                 />
                 {errors.lastName && (
                   <p className="mt-1 text-xs text-red-500 font-medium">{errors.lastName}</p>
@@ -203,9 +199,8 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email Address here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                  errors.email ? 'border-red-500' : 'border-transparent'
-                } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
+                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.email ? 'border-red-500' : 'border-transparent'
+                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
               />
               <p className="mt-1.5 text-xs text-gray-500 leading-relaxed font-normal">
                 Use your company email address. Personal email domains such as Gmail, Yahoo, Outlook.com, iCloud, and similar providers are not accepted.
@@ -226,9 +221,8 @@ export default function RegisterPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter your username here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                  errors.username ? 'border-red-500' : 'border-transparent'
-                } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
+                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.username ? 'border-red-500' : 'border-transparent'
+                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
               />
               {errors.username && (
                 <p className="mt-1 text-xs text-red-500 font-medium">{errors.username}</p>
@@ -247,9 +241,8 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                    errors.password ? 'border-red-500' : 'border-transparent'
-                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
+                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.password ? 'border-red-500' : 'border-transparent'
+                    } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
                 />
                 <button
                   type="button"
@@ -276,9 +269,8 @@ export default function RegisterPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm your password here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                    errors.confirmPassword ? 'border-red-500' : 'border-transparent'
-                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
+                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.confirmPassword ? 'border-red-500' : 'border-transparent'
+                    } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
                 />
                 <button
                   type="button"
@@ -296,9 +288,8 @@ export default function RegisterPage() {
             {/* Create Business Account Button */}
             <button
               type="submit"
-              className={`w-full mt-4 text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${
-                isManager ? 'bg-[#6B1294] hover:bg-[#580e7d]' : 'bg-[#E68A00] hover:bg-[#c77700]'
-              }`}
+              className={`w-full mt-4 text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${isManager ? 'bg-[#6B1294] hover:bg-[#580e7d]' : 'bg-[#E68A00] hover:bg-[#c77700]'
+                }`}
             >
               Create Business Account
             </button>
@@ -326,34 +317,34 @@ export default function RegisterPage() {
         <div
           className="absolute inset-0 bg-cover bg-center transition-all duration-700 scale-105"
           style={{
-            backgroundImage: `url('${isManager ? '/images/building_hero.png' : '/images/tech_hero.png'}')`,
+            backgroundImage: `url('${isManager ? '/images/signup1.png' : '/images/signup2.png'}')`,
           }}
         />
         {/* Gradient Overlay */}
         {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" /> */}
 
         {/* Hero Content */}
-        <div className="relative z-10 text-white pt-4">
+        <div className="relative z-10 max-w-2xl text-white pt-4">
           {isManager ? (
             <>
               <h2 className="text-3xl lg:text-4xl xl:text-5xl font-semibold leading-[1.30] tracking-tight drop-shadow-md mb-6">
-                Complete Property Operations. Simplified.
+                PROPERTY OPERATIONS, CONNECTED
               </h2>
               <p className="text-base xl:text-lg font-normal text-gray-200 leading-relaxed tracking-normal">
-                A powerful platform built to dispatch technicians, track on-site progress in real-time, and settle invoices from anywhere.
+                Bring work orders, vendor coordination, documentation, and real-time
+                project visibility into one connected platform
               </p>
             </>
           ) : (
             <>
               <p className="text-lg xl:text-xl font-normal text-gray-100 mb-6 tracking-normal">
-                Enter your credentials to continue using ProjexPro
+                Manage work orders from dispatch to invoicing
+                with automated workflows that reduce administrative headaches
               </p>
               <h2 className="text-3xl lg:text-4xl xl:text-5xl font-semibold leading-[1.30] tracking-tight drop-shadow-md">
-                Streamlines for Managers.
+                FROM BIDDING TO BILLING.
                 <br />
-                Smart for Techs.
-                <br />
-                Perfect for Residents
+                SIMPLIFIED.
               </h2>
             </>
           )}

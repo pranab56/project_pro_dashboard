@@ -214,7 +214,7 @@ export default function LoginPage() {
 
         {/* Text Content Overlay */}
         <div className="relative z-10 text-white pt-4 max-w-xl">
-          <h2 className="text-3xl lg:text-4xl xl:text-[42px] font-extrabold leading-[1.2] tracking-tight drop-shadow-md mb-6 uppercase">
+          <h2 className="text-3xl lg:text-4xl xl:text-[42px] font-medium leading-[1.2] tracking-tight drop-shadow-md mb-6 uppercase">
             THE SMARTER WAY TO MANAGE PROPERTY OPERATIONS.
           </h2>
           <p className="text-base xl:text-lg font-normal text-gray-200 leading-relaxed tracking-normal">

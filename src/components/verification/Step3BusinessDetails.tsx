@@ -279,15 +279,15 @@ export default function Step3BusinessDetails({
                   onUpdateForm((p) => ({ ...p, portfolioSize: size }))
                 }
                 className={`w-full px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${formData.portfolioSize === size
-                    ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                    : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
+                  ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
+                  : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                   }`}
               >
                 <span>{size}</span>
                 <div
                   className={`w-4 h-4 rounded-full border flex items-center justify-center ${formData.portfolioSize === size
-                      ? "border-[#6B1294] bg-[#6B1294]"
-                      : "border-gray-400"
+                    ? "border-[#6B1294] bg-[#6B1294]"
+                    : "border-gray-400"
                     }`}
                 >
                   {formData.portfolioSize === size && (
@@ -317,15 +317,15 @@ export default function Step3BusinessDetails({
                   onUpdateForm((p) => ({ ...p, maintenance: opt }))
                 }
                 className={`w-full px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center justify-between ${formData.maintenance === opt
-                    ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                    : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
+                  ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
+                  : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                   }`}
               >
                 <span>{opt}</span>
                 <div
                   className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ml-2 ${formData.maintenance === opt
-                      ? "border-[#6B1294] bg-[#6B1294]"
-                      : "border-gray-400"
+                    ? "border-[#6B1294] bg-[#6B1294]"
+                    : "border-gray-400"
                     }`}
                 >
                   {formData.maintenance === opt && (
@@ -360,14 +360,14 @@ export default function Step3BusinessDetails({
                   type="button"
                   onClick={() => handlePropertyTypeToggle(pt)}
                   className={`px-4 py-3 rounded-lg border text-left text-sm font-medium transition-all cursor-pointer flex items-center gap-3 ${isSelected
-                      ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
-                      : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
+                    ? "bg-purple-50 border-[#6B1294] text-[#6B1294] font-semibold"
+                    : "bg-white border-gray-300 hover:bg-purple-50/30 text-gray-800"
                     }`}
                 >
                   <div
                     className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${isSelected
-                        ? "bg-[#6B1294] border-[#6B1294] text-white"
-                        : "border-gray-400 bg-white"
+                      ? "bg-[#6B1294] border-[#6B1294] text-white"
+                      : "border-gray-400 bg-white"
                       }`}
                   >
                     {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
@@ -395,7 +395,7 @@ export default function Step3BusinessDetails({
           onClick={handleContinue}
           className="py-3 px-6 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer shadow-sm flex items-center gap-2"
         >
-          <span>Continue</span>
+          <span>Save & Continue</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

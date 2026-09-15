@@ -1,125 +1,62 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Search } from "lucide-react";
-import { ServiceRequest, StatusType } from "@/types/serviceRequest";
+import { ServiceRequest, StatusType, PriorityType } from "@/types/serviceRequest";
 import ServiceRequestHeader from "@/components/service-requests/ServiceRequestHeader";
 import ServiceRequestStats from "@/components/service-requests/ServiceRequestStats";
 import ServiceRequestTable from "@/components/service-requests/ServiceRequestTable";
 import CreateServiceRequestModal from "@/components/service-requests/CreateServiceRequestModal";
-
-const initialRequests: ServiceRequest[] = [
-  {
-    id: "SR-001",
-    title: "Plumbing Leak in Unit 4B",
-    property: "Sunset Apartments",
-    address: "123 Sunset Blvd, Los Angeles, CA 90028",
-    priority: "Urgent",
-    status: "In Progress",
-    stage: 3,
-    stageText: "Stage 3: In Progress",
-    contractor: "John Smith Plumbing",
-    contractorPhone: "+1 (555) 310-4422",
-    createdDate: "Jun 22, 2026",
-    isOccupied: true,
-    tenantName: "Nichole",
-    tenantPhone: "+555 2552 552",
-  },
-  {
-    id: "SR-002",
-    title: "HVAC Not Cooling — 3rd Floor",
-    property: "Green Valley Complex",
-    address: "456 Valley Rd, Phoenix, AZ 85001",
-    priority: "High",
-    status: "Assigned",
-    stage: 2,
-    stageText: "Stage 2: Supplies",
-    contractor: "CoolAir Services",
-    contractorPhone: "+1 (555) 482-9901",
-    createdDate: "Jun 21, 2026",
-  },
-  {
-    id: "SR-003",
-    title: "Electrical Panel Inspection",
-    property: "TechHub Tower",
-    address: "789 Innovation Dr, San Francisco, CA 94105",
-    priority: "High",
-    status: "Assigned",
-    stage: 2,
-    stageText: "Stage 2: Supplies",
-    contractor: "PowerTech Electric",
-    contractorPhone: "+1 (555) 619-3388",
-    createdDate: "Jun 20, 2026",
-  },
-  {
-    id: "SR-004",
-    title: "Landscaping & Lawn Care",
-    property: "Maple Street Condos",
-    address: "321 Maple St, Chicago, IL 60601",
-    priority: "Low",
-    status: "Completed",
-    stage: 4,
-    stageText: "Completed",
-    contractor: "GreenThumb Landscaping",
-    contractorPhone: "+1 (555) 204-1144",
-    createdDate: "Jun 18, 2026",
-  },
-  {
-    id: "SR-005",
-    title: "Elevator #2 Maintenance",
-    property: "Harbor View Plaza",
-    address: "555 Harbor Blvd, Seattle, WA 98101",
-    priority: "Urgent",
-    status: "In Progress",
-    stage: 4,
-    stageText: "Stage 4: Done",
-    contractor: "Otis Elevator Services",
-    contractorPhone: "+1 (555) 777-9090",
-    createdDate: "Jun 17, 2026",
-  },
-  {
-    id: "SR-006",
-    title: "Window Seal Replacement",
-    property: "Pine Ridge Townhomes",
-    address: "888 Pine Ridge Ave, Denver, CO 80201",
-    priority: "Medium",
-    status: "Pending",
-    stage: 1,
-    stageText: "Stage 1: Started",
-    contractor: "Unassigned",
-    createdDate: "Jun 25, 2026",
-  },
-  {
-    id: "SR-007",
-    title: "Roof Gutter Cleaning",
-    property: "Sunset Apartments",
-    address: "123 Sunset Blvd, Los Angeles, CA 90028",
-    priority: "Medium",
-    status: "Pending",
-    stage: 1,
-    stageText: "Stage 1: Started",
-    contractor: "Unassigned",
-    createdDate: "Jun 24, 2026",
-  },
-];
+import {
+  getStoredRequests,
+  subscribeToRequests,
+  createServiceRequest,
+  ServiceRequestItem,
+} from "@/types/serviceRequestStore";
 
 export default function ServiceRequestsPage() {
   const router = useRouter();
-  const [requests, setRequests] = useState<ServiceRequest[]>(initialRequests);
+  const [storeRequests, setStoreRequests] = useState<ServiceRequestItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    setStoreRequests(getStoredRequests());
+    const unsubscribe = subscribeToRequests((updated) => {
+      setStoreRequests(updated);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Map ServiceRequestItem from store to legacy ServiceRequest format for rendering
+  const mappedRequests: ServiceRequest[] = storeRequests.map((r) => ({
+    id: r.id,
+    title: r.issue,
+    property: r.property,
+    address: r.address,
+    priority: (r.priority === "Critical" ? "Urgent" : r.priority) as PriorityType,
+    status: (r.status === "Reassignment Requested" ? "Pending" : r.status) as StatusType,
+    stage: r.status === "Completed" ? 4 : r.status === "In Progress" || r.status === "Accepted" ? 3 : r.status === "Assigned" ? 2 : 1,
+    stageText: r.status === "Completed" ? "Completed" : r.status === "In Progress" || r.status === "Accepted" ? "In Progress" : r.status === "Assigned" ? "Assigned" : "Pending Approval",
+    contractor: r.contractor,
+    contractorPhone: r.contractorPhone || "+1 (555) 000-0000",
+    createdDate: r.date,
+    isOccupied: true,
+    tenantName: r.tenantName || "Nichole",
+    tenantPhone: r.tenantPhone || "+1 (555) 255-2552",
+  }));
+
   // Counts
-  const pendingCount = requests.filter((r) => r.status === "Pending").length;
-  const assignedCount = requests.filter((r) => r.status === "Assigned").length;
-  const inProgressCount = requests.filter((r) => r.status === "In Progress").length;
-  const completedCount = requests.filter((r) => r.status === "Completed").length;
-  const cancelledCount = requests.filter((r) => r.status === "Cancelled").length;
+  const pendingCount = mappedRequests.filter((r) => r.status === "Pending").length;
+  const assignedCount = mappedRequests.filter((r) => r.status === "Assigned").length;
+  const inProgressCount = mappedRequests.filter((r) => r.status === "In Progress" || (r.status as string) === "Accepted").length;
+  const completedCount = mappedRequests.filter((r) => r.status === "Completed").length;
+  const cancelledCount = mappedRequests.filter((r) => r.status === "Cancelled").length;
 
   // Filtered Requests
-  const filteredRequests = requests.filter((r) => {
+  const filteredRequests = mappedRequests.filter((r) => {
     const query = searchTerm.toLowerCase();
     return (
       r.id.toLowerCase().includes(query) ||
@@ -132,22 +69,28 @@ export default function ServiceRequestsPage() {
   // Handle status update
   const handleStatusChange = (
     id: string,
-    newStatus: StatusType,
-    newStage: number,
-    stageText: string
+    _newStatus: StatusType,
+    _newStage: number,
+    _stageText: string
   ) => {
-    setRequests((prev) =>
-      prev.map((r) =>
-        r.id === id ? { ...r, status: newStatus, stage: newStage, stageText } : r
-      )
-    );
-    toast.success(`Request ${id} updated to ${newStatus}`);
+    toast.success(`Request ${id} status updated`);
   };
 
-  // Submit Modal
+  // Submit Modal - Creates a Service Request that routes to Super Admin
   const handleCreateSubmit = (newReq: ServiceRequest) => {
-    setRequests([newReq, ...requests]);
-    toast.success(`New Service Request ${newReq.id} created!`);
+    const created = createServiceRequest({
+      propertyManager: "Alex Johnson (Property Manager)",
+      property: newReq.property,
+      address: newReq.address,
+      issue: newReq.title,
+      type: "Plumbing",
+      priority: (newReq.priority === "Urgent" ? "Critical" : newReq.priority) as "Critical" | "High" | "Medium" | "Low",
+      tenantName: newReq.tenantName,
+      tenantPhone: newReq.tenantPhone,
+      notes: "Newly created service request from Property Manager.",
+    });
+
+    toast.success(`New Service Request ${created.id} submitted! Sent to Super Admin for review.`);
     setIsModalOpen(false);
   };
 
@@ -199,7 +142,7 @@ export default function ServiceRequestsPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleCreateSubmit}
-        totalRequestsCount={requests.length}
+        totalRequestsCount={storeRequests.length}
       />
     </div>
   );

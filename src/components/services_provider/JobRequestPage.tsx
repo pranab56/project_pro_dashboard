@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Search,
   Filter,
   Eye,
   X,
   MapPin,
-  Clock,
-  ArrowUpDown,
+  Plus,
+  Wrench,
+  AlertTriangle,
+  Play,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import {
@@ -18,223 +20,113 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-export interface JobRequestItem {
-  id: string;
-  propertyName: string;
-  clientName: string;
-  serviceRequest: string;
-  taskLevel: "High" | "Medium" | "Low";
-  assignedDate: string;
-  status: "Pending" | "In Progress" | "Completed" | "Cancelled";
-  payout: string;
-  postedBy: string;
-  unit: string;
-  scheduledDate: string;
-  address: string;
-  scopeDescription: string;
-  notes: string;
-  images: string[];
-}
-
-const mockJobRequests: JobRequestItem[] = [
-  {
-    id: "JOB-008",
-    propertyName: "Pine Ridge Complex",
-    clientName: "Robert Kim",
-    serviceRequest: "Window Replacement",
-    taskLevel: "Medium",
-    assignedDate: "Jun 26, 2026",
-    status: "Pending",
-    payout: "$150",
-    postedBy: "Alex (Property Manager)",
-    unit: "Apartment 3B",
-    scheduledDate: "July 25, 2026 (10:00 AM)",
-    address: "258 Pine Ridge Rd, Austin, TX 78708",
-    scopeDescription: "Living room window glass is cracked and needs full replacement.",
-    notes: "Gate code #4412. or Dog at property etc.",
-    images: [
-      "/images/prop_1.png",
-      "/images/prop_3.png",
-      "/images/prop_5.png",
-    ],
-  },
-  {
-    id: "JOB-006",
-    propertyName: "Harbor View Lofts",
-    clientName: "James Wilson",
-    serviceRequest: "Flooring Installation",
-    taskLevel: "High",
-    assignedDate: "Jun 25, 2026",
-    status: "In Progress",
-    payout: "$450",
-    postedBy: "Sarah (Operations Lead)",
-    unit: "Unit 12A",
-    scheduledDate: "July 24, 2026 (02:00 PM)",
-    address: "742 Harbor View Ave, Austin, TX 78701",
-    scopeDescription: "Hardwood flooring installation in main hallway and living area.",
-    notes: "Elevator access key available at front desk.",
-    images: [
-      "/images/prop_2.png",
-      "/images/prop_4.png",
-    ],
-  },
-  {
-    id: "JOB-007",
-    propertyName: "Elmwood Estates",
-    clientName: "Anna Martinez",
-    serviceRequest: "Landscaping",
-    taskLevel: "Low",
-    assignedDate: "Jun 25, 2026",
-    status: "Completed",
-    payout: "$200",
-    postedBy: "Mark (Property Owner)",
-    unit: "Main Yard",
-    scheduledDate: "July 20, 2026 (09:00 AM)",
-    address: "109 Elmwood Dr, Austin, TX 78704",
-    scopeDescription: "Lawn trimming, bush pruning, and general garden clean up.",
-    notes: "Backyard sprinkler system check required.",
-    images: [
-      "/images/prop_6.png",
-    ],
-  },
-  {
-    id: "JOB-005",
-    propertyName: "The Wellington",
-    clientName: "Lisa Thompson",
-    serviceRequest: "Painting",
-    taskLevel: "Medium",
-    assignedDate: "Jun 24, 2026",
-    status: "Cancelled",
-    payout: "$300",
-    postedBy: "Lisa Thompson",
-    unit: "Suite 402",
-    scheduledDate: "July 18, 2026 (11:00 AM)",
-    address: "550 Wellington Blvd, Austin, TX 78705",
-    scopeDescription: "Accent wall paint touchup in master bedroom.",
-    notes: "Cancelled by client due to schedule conflict.",
-    images: [],
-  },
-  {
-    id: "JOB-004",
-    propertyName: "Sunset Gardens",
-    clientName: "David Park",
-    serviceRequest: "Roof Inspection",
-    taskLevel: "High",
-    assignedDate: "Jun 23, 2026",
-    status: "Pending",
-    payout: "$280",
-    postedBy: "Alex (Property Manager)",
-    unit: "Building B Roof",
-    scheduledDate: "July 26, 2026 (08:30 AM)",
-    address: "320 Sunset Loop, Austin, TX 78745",
-    scopeDescription: "Full roof tile leak assessment following heavy storm.",
-    notes: "Ladder access located at North wing entrance.",
-    images: [
-      "/images/prop_1.png",
-    ],
-  },
-  {
-    id: "JOB-003",
-    propertyName: "Oakwood Villas",
-    clientName: "Emily Rodriguez",
-    serviceRequest: "HVAC Maintenance",
-    taskLevel: "Low",
-    assignedDate: "Jun 22, 2026",
-    status: "Completed",
-    payout: "$180",
-    postedBy: "Emily Rodriguez",
-    unit: "Villa 14",
-    scheduledDate: "July 15, 2026 (01:00 PM)",
-    address: "88 Oakwood Way, Austin, TX 78749",
-    scopeDescription: "AC filter replacement and refrigerant level check.",
-    notes: "Service completed cleanly.",
-    images: [],
-  },
-  {
-    id: "JOB-002",
-    propertyName: "Riverside Condos",
-    clientName: "Marcus Chen",
-    serviceRequest: "Electrical Inspection",
-    taskLevel: "Medium",
-    assignedDate: "Jun 21, 2026",
-    status: "Pending",
-    payout: "$220",
-    postedBy: "Marcus Chen",
-    unit: "Condo 501",
-    scheduledDate: "July 27, 2026 (10:30 AM)",
-    address: "120 Riverside Dr, Austin, TX 78702",
-    scopeDescription: "Circuit breaker tripping investigation and outlet replacement.",
-    notes: "Main breaker panel is in basement.",
-    images: [
-      "/images/prop_3.png",
-    ],
-  },
-  {
-    id: "JOB-001",
-    propertyName: "Maple Heights Apt",
-    clientName: "Sarah Johnson",
-    serviceRequest: "Plumbing Repair",
-    taskLevel: "High",
-    assignedDate: "Jun 20, 2026",
-    status: "In Progress",
-    payout: "$350",
-    postedBy: "Sarah Johnson",
-    unit: "Unit 204",
-    scheduledDate: "July 24, 2026 (09:00 AM)",
-    address: "410 Maple St, Austin, TX 78703",
-    scopeDescription: "Kitchen sink pipe leakage fix and new faucet installation.",
-    notes: "Tenant will be at home during repair.",
-    images: [
-      "/images/prop_5.png",
-    ],
-  },
-];
+import {
+  getStoredRequests,
+  subscribeToRequests,
+  acceptServiceRequest,
+  declineServiceRequest,
+  createExtraWorkRequest,
+  startExtraWorkRequest,
+  ServiceRequestItem,
+} from "@/types/serviceRequestStore";
+import DeclineJobModal from "./DeclineJobModal";
+import CreateExtraWorkModal from "./CreateExtraWorkModal";
 
 export default function JobRequestPage(): React.ReactElement {
-  const [jobs, setJobs] = useState<JobRequestItem[]>(mockJobRequests);
+  const [requests, setRequests] = useState<ServiceRequestItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
-  const [taskLevelFilter, setTaskLevelFilter] = useState("All");
-  const [selectedJob, setSelectedJob] = useState<JobRequestItem | null>(null);
+  const [selectedJob, setSelectedJob] = useState<ServiceRequestItem | null>(null);
+
+  // Modals
+  const [declineModalOpen, setDeclineModalOpen] = useState(false);
+  const [declineJobTargetId, setDeclineJobTargetId] = useState("");
+
+  const [extraWorkModalOpen, setExtraWorkModalOpen] = useState(false);
+  const [extraWorkJobTarget, setExtraWorkJobTarget] = useState<ServiceRequestItem | null>(null);
+
+  useEffect(() => {
+    setRequests(getStoredRequests());
+    const unsubscribe = subscribeToRequests((updated) => {
+      setRequests(updated);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Sync selectedJob when store updates
+  useEffect(() => {
+    if (selectedJob) {
+      const match = requests.find((r) => r.id === selectedJob.id);
+      if (match) setSelectedJob(match);
+    }
+  }, [requests, selectedJob]);
 
   // Filtered Jobs
   const filteredJobs = useMemo(() => {
-    return jobs.filter((job) => {
+    return requests.filter((job) => {
       const matchesSearch =
         job.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.propertyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.serviceRequest.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.clientName.toLowerCase().includes(searchTerm.toLowerCase());
+        job.property.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.issue.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.contractor.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesStatus =
-        statusFilter === "All" || job.status === statusFilter;
-      const matchesTaskLevel =
-        taskLevelFilter === "All" || job.taskLevel === taskLevelFilter;
+        statusFilter === "All" ||
+        (statusFilter === "Pending" && job.status === "Assigned") ||
+        (statusFilter === "In Progress" && (job.status === "In Progress" || job.status === "Accepted")) ||
+        (statusFilter === "Completed" && job.status === "Completed") ||
+        (statusFilter === "Cancelled" && (job.status === "Cancelled" || job.status === "Reassignment Requested"));
 
-      return matchesSearch && matchesStatus && matchesTaskLevel;
+      return matchesSearch && matchesStatus;
     });
-  }, [jobs, searchTerm, statusFilter, taskLevelFilter]);
+  }, [requests, searchTerm, statusFilter]);
 
   const handleAcceptJob = (jobId: string) => {
-    setJobs((prev) =>
-      prev.map((j) => (j.id === jobId ? { ...j, status: "In Progress" } : j))
-    );
-    toast.success(`Job ${jobId} accepted! Status changed to In Progress.`);
+    acceptServiceRequest(jobId);
+    toast.success(`Job ${jobId} accepted! Status updated on Property Manager's Track Project page.`);
     setSelectedJob(null);
   };
 
-  const handleDeclineJob = (jobId: string) => {
-    setJobs((prev) =>
-      prev.map((j) => (j.id === jobId ? { ...j, status: "Cancelled" } : j))
-    );
-    toast.error(`Job ${jobId} declined.`);
+  const handleOpenDeclineModal = (jobId: string) => {
+    setDeclineJobTargetId(jobId);
+    setDeclineModalOpen(true);
+  };
+
+  const handleSubmitDeclineReason = (reason: string) => {
+    declineServiceRequest(declineJobTargetId, reason);
+    toast.error(`Job ${declineJobTargetId} declined. Submitted to Super Admin for reassignment.`);
+    setDeclineModalOpen(false);
     setSelectedJob(null);
   };
 
-  // Helper for Task Level Indicator Dot & Color
-  const getTaskLevelBadge = (level: "High" | "Medium" | "Low") => {
+  const handleOpenExtraWorkModal = (job: ServiceRequestItem) => {
+    setExtraWorkJobTarget(job);
+    setExtraWorkModalOpen(true);
+  };
+
+  const handleSubmitExtraWork = (extraData: {
+    extraServiceName: string;
+    description: string;
+    images: string[];
+    additionalFee: number;
+    requestedBy: string;
+  }) => {
+    if (!extraWorkJobTarget) return;
+    createExtraWorkRequest(extraWorkJobTarget.id, extraData);
+    toast.success(`Extra Work Request submitted for ${extraWorkJobTarget.id}! Sent to Property Manager for approval.`);
+    setExtraWorkModalOpen(false);
+  };
+
+  const handleStartExtraWork = (parentReqId: string, extraWorkId: string) => {
+    startExtraWorkRequest(parentReqId, extraWorkId);
+    toast.success(`Extra Work ${extraWorkId} started! Status changed to In Progress.`);
+  };
+
+  // Helper for Task Level Badge
+  const getTaskLevelBadge = (level: string) => {
     switch (level) {
+      case "Critical":
+      case "Urgent":
       case "High":
         return (
           <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
@@ -249,7 +141,7 @@ export default function JobRequestPage(): React.ReactElement {
             Medium
           </span>
         );
-      case "Low":
+      default:
         return (
           <span className="flex items-center gap-1.5 text-xs font-semibold text-gray-800">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
@@ -259,15 +151,16 @@ export default function JobRequestPage(): React.ReactElement {
     }
   };
 
-  // Helper for Status Badge styling
-  const getStatusBadge = (status: JobRequestItem["status"]) => {
+  // Helper for Status Badge
+  const getStatusBadge = (status: string) => {
     switch (status) {
-      case "Pending":
+      case "Assigned":
         return (
           <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-amber-100/90 text-amber-800 border border-amber-200/60 inline-block">
-            Pending
+            Pending Acceptance
           </span>
         );
+      case "Accepted":
       case "In Progress":
         return (
           <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-blue-100/90 text-blue-700 border border-blue-200/60 inline-block">
@@ -280,10 +173,17 @@ export default function JobRequestPage(): React.ReactElement {
             Completed
           </span>
         );
-      case "Cancelled":
+      case "Reassignment Requested":
+      case "Declined":
         return (
           <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-red-100/90 text-red-700 border border-red-200/60 inline-block">
-            Cancelled
+            Reassignment Requested
+          </span>
+        );
+      default:
+        return (
+          <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-700 border border-gray-200 inline-block">
+            {status}
           </span>
         );
     }
@@ -294,54 +194,38 @@ export default function JobRequestPage(): React.ReactElement {
       {/* Header Section */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-          Job Request
+          Job Requests & Work Orders
         </h1>
         <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5 sm:mt-1">
-          View and track all active, pending, and past job requests in one place.
+          Review assigned requests, accept/decline jobs, and submit Extra Work requests to Property Managers.
         </p>
       </div>
 
       {/* Top Search & Filter Bar */}
       <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-3 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shadow-2xs">
-        {/* Search Input Box */}
         <div className="relative flex-1 max-w-md">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search by ID, property, type..."
+            placeholder="Search by ID, property, service..."
             className="w-full bg-gray-100/80 border border-gray-200 rounded-lg pl-9 pr-4 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-[#8E25E3] transition-all"
           />
         </div>
 
-        {/* Filter Controls */}
         <div className="flex items-center gap-2.5 self-end sm:self-auto">
           <Filter className="w-4 h-4 text-gray-400 shrink-0" />
-          {/* Status Select Filter */}
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[125px] sm:w-[135px] h-9 bg-gray-100/80 py-5 border-gray-200 rounded-lg text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#8E25E3]">
+            <SelectTrigger className="w-[140px] h-9 bg-gray-100/80 py-5 border-gray-200 rounded-lg text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#8E25E3]">
               <SelectValue placeholder="All Statuses" />
             </SelectTrigger>
             <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
               <SelectItem value="All">All Statuses</SelectItem>
-              <SelectItem value="Pending">Pending</SelectItem>
+              <SelectItem value="Pending">Pending Acceptance</SelectItem>
               <SelectItem value="In Progress">In Progress</SelectItem>
               <SelectItem value="Completed">Completed</SelectItem>
-              <SelectItem value="Cancelled">Cancelled</SelectItem>
-            </SelectContent>
-          </Select>
-
-          {/* Task Level Filter */}
-          <Select value={taskLevelFilter} onValueChange={setTaskLevelFilter}>
-            <SelectTrigger className="w-[130px] sm:w-[140px] h-9 bg-gray-100/80 py-5 border-gray-200 rounded-lg text-xs font-semibold text-gray-700 focus:ring-0 focus:border-[#8E25E3]">
-              <SelectValue placeholder="All Task Levels" />
-            </SelectTrigger>
-            <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
-              <SelectItem value="All">All Task Levels</SelectItem>
-              <SelectItem value="High">High</SelectItem>
-              <SelectItem value="Medium">Medium</SelectItem>
-              <SelectItem value="Low">Low</SelectItem>
+              <SelectItem value="Cancelled">Reassigned / Declined</SelectItem>
             </SelectContent>
           </Select>
 
@@ -357,81 +241,50 @@ export default function JobRequestPage(): React.ReactElement {
           <table className="w-full text-left border-collapse min-w-[780px]">
             <thead>
               <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
-                <th className="py-4 px-5 sm:px-6">
-                  <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-700">
-                    <span>Job ID</span>
-                    <ArrowUpDown className="w-3 h-3 text-gray-400" />
-                  </div>
-                </th>
-                <th className="py-4 px-5 sm:px-6">Property Name</th>
+                <th className="py-4 px-5 sm:px-6">Job ID</th>
+                <th className="py-4 px-5 sm:px-6">Property & PM</th>
                 <th className="py-4 px-5 sm:px-6">Service Request</th>
-                <th className="py-4 px-5 sm:px-6">Task Level</th>
-                <th className="py-4 px-5 sm:px-6">
-                  <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-700">
-                    <span>Assigned Date</span>
-                    <ArrowUpDown className="w-3 h-3 text-gray-400" />
-                  </div>
-                </th>
-                <th className="py-4 px-5 sm:px-6">
-                  <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-700">
-                    <span>Status</span>
-                    <ArrowUpDown className="w-3 h-3 text-gray-400" />
-                  </div>
-                </th>
+                <th className="py-4 px-5 sm:px-6">Priority</th>
+                <th className="py-4 px-5 sm:px-6">Payout</th>
+                <th className="py-4 px-5 sm:px-6">Status</th>
                 <th className="py-4 px-5 sm:px-6 text-center">Actions</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-100 text-sm">
               {filteredJobs.map((job) => (
-                <tr
-                  key={job.id}
-                  className="hover:bg-purple-50/20 transition-colors"
-                >
-                  {/* Job ID */}
+                <tr key={job.id} className="hover:bg-purple-50/20 transition-colors">
                   <td className="py-4 px-5 sm:px-6 text-sm font-bold text-[#8E25E3] whitespace-nowrap">
                     {job.id}
                   </td>
-
-                  {/* Property Name & Client */}
                   <td className="py-4 px-5 sm:px-6">
                     <div className="text-sm font-bold text-gray-900 leading-tight">
-                      {job.propertyName}
+                      {job.property}
                     </div>
                     <div className="text-xs text-gray-400 font-normal mt-0.5">
-                      {job.clientName}
+                      PM: {job.propertyManager}
                     </div>
                   </td>
-
-                  {/* Service Request */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-gray-600 whitespace-nowrap">
-                    {job.serviceRequest}
+                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-gray-700">
+                    {job.issue}
                   </td>
-
-                  {/* Task Level */}
                   <td className="py-4 px-5 sm:px-6 whitespace-nowrap">
-                    {getTaskLevelBadge(job.taskLevel)}
+                    {getTaskLevelBadge(job.priority)}
                   </td>
-
-                  {/* Assigned Date */}
-                  <td className="py-4 px-5 sm:px-6 text-sm font-medium text-gray-500 whitespace-nowrap">
-                    {job.assignedDate}
+                  <td className="py-4 px-5 sm:px-6 text-sm font-bold text-gray-900 whitespace-nowrap">
+                    ${job.finalPayCalculated || (job.basePay + (job.additionalFee || 0))}
                   </td>
-
-                  {/* Status Badge */}
                   <td className="py-4 px-5 sm:px-6 whitespace-nowrap">
                     {getStatusBadge(job.status)}
                   </td>
-
-                  {/* Actions Button */}
                   <td className="py-4 px-5 sm:px-6 text-center whitespace-nowrap">
                     <button
                       type="button"
                       onClick={() => setSelectedJob(job)}
-                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200/80 rounded-lg transition-all shadow-2xs cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[#6B1294] bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-lg transition-all shadow-2xs cursor-pointer"
                     >
-                      <Eye className="w-3.5 h-3.5 text-gray-500" />
-                      <span>View</span>
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Review Details</span>
                     </button>
                   </td>
                 </tr>
@@ -439,10 +292,7 @@ export default function JobRequestPage(): React.ReactElement {
 
               {filteredJobs.length === 0 && (
                 <tr>
-                  <td
-                    colSpan={7}
-                    className="py-12 text-center text-sm text-gray-500 font-normal"
-                  >
+                  <td colSpan={7} className="py-12 text-center text-sm text-gray-500 font-normal">
                     No job requests matching your filters.
                   </td>
                 </tr>
@@ -452,21 +302,21 @@ export default function JobRequestPage(): React.ReactElement {
         </div>
       </div>
 
-      {/* JOB DETAILS MODAL (Matching Screenshot 2) */}
+      {/* JOB DETAILS MODAL */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-[#FFFFFF] rounded-lg p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-3.5 border border-[#E5E7EB] custom-scrollbar animate-in zoom-in-95 duration-200">
-            {/* Top Close Button & Job Tag Header */}
-            <div className="flex items-start justify-between">
+          <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 sm:max-w-2xl w-full shadow-2xl relative max-h-[92vh] overflow-y-auto space-y-4 border border-[#E5E7EB] custom-scrollbar animate-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex items-start justify-between border-b border-gray-100 pb-3">
               <div>
-                <span className="text-xs font-bold text-gray-400 tracking-wider block">
-                  {selectedJob.id}
+                <span className="text-xs font-bold text-purple-700 tracking-wider block">
+                  Job #{selectedJob.id}
                 </span>
                 <h2 className="text-xl font-bold text-gray-900 mt-0.5">
-                  {selectedJob.propertyName}
+                  {selectedJob.property}
                 </h2>
                 <p className="text-xs text-gray-500 font-normal mt-0.5">
-                  Posted By: {selectedJob.postedBy}
+                  Property Manager: <span className="font-semibold text-gray-800">{selectedJob.propertyManager}</span>
                 </p>
               </div>
 
@@ -479,155 +329,185 @@ export default function JobRequestPage(): React.ReactElement {
               </button>
             </div>
 
-            {/* Pending Acceptance Pill Tag */}
-            <div>
-              <span className="px-3.5 py-1 text-xs font-semibold rounded-full bg-[#FEF3C7] text-[#D97706] inline-block">
-                Pending Acceptance
+            {/* Status Banner */}
+            <div className="flex items-center justify-between">
+              {getStatusBadge(selectedJob.status)}
+              <span className="text-xs text-gray-500 font-semibold">
+                Scheduled: {selectedJob.etaDate}
               </span>
             </div>
 
-            {/* Grid 1: Job Type & Priority Level */}
+            {/* Grid 1: Job Type & Priority */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Job Type
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block">
-                  {selectedJob.serviceRequest}
-                </span>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <span className="text-[10px] font-bold text-gray-400 uppercase">Service Category</span>
+                <span className="text-sm font-bold text-gray-900 mt-0.5 block">{selectedJob.type}</span>
               </div>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <span className="text-[10px] font-bold text-gray-400 uppercase">Priority Level</span>
+                <span className="text-sm font-bold text-gray-900 mt-0.5 block">{selectedJob.priority}</span>
+              </div>
+            </div>
 
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Priority Level
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block">
-                  {selectedJob.id === "JOB-008" ? "High" : selectedJob.taskLevel}
+            {/* Grid 2: Payout Breakdown */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <span className="text-[10px] font-bold text-gray-400 uppercase">Base Price</span>
+                <span className="text-sm font-bold text-gray-900 mt-0.5 block">${selectedJob.basePay}</span>
+              </div>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <span className="text-[10px] font-bold text-gray-400 uppercase">Custom Fee</span>
+                <span className="text-sm font-bold text-gray-900 mt-0.5 block">${selectedJob.additionalFee || 0}</span>
+              </div>
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                <span className="text-[10px] font-bold text-[#6B1294] uppercase">Total Payout</span>
+                <span className="text-base font-medium text-[#6B1294] mt-0.5 block">
+                  ${selectedJob.finalPayCalculated || (selectedJob.basePay + (selectedJob.additionalFee || 0))}
                 </span>
               </div>
             </div>
 
-            {/* Grid 2: Payout & Property */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Payout Fee
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block">
-                  {selectedJob.payout}
-                </span>
-              </div>
-
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Property Name
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block truncate">
-                  {selectedJob.propertyName}
-                </span>
-              </div>
-            </div>
-
-            {/* Grid 3: Unit & Scheduled Date */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Unit / Suit #
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block">
-                  {selectedJob.unit}
-                </span>
-              </div>
-
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block">
-                  Scheduled Date
-                </span>
-                <span className="text-sm font-bold text-gray-900 mt-1 block leading-tight">
-                  {selectedJob.scheduledDate}
-                </span>
-              </div>
-            </div>
-
-            {/* Address Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-              <span className="text-xs text-gray-400 font-normal block">
-                Job Site Address
-              </span>
-              <div className="flex items-center gap-1.5 text-sm font-bold text-gray-900 mt-1">
-                <MapPin className="w-4 h-4 text-[#5B1B95] shrink-0" />
+            {/* Address */}
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <span className="text-[10px] font-bold text-gray-400 uppercase">Job Site Address</span>
+              <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900 mt-1">
+                <MapPin className="w-4 h-4 text-[#6B1294] shrink-0" />
                 <span>{selectedJob.address}</span>
               </div>
             </div>
 
-            {/* Job Scope Description Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-              <span className="text-xs text-gray-400 font-normal block">
-                Job Scope Description
-              </span>
-              <p className="text-xs text-gray-800 font-normal mt-1 leading-relaxed">
-                {selectedJob.scopeDescription}
-              </p>
+            {/* Main Issue / Scope Description */}
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <span className="text-[10px] font-bold text-gray-400 uppercase">Main Job Issue & Description</span>
+              <p className="text-xs text-gray-800 font-normal mt-1 leading-relaxed">{selectedJob.issue}</p>
+              {selectedJob.notes && (
+                <p className="text-xs text-gray-500 font-normal mt-1 italic">Notes: {selectedJob.notes}</p>
+              )}
             </div>
 
-            {/* Notes Row */}
-            <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-              <span className="text-xs text-gray-400 font-normal block">
-                Site Information
-              </span>
-              <p className="text-xs text-gray-800 font-normal mt-1">
-                {"Gate code #4412 . Pet on Property . Occupied"}
-              </p>
-            </div>
+            {/* Extra Work Requests Section inside Modal */}
+            <div className="border border-purple-200 bg-purple-50/20 rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Wrench className="w-4 h-4 text-[#6B1294]" />
+                  <h3 className="text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Extra Work Requests ({selectedJob.extraWorkRequests?.length || 0})
+                  </h3>
+                </div>
+                {(selectedJob.status === "In Progress" || selectedJob.status === "Accepted") && (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenExtraWorkModal(selectedJob)}
+                    className="px-3 py-1.5 bg-[#6B1294] hover:bg-[#580e7a] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer flex items-center gap-1"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>+ Request Extra Work</span>
+                  </button>
+                )}
+              </div>
 
-            {/* Images Grid */}
-            {selectedJob.images && selectedJob.images.length > 0 && (
-              <div className="bg-gray-200/50 border border-gray-300/50 rounded-lg p-3.5">
-                <span className="text-xs text-gray-400 font-normal block mb-2">
-                  Images
-                </span>
-                <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
-                  {selectedJob.images.map((img, idx) => (
-                    <img
-                      key={idx}
-                      src={img}
-                      alt={`Job detail ${idx + 1}`}
-                      className="w-24 h-16 object-cover rounded-lg border border-gray-300/60 shadow-2xs shrink-0"
-                    />
+              {selectedJob.extraWorkRequests && selectedJob.extraWorkRequests.length > 0 ? (
+                <div className="space-y-2.5">
+                  {selectedJob.extraWorkRequests.map((ew) => (
+                    <div key={ew.id} className="bg-white border border-gray-200 rounded-lg p-3 text-xs space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-gray-900">{ew.extraServiceName}</span>
+                        {ew.approvalStatus === "Approved" ? (
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                            Approved by PM (${ew.additionalFee})
+                          </span>
+                        ) : ew.approvalStatus === "Declined" ? (
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-800">
+                            Declined by PM
+                          </span>
+                        ) : (
+                          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                            Pending PM Approval
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-gray-600 font-normal">{ew.description}</p>
+
+                      {/* Separate State: Start Extra Work once Approved */}
+                      {ew.approvalStatus === "Approved" && (
+                        <div className="flex items-center justify-between border-t border-gray-100 pt-2">
+                          <span className="text-[11px] text-gray-500">
+                            Work Status: <strong className="text-emerald-700">{ew.workStatus || "Approved"}</strong>
+                          </span>
+                          {ew.workStatus !== "In Progress" && ew.workStatus !== "Completed" && (
+                            <button
+                              type="button"
+                              onClick={() => handleStartExtraWork(selectedJob.id, ew.id)}
+                              className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-[11px] font-bold flex items-center gap-1 cursor-pointer"
+                            >
+                              <Play className="w-3 h-3" />
+                              <span>Start Extra Work</span>
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
+              ) : (
+                <p className="text-xs text-gray-500 font-normal italic">
+                  No extra work requested yet. If Property Manager requests additional tasks on-site, click above to submit an Extra Work Request.
+                </p>
+              )}
+            </div>
+
+            {/* Decline Reason Banner if previously declined */}
+            {selectedJob.declineReason && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-xs text-red-800 space-y-1">
+                <div className="font-bold flex items-center gap-1">
+                  <AlertTriangle className="w-4 h-4 text-red-600" />
+                  <span>Previous Decline Record:</span>
+                </div>
+                <p className="font-normal">{selectedJob.declineReason}</p>
               </div>
             )}
 
-            {/* Red Alert Banner */}
-            <div className="bg-red-50/90 border border-red-300/80 rounded-lg p-3.5 flex items-start gap-2 text-xs text-[#E53935]">
-              <Clock className="w-4 h-4 text-[#E53935] shrink-0 mt-0.5" />
-              <span className="font-normal leading-tight">
-                60 minutes to accept or decline this job before it&apos;s assigned to
-                the next Service Pro.
-              </span>
-            </div>
-
             {/* Bottom Action Buttons */}
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => handleAcceptJob(selectedJob.id)}
-                className="flex-1 bg-[#5B1B95] hover:bg-[#4a157a] text-white font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer shadow-xs text-center"
-              >
-                Accept
-              </button>
+            {selectedJob.status === "Assigned" && (
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => handleAcceptJob(selectedJob.id)}
+                  className="flex-1 bg-[#6B1294] hover:bg-[#580e7a] text-white font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer text-center shadow-xs"
+                >
+                  Accept Job
+                </button>
 
-              <button
-                type="button"
-                onClick={() => handleDeclineJob(selectedJob.id)}
-                className="flex-1 bg-[#EBEBEB] hover:bg-gray-300/80 text-gray-800 font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer text-center"
-              >
-                Decline
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => handleOpenDeclineModal(selectedJob.id)}
+                  className="flex-1 bg-red-50 hover:bg-red-100 text-red-700 font-semibold py-3 px-4 rounded-lg text-sm transition-colors cursor-pointer text-center border border-red-200"
+                >
+                  Decline Job
+                </button>
+              </div>
+            )}
           </div>
         </div>
+      )}
+
+      {/* Decline Modal */}
+      <DeclineJobModal
+        isOpen={declineModalOpen}
+        jobId={declineJobTargetId}
+        onClose={() => setDeclineModalOpen(false)}
+        onSubmitDecline={handleSubmitDeclineReason}
+      />
+
+      {/* Create Extra Work Modal */}
+      {extraWorkJobTarget && (
+        <CreateExtraWorkModal
+          isOpen={extraWorkModalOpen}
+          parentJobId={extraWorkJobTarget.id}
+          parentJobTitle={extraWorkJobTarget.issue}
+          onClose={() => setExtraWorkModalOpen(false)}
+          onSubmitExtraWork={handleSubmitExtraWork}
+        />
       )}
     </div>
   );
