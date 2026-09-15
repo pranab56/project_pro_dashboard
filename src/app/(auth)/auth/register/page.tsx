@@ -14,8 +14,8 @@ interface RegisterErrors {
   lastName?: string;
   username?: string;
   email?: string;
-  contactNumber?: string;
   password?: string;
+  confirmPassword?: string;
 }
 
 function ProjexProLogo() {
@@ -39,9 +39,10 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [contactNumber, setContactNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [errors, setErrors] = useState<RegisterErrors>({});
 
   const router = useRouter();
@@ -51,23 +52,39 @@ export default function RegisterPage() {
     return emailRegex.test(email);
   };
 
+  const isPersonalEmail = (email: string): boolean => {
+    const personalDomains = [
+      'gmail.com', 'yahoo.com', 'outlook.com', 'icloud.com',
+      'hotmail.com', 'aol.com', 'live.com', 'msn.com',
+      'protonmail.com', 'proton.me', 'mail.com', 'yandex.com', 'zoho.com'
+    ];
+    const domain = email.split('@')[1]?.toLowerCase().trim();
+    return personalDomains.includes(domain);
+  };
+
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     const newErrors: RegisterErrors = {};
 
     if (!firstName.trim()) newErrors.firstName = 'First name is required';
     if (!lastName.trim()) newErrors.lastName = 'Last name is required';
-    if (!username.trim()) newErrors.username = 'Username is required';
     if (!email.trim()) {
-      newErrors.email = 'Email address is required';
+      newErrors.email = 'Business email address is required';
     } else if (!validateEmail(email)) {
       newErrors.email = 'Please enter a valid email address';
+    } else if (isPersonalEmail(email)) {
+      newErrors.email = 'Personal email domains (Gmail, Yahoo, Outlook, etc.) are not accepted. Please use your company email address.';
     }
-    if (!contactNumber.trim()) newErrors.contactNumber = 'Contact number is required';
+    if (!username.trim()) newErrors.username = 'Username is required';
     if (!password) {
       newErrors.password = 'Password is required';
     } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
+    }
+    if (!confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (confirmPassword !== password) {
+      newErrors.confirmPassword = 'Passwords do not match';
     }
 
     setErrors(newErrors);
@@ -81,9 +98,9 @@ export default function RegisterPage() {
   const isManager = role === 'manager';
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#EBEBEB]">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row bg-[#EBEBEB] overflow-x-hidden lg:overflow-hidden">
       {/* Left Section - Form */}
-      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 min-h-screen overflow-y-auto">
+      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 min-h-screen lg:h-screen overflow-y-auto [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Logo */}
         <div className="pt-2 sm:pt-0 max-w-lg w-full mx-auto">
           <ProjexProLogo />
@@ -95,7 +112,7 @@ export default function RegisterPage() {
             Let’s Get Started
           </h1>
           <p className="text-sm text-gray-500 mt-2 mb-6 font-normal">
-            {isManager ? 'Create your Premium Property Account' : 'Create your Pro Account'}
+            Create your ProjexPro Business account.
           </p>
 
           {/* Role Selection Toggle */}
@@ -175,6 +192,29 @@ export default function RegisterPage() {
               </div>
             </div>
 
+            {/* Business Email Address */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Business Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email Address here..."
+                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
+                  errors.email ? 'border-red-500' : 'border-transparent'
+                } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
+              />
+              <p className="mt-1.5 text-xs text-gray-500 leading-relaxed font-normal">
+                Use your company email address. Personal email domains such as Gmail, Yahoo, Outlook.com, iCloud, and similar providers are not accepted.
+              </p>
+              {errors.email && (
+                <p className="mt-1 text-xs text-red-500 font-medium">{errors.email}</p>
+              )}
+            </div>
+
             {/* Create Username */}
             <div>
               <label htmlFor="username" className="block text-sm font-semibold text-gray-700 mb-1.5">
@@ -192,46 +232,6 @@ export default function RegisterPage() {
               />
               {errors.username && (
                 <p className="mt-1 text-xs text-red-500 font-medium">{errors.username}</p>
-              )}
-            </div>
-
-            {/* Email Address */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email Address here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                  errors.email ? 'border-red-500' : 'border-transparent'
-                } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
-              />
-              {errors.email && (
-                <p className="mt-1 text-xs text-red-500 font-medium">{errors.email}</p>
-              )}
-            </div>
-
-            {/* Contact Number */}
-            <div>
-              <label htmlFor="contactNumber" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Contact Number
-              </label>
-              <input
-                id="contactNumber"
-                type="number"
-                value={contactNumber}
-                onChange={(e) => setContactNumber(e.target.value)}
-                placeholder="Enter your contact number here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
-                  errors.contactNumber ? 'border-red-500' : 'border-transparent'
-                } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
-              />
-              {errors.contactNumber && (
-                <p className="mt-1 text-xs text-red-500 font-medium">{errors.contactNumber}</p>
               )}
             </div>
 
@@ -264,14 +264,43 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Create Account Button */}
+            {/* Confirm Password */}
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm your password here..."
+                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${
+                    errors.confirmPassword ? 'border-red-500' : 'border-transparent'
+                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 cursor-pointer text-primary hover:opacity-80 transition-opacity"
+                >
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="mt-1 text-xs text-red-500 font-medium">{errors.confirmPassword}</p>
+              )}
+            </div>
+
+            {/* Create Business Account Button */}
             <button
               type="submit"
               className={`w-full mt-4 text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${
                 isManager ? 'bg-[#6B1294] hover:bg-[#580e7d]' : 'bg-[#E68A00] hover:bg-[#c77700]'
               }`}
             >
-              Create Account
+              Create Business Account
             </button>
 
             {/* Sign In Link */}
@@ -292,7 +321,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Section - Hero Image & Dynamic Content */}
-      <div className="hidden lg:flex lg:w-[50%] xl:w-[50%] relative flex-col justify-start p-12 lg:p-16 xl:p-20 overflow-hidden bg-gray-900">
+      <div className="hidden lg:flex lg:w-[50%] xl:w-[50%] sticky top-0 h-screen flex-shrink-0 relative flex-col justify-start p-12 lg:p-16 xl:p-20 overflow-hidden bg-gray-900">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center transition-all duration-700 scale-105"
@@ -301,7 +330,7 @@ export default function RegisterPage() {
           }}
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" /> */}
 
         {/* Hero Content */}
         <div className="relative z-10 text-white pt-4">

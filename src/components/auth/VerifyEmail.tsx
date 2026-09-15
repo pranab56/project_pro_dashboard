@@ -87,9 +87,9 @@ export default function VerifyOTPPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-[#EBEBEB]">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row bg-[#EBEBEB] overflow-x-hidden lg:overflow-hidden">
       {/* Left Section - Form */}
-      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 min-h-screen">
+      <div className="w-full lg:w-[50%] xl:w-[50%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 xl:p-20 min-h-screen lg:h-screen overflow-y-auto [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Logo */}
         <div className="pt-2 sm:pt-0 max-w-lg w-full mx-auto">
           <ProjexProLogo />
@@ -165,7 +165,7 @@ export default function VerifyOTPPage() {
       </div>
 
       {/* Right Section - Hero Image */}
-      <div className="hidden lg:flex lg:w-[50%] xl:w-[50%] relative flex-col justify-start p-12 lg:p-16 xl:p-20 overflow-hidden bg-gray-900">
+      <div className="hidden lg:flex lg:w-[50%] xl:w-[50%] sticky top-0 h-screen flex-shrink-0 relative flex-col justify-start p-12 lg:p-16 xl:p-20 overflow-hidden bg-gray-900">
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105"
           style={{ backgroundImage: `url('/images/house_hero_2.png')` }}
