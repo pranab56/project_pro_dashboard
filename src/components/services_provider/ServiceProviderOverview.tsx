@@ -17,6 +17,10 @@ import {
   X,
   Send,
   Check,
+  Search,
+  FileText,
+  Shield,
+  Landmark,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -327,64 +331,119 @@ export default function ServiceProviderOverview(): React.ReactElement {
 
       {/* Bottom Main Content Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
-        {/* Left Column: Assigned Job Today */}
-        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6 flex flex-col justify-between">
-          <div>
-            <h2 className="text-lg font-bold text-gray-900">
-              Today&apos;s Assigned Jobs
+        {/* Left Column: Action Center */}
+        <div className="lg:col-span-4 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 flex flex-col h-[600px] shadow-2xs">
+          <div className="shrink-0 mb-4">
+            <h2 className="text-base sm:text-lg font-bold text-[#6B1294] tracking-wide uppercase">
+              ACTION CENTER
             </h2>
-            <p className="text-xs text-gray-500 font-normal mt-0.5 mb-6">
-              Payout on completion: $200.23
-            </p>
+          </div>
 
-            <div className="space-y-6 relative pl-1">
-              {assignedJobsToday.map((job, idx) => (
-                <div key={job.id} className="relative flex items-start gap-4">
-                  {/* Timeline connector dot and line */}
-                  <div className="flex flex-col items-center self-stretch pt-1">
-                    <div
-                      className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                        job.active
-                          ? "bg-[#8E25E3] ring-4 ring-[#F0E6FC]"
-                          : "bg-gray-300"
-                      }`}
-                    />
-                    {idx !== assignedJobsToday.length - 1 && (
-                      <div className="w-[1.5px] bg-gray-300/80 flex-1" />
-                    )}
-                  </div>
-
-                  {/* Job Details & Link */}
-                  <div className="flex-1 flex items-center justify-between min-w-0 pb-1">
-                    <div>
-                      <span className="text-[11px] text-gray-400 font-normal block leading-none">
-                        {job.time}
-                      </span>
-                      <h3 className="text-sm font-semibold text-gray-900 mt-1 leading-tight truncate">
-                        {job.title}
-                      </h3>
-                      <p className="text-xs text-gray-500 font-normal mt-0.5 leading-tight truncate">
-                        {job.category}
-                      </p>
-                    </div>
-
-                    <Link
-                      href="/services_provider/job_request"
-                      className="text-xs font-semibold text-[#8E25E3] hover:underline flex items-center gap-1 shrink-0 ml-2"
-                    >
-                      <span>View all</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
+          <div className="flex-1 overflow-y-auto space-y-3.5 pr-1.5">
+            {/* Card 1: 2 Matched Jobs */}
+            <div className="bg-[#FFFFFF] border border-gray-200/90 rounded-2xl p-4 sm:p-4.5 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-full bg-[#F0E6FC] flex items-center justify-center shrink-0 mt-0.5">
+                  <Search className="w-5 h-5 text-[#6B1294]" />
                 </div>
-              ))}
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
+                    2 Matched Jobs
+                  </h3>
+                  <p className="text-xs text-gray-500 font-normal mt-1 leading-snug">
+                    Review matches for your service area
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3.5">
+                <Link
+                  href="/services_provider/job_request"
+                  className="w-full bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-2xs block text-center transition-all active:scale-[0.99]"
+                >
+                  View Matched Jobs
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 2: 1 Job Ready for Closeout */}
+            <div className="bg-[#FFFFFF] border border-gray-200/90 rounded-2xl p-4 sm:p-4.5 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-full bg-[#F0E6FC] flex items-center justify-center shrink-0 mt-0.5">
+                  <CheckCircle2 className="w-5 h-5 text-[#6B1294]" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
+                    1 Job Ready for Closeout
+                  </h3>
+                </div>
+              </div>
+              <div className="mt-3.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const readyJob = jobRequests.find((j) => j.status === "In Progress") || jobRequests[0];
+                    if (readyJob) {
+                      setProgressModalJob(readyJob);
+                      setProgressValue(readyJob.progressPercent || 90);
+                      setSelectedProgressStatus("In Progress");
+                    }
+                  }}
+                  className="w-full bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-2xs block text-center transition-all active:scale-[0.99] cursor-pointer"
+                >
+                  Submit Completion
+                </button>
+              </div>
+            </div>
+
+            {/* Card 3: 1 Invoice Ready */}
+            <div className="bg-[#FFFFFF] border border-gray-200/90 rounded-2xl p-4 sm:p-4.5 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-full bg-[#F0E6FC] flex items-center justify-center shrink-0 mt-0.5">
+                  <FileText className="w-5 h-5 text-[#6B1294]" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
+                    1 Invoice Ready
+                  </h3>
+                </div>
+              </div>
+              <div className="mt-3.5">
+                <Link
+                  href="/services_provider/payment"
+                  className="w-full bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-2xs block text-center transition-all active:scale-[0.99]"
+                >
+                  Review Billing
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 4: Insurance document expires in 14 days */}
+            <div className="bg-[#FFFFFF] border border-gray-200/90 rounded-2xl p-4 sm:p-4.5 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-full bg-[#F0E6FC] flex items-center justify-center shrink-0 mt-0.5">
+                  <Shield className="w-5 h-5 text-[#6B1294]" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
+                    Insurance document expires in 14 days
+                  </h3>
+                </div>
+              </div>
+              <div className="mt-3.5">
+                <Link
+                  href="/services_provider/profile"
+                  className="w-full bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-2xs block text-center transition-all active:scale-[0.99]"
+                >
+                  Update Profile
+                </Link>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Right Column: Job Request */}
-        <div className="lg:col-span-8 bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-4 sm:mb-5">
+        <div className="lg:col-span-8 bg-[#FFFFFF] border border-[#E5E7EB] rounded-2xl p-5 sm:p-6 flex flex-col h-[600px] shadow-2xs">
+          <div className="flex items-center justify-between mb-4 sm:mb-5 shrink-0">
             <h2 className="text-lg font-bold text-gray-900">Job Request</h2>
             <Link
               href="/services_provider/job_request"
@@ -396,7 +455,7 @@ export default function ServiceProviderOverview(): React.ReactElement {
           </div>
 
           {/* Job Request Items List */}
-          <div className="space-y-3.5">
+          <div className="flex-1 overflow-y-auto space-y-3.5 pr-1.5">
             {jobRequests.map((req) => (
               <div
                 key={req.id}
