@@ -9,6 +9,7 @@ interface Step2ContactInfoProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBack: () => void;
   onNext: () => void;
+  isServiceProvider?: boolean;
 }
 
 export default function Step2ContactInfo({
@@ -16,18 +17,18 @@ export default function Step2ContactInfo({
   onChange,
   onBack,
   onNext,
+  isServiceProvider,
 }: Step2ContactInfoProps) {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleContinue = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.fullName.trim()) newErrors.fullName = "Full Name is required";
-    if (!formData.jobTitle.trim()) newErrors.jobTitle = "Job Title is required";
+    if (!isServiceProvider && !formData.jobTitle.trim()) newErrors.jobTitle = "Job Title is required";
     if (!formData.businessEmail.trim())
       newErrors.businessEmail = "Business Email is required";
     if (!formData.contactNumber.trim())
       newErrors.contactNumber = "Business Phone Number is required";
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -81,34 +82,36 @@ export default function Step2ContactInfo({
           )}
         </div>
 
-        {/* Job Title */}
-        <div>
-          <label className="block text-xs sm:text-sm font-semibold text-gray-800 mb-1.5">
-            Job Title *
-          </label>
-          <div className="relative">
-            <Briefcase className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              name="jobTitle"
-              value={formData.jobTitle}
-              onChange={(e) => {
-                onChange(e);
-                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, jobTitle: "" }));
-              }}
-              placeholder="e.g., Property Manager, Director, CEO"
-              className={`w-full pl-10 pr-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.jobTitle
-                  ? "border-red-500 bg-red-50/20"
-                  : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
-                }`}
-            />
+        {/* Job Title - Only for Property Manager */}
+        {!isServiceProvider && (
+          <div>
+            <label className="block text-xs sm:text-sm font-semibold text-gray-800 mb-1.5">
+              Job Title *
+            </label>
+            <div className="relative">
+              <Briefcase className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                name="jobTitle"
+                value={formData.jobTitle}
+                onChange={(e) => {
+                  onChange(e);
+                  if (e.target.value.trim()) setErrors((prev) => ({ ...prev, jobTitle: "" }));
+                }}
+                placeholder="e.g., Property Manager, Director, CEO"
+                className={`w-full pl-10 pr-4 py-3 bg-white border rounded-xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all ${errors.jobTitle
+                    ? "border-red-500 bg-red-50/20"
+                    : "border-gray-300 focus:border-[#6B1294] focus:ring-2 focus:ring-[#6B1294]/20"
+                  }`}
+              />
+            </div>
+            {errors.jobTitle && (
+              <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
+                <span>⚠️</span> {errors.jobTitle}
+              </p>
+            )}
           </div>
-          {errors.jobTitle && (
-            <p className="text-red-500 text-xs mt-1 font-semibold flex items-center gap-1">
-              <span>⚠️</span> {errors.jobTitle}
-            </p>
-          )}
-        </div>
+        )}
 
         {/* Business Email Address */}
         <div>

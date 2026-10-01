@@ -1,19 +1,23 @@
 "use client";
 
 import Image from 'next/image';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { useFindUserNameQuery, useSignupMutation } from '../../../../features/auth/authApi';
 
 type Role = 'manager' | 'provider';
 
 interface RegisterErrors {
   firstName?: string;
   lastName?: string;
-  username?: string;
+  userName?: string;
   email?: string;
+  contactNumber?: string;
   password?: string;
   confirmPassword?: string;
 }
@@ -37,8 +41,9 @@ export default function RegisterPage() {
   const [role, setRole] = useState<Role>('manager');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
+  const [userName, setuserName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [contactNumber, setContactNumber] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -46,6 +51,22 @@ export default function RegisterPage() {
   const [errors, setErrors] = useState<RegisterErrors>({});
 
   const router = useRouter();
+  const [signup, { isLoading }] = useSignupMutation();
+
+  // Automatic Username availability check query
+  const { data: usernameCheckData, isFetching: isCheckingUsername } = useFindUserNameQuery(userName, {
+    skip: !userName || userName.trim().length === 0,
+  });
+
+  const isUsernameExists =
+    usernameCheckData?.data?.exists === true ||
+    usernameCheckData?.data?.isAvailable === false ||
+    usernameCheckData?.success === false;
+
+  const isUsernameAvailable =
+    usernameCheckData?.data?.exists === false &&
+    usernameCheckData?.data?.isAvailable === true &&
+    usernameCheckData?.success === true;
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -62,7 +83,7 @@ export default function RegisterPage() {
     return personalDomains.includes(domain);
   };
 
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     const newErrors: RegisterErrors = {};
 
@@ -75,7 +96,13 @@ export default function RegisterPage() {
     } else if (isPersonalEmail(email)) {
       newErrors.email = 'Personal email domains (Gmail, Yahoo, Outlook, etc.) are not accepted. Please use your company email address.';
     }
-    if (!username.trim()) newErrors.username = 'Username is required';
+    if (!userName.trim()) {
+      newErrors.userName = 'userName is required';
+    } else if (isUsernameExists) {
+      newErrors.userName = 'Username is already taken';
+    }
+
+    if (!contactNumber.trim()) newErrors.contactNumber = 'Contact number is required';
     if (!password) {
       newErrors.password = 'Password is required';
     } else if (password.length < 6) {
@@ -91,8 +118,29 @@ export default function RegisterPage() {
 
     if (Object.keys(newErrors).length > 0) return;
 
-    toast.success('Registration successful! Please complete your account verification.');
-    router.push('/verification');
+    try {
+      const payload = {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        contactNumber: contactNumber || "+447123456789",
+        role: role === 'manager' ? 'property_manager' : 'service_provider',
+      };
+
+      const res = await signup(payload).unwrap();
+      if (res?.success || res?.statusCode === 200) {
+        toast.success(res?.message || 'User created successfully');
+        router.push(`/auth/verify-email?email=${encodeURIComponent(email)}&type=createAccount`);
+      } else {
+        toast.error(res?.message || 'Registration failed');
+      }
+    } catch (error: any) {
+      console.error(error);
+      const errorMessage = error?.data?.message || error?.message || 'Registration failed. Please try again.';
+      toast.error(errorMessage);
+    }
   };
 
   const isManager = role === 'manager';
@@ -153,15 +201,18 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Enter First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="firstName"
                   type="text"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    if (errors.firstName) setErrors({ ...errors, firstName: '' });
+                  }}
                   placeholder="Enter your first name here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.firstName ? 'border-red-500' : 'border-transparent'
+                  className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${errors.firstName ? 'border-red-500' : 'border-transparent'
                     } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
                 />
                 {errors.firstName && (
@@ -171,15 +222,18 @@ export default function RegisterPage() {
 
               <div>
                 <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Enter Last Name
+                  Last Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="lastName"
                   type="text"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    if (errors.lastName) setErrors({ ...errors, lastName: '' });
+                  }}
                   placeholder="Enter your last name here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.lastName ? 'border-red-500' : 'border-transparent'
+                  className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${errors.lastName ? 'border-red-500' : 'border-transparent'
                     } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
                 />
                 {errors.lastName && (
@@ -191,15 +245,18 @@ export default function RegisterPage() {
             {/* Business Email Address */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Business Email Address
+                Business Email Address <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors({ ...errors, email: '' });
+                }}
                 placeholder="Enter your email Address here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.email ? 'border-red-500' : 'border-transparent'
+                className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${errors.email ? 'border-red-500' : 'border-transparent'
                   } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
               />
               <p className="mt-1.5 text-xs text-gray-500 leading-relaxed font-normal">
@@ -210,38 +267,87 @@ export default function RegisterPage() {
               )}
             </div>
 
-            {/* Create Username */}
-            <div>
-              <label htmlFor="username" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Create Username
-              </label>
-              <input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username here..."
-                className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.username ? 'border-red-500' : 'border-transparent'
-                  } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all`}
-              />
-              {errors.username && (
-                <p className="mt-1 text-xs text-red-500 font-medium">{errors.username}</p>
-              )}
+            {/* Create userName & Contact Number (2 Cols) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="userName" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                  Create userName <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    id="userName"
+                    type="text"
+                    value={userName}
+                    onChange={(e) => {
+                      setuserName(e.target.value);
+                      if (errors.userName) setErrors({ ...errors, userName: '' });
+                    }}
+                    placeholder="Enter your userName here..."
+                    className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${
+                      errors.userName || (userName.trim() && isUsernameExists)
+                        ? 'border-red-500 focus:border-red-500'
+                        : userName.trim() && isUsernameAvailable
+                        ? 'border-green-500 focus:border-green-500'
+                        : 'border-transparent focus:border-primary'
+                    } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:outline-none transition-all pr-8`}
+                  />
+                  {isCheckingUsername && (
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+                    </span>
+                  )}
+                </div>
+                {errors.userName ? (
+                  <p className="mt-1 text-xs text-red-500 font-medium">{errors.userName}</p>
+                ) : userName.trim() && isUsernameExists ? (
+                  <p className="mt-1 text-xs text-red-500 font-medium">Username is already taken</p>
+                ) : userName.trim() && isUsernameAvailable ? (
+                  <p className="mt-1 text-xs text-green-600 font-medium">Username is available</p>
+                ) : null}
+              </div>
+
+              <div>
+                <label htmlFor="contactNumber" className="block text-sm font-semibold text-gray-700 mb-1.5">
+                  Contact Number <span className="text-red-500">*</span>
+                </label>
+                <div
+                  className={`w-full px-4 h-[50px] flex items-center bg-[#E2E2E5] border ${
+                    errors.contactNumber ? 'border-red-500' : 'border-transparent'
+                  } rounded-lg text-gray-900 text-sm focus-within:bg-white focus-within:border-primary transition-all [&_.PhoneInput]:w-full [&_.PhoneInputInput]:bg-transparent [&_.PhoneInputInput]:outline-none [&_.PhoneInputInput]:text-sm [&_.PhoneInputInput]:ml-2`}
+                >
+                  <PhoneInput
+                    international
+                    defaultCountry="US"
+                    placeholder="Enter contact number..."
+                    value={contactNumber}
+                    onChange={(val) => {
+                      setContactNumber(val ? String(val) : '');
+                      if (errors.contactNumber) setErrors({ ...errors, contactNumber: '' });
+                    }}
+                  />
+                </div>
+                {errors.contactNumber && (
+                  <p className="mt-1 text-xs text-red-500 font-medium">{errors.contactNumber}</p>
+                )}
+              </div>
             </div>
 
             {/* Create Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Create Password
+                Create Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (errors.password) setErrors({ ...errors, password: '' });
+                  }}
                   placeholder="Enter your password here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.password ? 'border-red-500' : 'border-transparent'
+                  className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${errors.password ? 'border-red-500' : 'border-transparent'
                     } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
                 />
                 <button
@@ -260,16 +366,19 @@ export default function RegisterPage() {
             {/* Confirm Password */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Confirm Password
+                Confirm Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? 'text' : 'password'}
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    if (errors.confirmPassword) setErrors({ ...errors, confirmPassword: '' });
+                  }}
                   placeholder="Confirm your password here..."
-                  className={`w-full px-4 py-3.5 bg-[#E2E2E5] border ${errors.confirmPassword ? 'border-red-500' : 'border-transparent'
+                  className={`w-full px-4 h-[50px] bg-[#E2E2E5] border ${errors.confirmPassword ? 'border-red-500' : 'border-transparent'
                     } rounded-lg text-gray-900 placeholder:text-gray-400 text-sm focus:bg-white focus:border-primary focus:outline-none transition-all pr-11`}
                 />
                 <button
@@ -288,10 +397,12 @@ export default function RegisterPage() {
             {/* Create Business Account Button */}
             <button
               type="submit"
-              className={`w-full mt-4 text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${isManager ? 'bg-[#6B1294] hover:bg-[#580e7d]' : 'bg-[#E68A00] hover:bg-[#c77700]'
+              disabled={isLoading || isUsernameExists}
+              className={`w-full mt-4 text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 ${isManager ? 'bg-[#6B1294] hover:bg-[#580e7d]' : 'bg-[#E68A00] hover:bg-[#c77700]'
                 }`}
             >
-              Create Business Account
+              {isLoading && <Loader2 className="w-5 h-5 animate-spin" />}
+              <span>{isLoading ? 'Creating Account...' : 'Create Business Account'}</span>
             </button>
 
             {/* Sign In Link */}
@@ -320,8 +431,6 @@ export default function RegisterPage() {
             backgroundImage: `url('${isManager ? '/images/signup1.png' : '/images/signup2.png'}')`,
           }}
         />
-        {/* Gradient Overlay */}
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" /> */}
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-2xl text-white pt-4">
@@ -353,3 +462,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

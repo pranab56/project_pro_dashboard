@@ -16,6 +16,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect, Suspense } from "react";
 import toast from "react-hot-toast";
+
 import {
   getStoredRequests,
   subscribeToRequests,
@@ -24,6 +25,7 @@ import {
   ServiceRequestItem,
   ExtraWorkRequest,
 } from "@/types/serviceRequestStore";
+
 
 function TrackContent() {
   const searchParams = useSearchParams();
@@ -62,6 +64,8 @@ function TrackContent() {
     toast.success(`Extra Work Request ${extraWorkId} approved by Property Manager!`);
   };
 
+  
+
   const handleDeclineExtraWork = (extraWorkId: string) => {
     declineExtraWorkRequest(currentJob.id, extraWorkId, "Declined by Property Manager");
     toast.error(`Extra Work Request ${extraWorkId} declined.`);
@@ -99,10 +103,10 @@ function TrackContent() {
 
             <span
               className={`font-semibold text-xs px-3 py-1 rounded-full ${currentJob.priority === "Critical" || (currentJob.priority as string) === "Urgent"
-                  ? "bg-[#FEE2E2] text-[#EF4444]"
-                  : currentJob.priority === "High"
-                    ? "bg-amber-100 text-amber-700"
-                    : "bg-blue-100 text-blue-700"
+                ? "bg-[#FEE2E2] text-[#EF4444]"
+                : currentJob.priority === "High"
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-blue-100 text-blue-700"
                 }`}
             >
               {currentJob.priority} Priority

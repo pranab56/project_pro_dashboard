@@ -5,15 +5,21 @@ import { Check, Shield } from "lucide-react";
 
 interface VerificationSidebarProps {
   currentStep: number;
+  isServiceProvider?: boolean;
 }
 
 export default function VerificationSidebar({
   currentStep,
+  isServiceProvider = false,
 }: VerificationSidebarProps) {
   const stepsList = [
     { number: 1, title: "Welcome", desc: "Account created" },
     { number: 2, title: "Company Profile", desc: "Organization details" },
-    { number: 3, title: "Portfolio Profile", desc: "Portfolio & operating details" },
+    {
+      number: 3,
+      title: isServiceProvider ? "Provider & Business" : "Portfolio Profile",
+      desc: isServiceProvider ? "Licenses, services & business" : "Portfolio & operating details",
+    },
     { number: 4, title: "Review & Submit", desc: "Submit for verification" },
   ];
 

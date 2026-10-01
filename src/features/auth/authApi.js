@@ -1,6 +1,5 @@
 import { baseApi } from "../../utils/apiBaseQuery";
 
-
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Login
@@ -10,62 +9,85 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
     }),
 
+    // Signup
+    signup: builder.mutation({
+      query: (credentials) => ({
+        url: "/auth/signup",
+        method: "POST",
+        body: credentials,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+
+    // Forgot Password Email
     forgotEmail: builder.mutation({
       query: (forgotEmail) => ({
-        url: "/auth/forgot-password-otp",
+        url: "/auth/forget-password",
         method: "POST",
         body: forgotEmail,
-      }),
+      }), 
+      invalidatesTags: ["Auth"],
     }),
 
-    forgotEmailOTPCheck: builder.mutation({
-      query: ({ otp, token }) => ({
-        url: "/auth/forgot-password-otp-match",
-        method: "PATCH",
-        headers: {
-          token: token,
-          "Content-Type": "application/json"
-        },
-        body: { otp },  // <-- must be an object
-      }),
-    }),
-
-    resendPassword: builder.mutation({
-      query: (token) => ({
-        url: "/otp/resend-otp",
-        method: "PATCH",
-        headers: {
-          token: token,
-          "Content-Type": "application/json"
-        },
-      }),
-    }),
-
-    resetPassword: builder.mutation({
+    // OTP Verification (Handles both signup & forgot password OTP verification)
+    otpCheck: builder.mutation({
       query: (data) => ({
-        url: "/auth/forgot-password-reset",
-        method: "PATCH",
+        url: "/auth/verify-account",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+
+    // Resend OTP
+    resendOTP: builder.mutation({
+      query: (data) => ({
+        url: "/auth/resend-otp",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+
+    // Reset Password
+    resetPassword: builder.mutation({
+      query: ({ token, newPassword, confirmPassword }) => ({
+        url: `/auth/reset-password${token ? `?token=${token}` : ""}`,
+        method: "POST",
         headers: {
-          token: `${data.token}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: token } : {}),
         },
         body: {
-          newPassword: data.password,
-          confirmPassword: data.confirmPassword,
+          newPassword,
+          confirmPassword,
         },
       }),
+      invalidatesTags: ["Auth"],
     }),
 
+
+    findUserName: builder.query({
+      query: (userName) => ({
+        url: `/user/check-username?username=${userName}`,
+        method: "GET",
+      }),
+      providesTags: ["Auth"],
+    }),
   }),
 });
 
 // Export hooks
 export const {
   useLoginMutation,
+  useSignupMutation,
   useForgotEmailMutation,
-  useForgotEmailOTPCheckMutation,
+  useOtpCheckMutation,
+  useResendOTPMutation,
   useResetPasswordMutation,
-  useResendPasswordMutation
+  useFindUserNameQuery,
 } = authApi;
+

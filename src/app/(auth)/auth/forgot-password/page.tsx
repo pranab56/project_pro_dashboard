@@ -1,10 +1,12 @@
 "use client";
 
 import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useForgotEmailMutation } from '../../../../features/auth/authApi';
 
 function ProjexProLogo() {
   return (
@@ -26,17 +28,18 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState<string>('');
 
   const router = useRouter();
+  const [forgotEmail, { isLoading }] = useForgotEmailMutation();
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError('');
 
-    if (!email) {
+    if (!email.trim()) {
       setError('Email address is required');
       return;
     }
@@ -46,8 +49,19 @@ export default function ForgotPasswordPage() {
       return;
     }
 
-    toast.success('Reset link sent to your email!');
-    router.push('/auth/verify-email');
+    try {
+      const res = await forgotEmail({ email }).unwrap();
+      if (res?.success || res?.statusCode === 200) {
+        toast.success(res?.message || 'OTP sent successfully. Please check your email.');
+        router.push(`/auth/verify-email?email=${encodeURIComponent(email)}&type=resetPassword`);
+      } else {
+        toast.error(res?.message || 'Failed to send OTP.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err?.data?.message || err?.message || 'Failed to send reset link. Please try again.';
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -65,14 +79,14 @@ export default function ForgotPasswordPage() {
             Reset Password
           </h1>
           <p className="text-sm text-gray-500 mt-2 mb-8 font-normal">
-            Enter your email address and we&apos;ll send you a link to reset your password
+            Enter your email address and we&apos;ll send you an OTP code to reset your password.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Email Address
+                Email Address <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
@@ -93,9 +107,11 @@ export default function ForgotPasswordPage() {
             {/* Send Reset Link Button */}
             <button
               type="submit"
-              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              disabled={isLoading}
+              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
             >
-              Send Reset Link
+              {isLoading && <Loader2 className="w-5 h-5 animate-spin" />}
+              <span>{isLoading ? 'Sending Code...' : 'Send Reset Link'}</span>
             </button>
 
             {/* Return to Sign In Link */}
@@ -123,4 +139,4 @@ export default function ForgotPasswordPage() {
       </div>
     </div>
   );
-}
+}

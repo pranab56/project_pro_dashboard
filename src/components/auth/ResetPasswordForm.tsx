@@ -1,11 +1,12 @@
 "use client";
 
 import Image from 'next/image';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useResetPasswordMutation } from '../../features/auth/authApi';
 
 function ProjexProLogo() {
   return (
@@ -23,13 +24,17 @@ function ProjexProLogo() {
 }
 
 export default function ResetPasswordForm() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token') || '';
+
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
-  const [errors, setErrors] = useState<{ newPassword?: string; confirmPassword?: string }>({});
+  const [errors, setErrors] = useState<{ newPassword?: string; confirmPassword?: string; token?: string }>({});
 
   const router = useRouter();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const validatePassword = (password: string): string => {
     if (!password) {
@@ -41,9 +46,13 @@ export default function ResetPasswordForm() {
     return '';
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    const newErrors: { newPassword?: string; confirmPassword?: string } = {};
+    const newErrors: { newPassword?: string; confirmPassword?: string; token?: string } = {};
+
+    if (!token) {
+      newErrors.token = 'Reset token is missing or invalid. Please request a new OTP.';
+    }
 
     const passwordError = validatePassword(newPassword);
     if (passwordError) {
@@ -58,9 +67,30 @@ export default function ResetPasswordForm() {
 
     setErrors(newErrors);
 
-    if (!newErrors.newPassword && !newErrors.confirmPassword) {
-      toast.success('Password updated successfully!');
-      router.push('/auth/login');
+    if (newErrors.newPassword || newErrors.confirmPassword || newErrors.token) {
+      if (newErrors.token) {
+        toast.error(newErrors.token);
+      }
+      return;
+    }
+
+    try {
+      const res = await resetPassword({
+        token,
+        newPassword,
+        confirmPassword,
+      }).unwrap();
+
+      if (res?.success || res?.statusCode === 200) {
+        toast.success(res?.message || 'Password reset successfully, please login now.');
+        router.push('/auth/login');
+      } else {
+        toast.error(res?.message || 'Password reset failed.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err?.data?.message || err?.message || 'Failed to reset password. Please try again.';
+      toast.error(errorMessage);
     }
   };
 
@@ -83,10 +113,16 @@ export default function ResetPasswordForm() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {errors.token && (
+              <p className="text-xs text-red-500 font-semibold p-3 bg-red-50 rounded-lg border border-red-200">
+                {errors.token}
+              </p>
+            )}
+
             {/* Enter New Password */}
             <div>
               <label htmlFor="newPassword" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Enter New Password
+                Enter New Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -117,7 +153,7 @@ export default function ResetPasswordForm() {
             {/* Confirm Your New Password */}
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Confirm Your New Password
+                Confirm Your New Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -148,9 +184,11 @@ export default function ResetPasswordForm() {
             {/* Update Password Button */}
             <button
               type="submit"
-              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              disabled={isLoading}
+              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
             >
-              Update Password
+              {isLoading && <Loader2 className="w-5 h-5 animate-spin" />}
+              <span>{isLoading ? 'Updating Password...' : 'Update Password'}</span>
             </button>
 
             {/* Return to Login Link */}
@@ -178,4 +216,4 @@ export default function ResetPasswordForm() {
       </div>
     </div>
   );
-}
+}

@@ -5,9 +5,10 @@ import { ArrowRight, Building2, PieChart, ClipboardCheck, Clock } from "lucide-r
 
 interface Step1WelcomeProps {
   onContinue: () => void;
+  isServiceProvider?: boolean;
 }
 
-export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
+export default function Step1Welcome({ onContinue, isServiceProvider = false }: Step1WelcomeProps) {
   return (
     <div className="space-y-6 max-w-3xl animate-in fade-in duration-300">
       {/* Top Header matching screenshot */}
@@ -19,7 +20,9 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           Your business account has been created.
         </h2>
         <p className="text-xs sm:text-sm text-gray-600 font-normal leading-relaxed mt-2 max-w-2xl">
-          Next, complete your Company & Portfolio Profile so we can verify your organization and prepare your ProjexPro workspace.
+          {isServiceProvider
+            ? "Next, complete your Service Provider & Business Profile so we can verify your organization and activate your provider account."
+            : "Next, complete your Company & Portfolio Profile so we can verify your organization and prepare your ProjexPro workspace."}
         </p>
 
         {/* Time Estimate Pill */}
@@ -53,10 +56,12 @@ export default function Step1Welcome({ onContinue }: Step1WelcomeProps) {
           </div>
           <div>
             <h3 className="text-sm sm:text-base font-bold text-gray-900">
-              2. Portfolio Profile
+              {isServiceProvider ? "2. Provider & Business Profile" : "2. Portfolio Profile"}
             </h3>
             <p className="text-xs sm:text-sm text-gray-500 font-normal mt-0.5">
-              Share your portfolio size, properties, markets, and operational needs.
+              {isServiceProvider
+                ? "Share your licenses, certifications, services offered, and business details."
+                : "Share your portfolio size, properties, markets, and operational needs."}
             </p>
           </div>
         </div>

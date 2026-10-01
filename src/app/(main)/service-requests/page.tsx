@@ -69,11 +69,11 @@ export default function ServiceRequestsPage() {
   // Handle status update
   const handleStatusChange = (
     id: string,
-    _newStatus: StatusType,
-    _newStage: number,
-    _stageText: string
+    newStatus: StatusType,
+    newStage: number,
+    stageText: string
   ) => {
-    toast.success(`Request ${id} status updated`);
+    toast.success(`Request ${id} updated to ${newStatus} (Stage ${newStage}: ${stageText})`);
   };
 
   // Submit Modal - Creates a Service Request that routes to Super Admin

@@ -1,11 +1,16 @@
 "use client";
 
 import Image from 'next/image';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '../../../../features/auth/authApi';
+import { useMyProfileQuery } from '../../../../features/profile/profileApi';
+import { setToken } from '../../../../features/auth/authSlice';
+import { getRedirectUrlForProfile } from '../../../../utils/authRedirect';
 
 interface LoginErrors {
   email: string;
@@ -38,7 +43,9 @@ export default function LoginPage() {
   });
 
   const router = useRouter();
-
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+  const { refetch: fetchProfile } = useMyProfileQuery(undefined, { skip: true });
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,16 +56,14 @@ export default function LoginPage() {
     if (e) e.preventDefault();
     const newErrors: LoginErrors = { email: '', password: '' };
 
-    if (!email) {
-      newErrors.email = 'Email address is required';
+    if (!email.trim()) {
+      newErrors.email = 'Business email address is required';
     } else if (!validateEmail(email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
     if (!password) {
       newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
     }
 
     setErrors(newErrors);
@@ -68,11 +73,31 @@ export default function LoginPage() {
       return;
     }
     try {
-      toast.success('Login successful!');
-      router.push('/');
-    } catch (error) {
-      console.log(error);
-      toast.error('Login failed. Please check your credentials and try again.');
+      const res = await login({ email, password }).unwrap();
+      if (res?.success || res?.statusCode === 200) {
+        const token = res?.data?.accessToken;
+        if (token) {
+          dispatch(setToken(token));
+        }
+
+        toast.success(res?.message || 'Login successful!');
+
+        // Check profile completion status for role-based onboarding redirection
+        try {
+          const profileRes = await fetchProfile().unwrap();
+          const profileData = profileRes?.data || profileRes;
+          const redirectUrl = getRedirectUrlForProfile(profileData);
+          router.push(redirectUrl);
+        } catch {
+          router.push('/');
+        }
+      } else {
+        toast.error(res?.message || 'Login failed.');
+      }
+    } catch (error: any) {
+      console.error(error);
+      const errorMessage = error?.data?.message || error?.message || 'Login failed. Please check your credentials and try again.';
+      toast.error(errorMessage);
     }
   };
 
@@ -112,7 +137,7 @@ export default function LoginPage() {
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Business Email Address
+                Business Email Address <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
@@ -131,7 +156,7 @@ export default function LoginPage() {
             {/* Password Field */}
             <div>
               <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-1.5">
-                Password
+                Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -167,7 +192,7 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Me */}
-            <div className="flex items-center gap-2.5 pt-1">
+            {/* <div className="flex items-center gap-2.5 pt-1">
               <input
                 type="checkbox"
                 id="remember"
@@ -178,14 +203,16 @@ export default function LoginPage() {
               <label htmlFor="remember" className="text-sm font-medium text-gray-700 cursor-pointer select-none">
                 Remember this device
               </label>
-            </div>
+            </div> */}
 
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              disabled={isLoading}
+              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
             >
-              Sign In
+              {isLoading && <Loader2 className="w-5 h-5 animate-spin" />}
+              <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
             </button>
 
             {/* Create Account Link */}
@@ -209,8 +236,6 @@ export default function LoginPage() {
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 scale-105"
           style={{ backgroundImage: `url('/images/login.png')` }}
         />
-        {/* Dark Gradient Overlay for Text Clarity */}
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" /> */}
 
         {/* Text Content Overlay */}
         <div className="relative z-10 text-white pt-4 max-w-xl">

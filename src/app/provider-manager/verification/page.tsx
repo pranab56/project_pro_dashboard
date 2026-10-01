@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { VerificationFormData } from "@/types/verification";
+import { VerificationFormData, IPropertyManagerProfile } from "@/types/verification";
+import { useMyProfileQuery, useUpdateProfileByPropertyManagerMutation } from "@/features/profile/profileApi";
 import VerificationSidebar from "@/components/verification/VerificationSidebar";
 import VerificationHeaderNav from "@/components/verification/VerificationHeaderNav";
 import Step1Welcome from "@/components/verification/Step1Welcome";
@@ -18,13 +19,17 @@ import Step8BillingActivation from "@/components/verification/Step8BillingActiva
 export default function VerificationPage() {
   const router = useRouter();
 
-  // Current Step:
-  // 1 = Welcome, 2 = Contact Details, 3 = Business Details, 4 = Review & Submit
-  // 5 = Admin Review Pending, 6 = Account Approved (Image 1), 7 = Choose Plan, 8 = Billing & Activation (Image 2)
+  const { data: profileRes, isLoading: isProfileLoading } = useMyProfileQuery(undefined);
+  const profileData = profileRes?.data || profileRes;
+  const userRole = profileData?.role;
+  const isServiceProvider = userRole === "service_provider" || userRole === "provider";
+
+  const [updateProfile, { isLoading: isSubmitting }] = useUpdateProfileByPropertyManagerMutation();
+
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isProfilePreFilled, setIsProfilePreFilled] = useState<boolean>(false);
 
-  // Selected Plan state
   const [selectedPlan, setSelectedPlan] = useState<SelectedPlanInfo>({
     id: "plan-pro",
     name: "ProjexPro Pro",
@@ -34,30 +39,64 @@ export default function VerificationPage() {
     estimatedTotal: 2500,
   });
 
-  // Form State
   const [formData, setFormData] = useState<VerificationFormData>({
-    // Step 2: Contact Info
-    fullName: "Alex Morgan",
-    jobTitle: "Property Manager",
-    businessEmail: "alex.morgan@yourcompany.com",
-    contactNumber: "(555) 123-4567",
+    fullName: "",
+    jobTitle: "",
+    businessEmail: "",
+    contactNumber: "",
 
-    // Step 3: Business Details
-    companyName: "Acme Property Management",
-    legalName: "Acme Property Management LLC",
-    dbaName: "Acme Property Management",
-    website: "https://acmeproperty.com",
-    address: "123 Main Street, Suite 400",
-    city: "Austin",
-    state: "TX",
-    taxId: "XX-XXXXXXX",
+    companyName: "",
+    legalName: "",
+    dbaName: "",
+    website: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    taxId: "",
 
-    portfolioSize: "1,000 - 15,000 Units",
-    maintenance: "No, we outsource all maintenance to third-party vendors.",
-    propertyTypes: ["Single-Family Homes", "Multi-Family Units"],
+    portfolioSize: "",
+    maintenance: "",
+    propertyTypes: [],
+
+    bio: "",
+    skills: [],
+    yearsInBusiness: "",
+    serviceRadius: "",
+    serviceCategories: [],
+    licenseNumber: "",
+    licenses: [],
+
+    profileImage: null,
+    governmentIdFile: null,
+    proofOfInsuranceFile: null,
+    additionalDocuments: [],
   });
 
-  // Persist and restore step on reload
+  // Pre-fill from profile
+  useEffect(() => {
+    if (!profileData || isProfilePreFilled) return;
+    const profile: IPropertyManagerProfile = profileData?.profile || {};
+    setFormData((prev) => ({
+      ...prev,
+      fullName: [profileData?.firstName, profileData?.lastName].filter(Boolean).join(" ") || prev.fullName,
+      jobTitle: (profile as any)?.jobTitle || prev.jobTitle,
+      businessEmail: profileData?.email || prev.businessEmail,
+      contactNumber: profileData?.contactNumber || profileData?.phone || prev.contactNumber,
+
+      companyName: profile.companyName || prev.companyName,
+      address: profile.streetAddress || prev.address,
+      city: profile.city || prev.city,
+      state: profile.state || prev.state,
+      zipCode: profile.zipCode || prev.zipCode,
+
+      portfolioSize: profile.portfolioSize || prev.portfolioSize,
+      maintenance: profile.maintenanceApproach || prev.maintenance,
+      propertyTypes: profile.propertyTypes || prev.propertyTypes,
+    }));
+    setIsProfilePreFilled(true);
+  }, [profileData, isProfilePreFilled]);
+
   useEffect(() => {
     setIsMounted(true);
     if (typeof window !== "undefined") {
@@ -68,16 +107,6 @@ export default function VerificationPage() {
           setCurrentStep(parsed);
         }
       }
-
-      const savedForm = localStorage.getItem("projexpro_verification_form_data");
-      if (savedForm) {
-        try {
-          setFormData(JSON.parse(savedForm));
-        } catch (e) {
-          console.error("Error parsing saved form data", e);
-        }
-      }
-
       const savedPlan = localStorage.getItem("projexpro_verification_plan");
       if (savedPlan) {
         try {
@@ -97,31 +126,51 @@ export default function VerificationPage() {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      const updated = { ...prev, [name]: value };
-      if (typeof window !== "undefined") {
-        localStorage.setItem("projexpro_verification_form_data", JSON.stringify(updated));
-      }
-      return updated;
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleUpdateForm = (updater: (prev: VerificationFormData) => VerificationFormData) => {
-    setFormData((prev) => {
-      const updated = updater(prev);
-      if (typeof window !== "undefined") {
-        localStorage.setItem("projexpro_verification_form_data", JSON.stringify(updated));
-      }
-      return updated;
-    });
+    setFormData((prev) => updater(prev));
   };
 
-  const handleSubmitApplication = () => {
-    toast.success("Application submitted! Admin review in progress...");
-    updateStep(5);
+  const handleSubmitApplication = async () => {
+    try {
+      const nameParts = formData.fullName.trim().split(/\s+/);
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
+
+      const requestBody = {
+        firstName,
+        lastName,
+        phone: formData.contactNumber,
+        profile: {
+          streetAddress: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode || "",
+          companyName: formData.companyName,
+          portfolioSize: formData.portfolioSize,
+          maintenanceApproach: formData.maintenance,
+          propertyTypes: formData.propertyTypes,
+        },
+      };
+
+      const res = await updateProfile(requestBody).unwrap();
+      if (res?.success || res?.statusCode === 200) {
+        toast.success(res?.message || "Application submitted! Admin review in progress...");
+        updateStep(5);
+      } else {
+        toast.error(res?.message || "Failed to submit application. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Profile update error:", error);
+      const errorMessage =
+        error?.data?.message || error?.message || "Failed to submit application. Please try again.";
+      toast.error(errorMessage);
+    }
   };
 
   const handleSelectPlan = (plan: SelectedPlanInfo) => {
@@ -143,34 +192,37 @@ export default function VerificationPage() {
   };
 
   if (!isMounted) return null;
+  if (isProfileLoading && !isProfilePreFilled) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#6B1294]"></div>
+          <p className="text-sm text-gray-500">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col md:flex-row bg-[#F9FAFB]">
-      {/* LEFT SIDEBAR PANEL */}
-      <VerificationSidebar currentStep={Math.min(currentStep, 4)} />
+      <VerificationSidebar currentStep={Math.min(currentStep, 4)} isServiceProvider={isServiceProvider} />
 
-      {/* RIGHT CONTENT PANEL */}
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top Header Nav */}
         <VerificationHeaderNav />
 
         <div className="p-4 sm:p-8 md:p-10 flex-1">
-          {/* STEP 1: WELCOME */}
           {currentStep === 1 && (
-            <Step1Welcome onContinue={() => updateStep(2)} />
+            <Step1Welcome onContinue={() => updateStep(2)} isServiceProvider={isServiceProvider} />
           )}
-
-          {/* STEP 2: CONTACT DETAILS */}
           {currentStep === 2 && (
             <Step2ContactInfo
               formData={formData}
               onChange={handleInputChange}
               onBack={() => updateStep(1)}
               onNext={() => updateStep(3)}
+              isServiceProvider={isServiceProvider}
             />
           )}
-
-          {/* STEP 3: BUSINESS DETAILS */}
           {currentStep === 3 && (
             <Step3BusinessDetails
               formData={formData}
@@ -178,44 +230,34 @@ export default function VerificationPage() {
               onUpdateForm={handleUpdateForm}
               onBack={() => updateStep(2)}
               onNext={() => updateStep(4)}
+              isServiceProvider={isServiceProvider}
             />
           )}
-
-          {/* STEP 4: REVIEW & SUBMIT */}
           {currentStep === 4 && (
             <Step4ReviewSubmit
               formData={formData}
               onEditStep={(st) => updateStep(st)}
               onBack={() => updateStep(3)}
               onSubmit={handleSubmitApplication}
+              isServiceProvider={isServiceProvider}
+              isSubmitting={isSubmitting}
             />
           )}
-
-          {/* STEP 5: ADMIN REVIEW IN PROGRESS */}
           {currentStep === 5 && (
-            <Step5StatusPending
-              formData={formData}
-              onAdminApproved={() => updateStep(6)}
-            />
+            <Step5StatusPending formData={formData} onAdminApproved={() => updateStep(6)} />
           )}
-
-          {/* STEP 6: ACCOUNT APPROVED (IMAGE 1) */}
           {currentStep === 6 && (
             <Step6AccountApproved
               contactName={formData.fullName}
               onChoosePlan={() => updateStep(7)}
             />
           )}
-
-          {/* STEP 7: CHOOSE PLAN (SUPER ADMIN PLANS) */}
           {currentStep === 7 && (
             <Step7ChoosePlan
               portfolioSizeText={formData.portfolioSize}
               onSelectPlan={handleSelectPlan}
             />
           )}
-
-          {/* STEP 8: BILLING & ACTIVATION (IMAGE 2) */}
           {currentStep === 8 && (
             <Step8BillingActivation
               selectedPlan={selectedPlan}

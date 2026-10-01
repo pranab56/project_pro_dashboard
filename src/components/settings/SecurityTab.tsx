@@ -11,9 +11,7 @@ export default function SecurityTab() {
 
   const handleUpdatePassword = (e: React.FormEvent) => {
     e.preventDefault();
-
     const newErrors: Record<string, string> = {};
-
     if (!currentPassword) {
       newErrors.currentPassword = "Current Password is required";
     }
@@ -37,6 +35,7 @@ export default function SecurityTab() {
     setConfirmPassword("");
     setErrors({});
   };
+
 
   return (
     <div className="bg-[#FFFFFF] border border-[#E5E7EB] rounded-lg p-6 sm:p-8 max-w-2xl">

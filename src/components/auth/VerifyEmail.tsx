@@ -1,10 +1,16 @@
 "use client";
 
 import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ClipboardEvent, FormEvent, KeyboardEvent, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { ClipboardEvent, FormEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { useOtpCheckMutation, useResendOTPMutation } from '../../features/auth/authApi';
+import { useMyProfileQuery } from '../../features/profile/profileApi';
+import { setToken } from '../../features/auth/authSlice';
+import { getRedirectUrlForProfile } from '../../utils/authRedirect';
 
 function ProjexProLogo() {
   return (
@@ -22,11 +28,35 @@ function ProjexProLogo() {
 }
 
 export default function VerifyOTPPage() {
+  const searchParams = useSearchParams();
+  const initialEmail = searchParams.get('email') || '';
+  const flowType = searchParams.get('type') || 'createAccount'; // createAccount or resetPassword
+
+  const [email, setEmail] = useState<string>(initialEmail);
   const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
   const [error, setError] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [timer, setTimer] = useState<number>(0);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const [otpCheck, { isLoading: isVerifying }] = useOtpCheckMutation();
+  const [resendOTP, { isLoading: isResending }] = useResendOTPMutation();
+  const { refetch: fetchProfile } = useMyProfileQuery(undefined, { skip: true });
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [timer]);
 
   const setInputRef = (index: number) => (el: HTMLInputElement | null) => {
     inputRefs.current[index] = el;
@@ -64,9 +94,15 @@ export default function VerifyOTPPage() {
     inputRefs.current[nextIndex]?.focus();
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+    setEmailError('');
+
+    if (!email.trim()) {
+      setEmailError('Email address is required');
+      return;
+    }
 
     const otpValue = otp.join('');
 
@@ -75,15 +111,77 @@ export default function VerifyOTPPage() {
       return;
     }
 
-    toast.success('Verification successful!');
-    router.push('/auth/reset-password');
+    try {
+      const res = await otpCheck({
+        email,
+        oneTimeCode: otpValue,
+      }).unwrap();
+
+      if (res?.success || res?.statusCode === 200) {
+        toast.success(res?.message || 'OTP verified successfully!');
+
+        // If data contains accessToken (signup completion)
+        if (res?.data?.accessToken) {
+          dispatch(setToken(res.data.accessToken));
+
+          // Fetch profile status and determine redirect URL
+          try {
+            const profileRes = await fetchProfile().unwrap();
+            const profileData = profileRes?.data || profileRes;
+            const redirectUrl = getRedirectUrlForProfile(profileData);
+            router.push(redirectUrl);
+          } catch {
+            const fallbackRole = res?.data?.userInfo?.role;
+            if (fallbackRole === 'service_provider' || fallbackRole === 'provider') {
+              router.push('/service-provider/verification');
+            } else {
+              router.push('/provider-manager/verification');
+            }
+          }
+        }
+        // If data contains token (reset password token)
+        else if (res?.data?.token) {
+          router.push(`/auth/reset-password?token=${res.data.token}`);
+        } else {
+          router.push('/auth/login');
+        }
+      } else {
+        setError(res?.message || 'Invalid verification code');
+        toast.error(res?.message || 'Verification failed');
+      }
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err?.data?.message || err?.message || 'Verification failed. Please check the code and try again.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    }
   };
 
-  const handleResend = () => {
-    setOtp(['', '', '', '', '', '']);
+  const handleResend = async () => {
+    if (timer > 0) return;
+
+    if (!email.trim()) {
+      setEmailError('Email address is required to resend OTP');
+      return;
+    }
+    setEmailError('');
     setError('');
-    inputRefs.current[0]?.focus();
-    toast.success('A new verification code has been sent to your email');
+
+    try {
+      const res = await resendOTP({
+        email,
+        authType: flowType,
+      }).unwrap();
+
+      setOtp(['', '', '', '', '', '']);
+      inputRefs.current[0]?.focus();
+      setTimer(59);
+      toast.success(res?.message || 'An OTP has been sent to your email. Please verify your email.');
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err?.data?.message || err?.message || 'Failed to resend code. Please try again.';
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -100,14 +198,17 @@ export default function VerifyOTPPage() {
           <h1 className="text-2xl sm:text-3xl lg:text-[30px] font-bold text-gray-900 tracking-tight leading-snug">
             Verify your account
           </h1>
-          <p className="text-sm text-gray-500 mt-2 mb-8 font-normal leading-relaxed">
-            Please enter the 6-digit verification code that has been sent to your email address.
+          <p className="text-sm text-gray-500 mt-2 mb-6 font-normal leading-relaxed">
+            Please enter the 6-digit verification code sent to your email address.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* OTP Code Inputs */}
             <div>
-              <div className="grid grid-cols-6 gap-2.5 sm:gap-3 my-4">
+              <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                6-Digit Verification Code <span className="text-red-500">*</span>
+              </label>
+              <div className="grid grid-cols-6 gap-2.5 sm:gap-3 my-2">
                 {otp.map((digit, index) => (
                   <input
                     key={index}
@@ -119,9 +220,8 @@ export default function VerifyOTPPage() {
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onPaste={handlePaste}
-                    className={`w-full h-12 sm:h-14 text-center text-xl font-bold border ${
-                      error ? 'border-red-500' : 'border-transparent'
-                    } bg-[#E2E2E5] rounded-lg text-gray-900 focus:bg-white focus:outline-none transition-all`}
+                    className={`w-full h-12 sm:h-14 text-center text-xl font-bold border ${error ? 'border-red-500' : 'border-transparent'
+                      } bg-[#E2E2E5] rounded-lg text-gray-900 focus:bg-white focus:outline-none transition-all`}
                   />
                 ))}
               </div>
@@ -134,18 +234,25 @@ export default function VerifyOTPPage() {
               <button
                 type="button"
                 onClick={handleResend}
-                className="text-[#6B1294] font-semibold hover:underline cursor-pointer"
+                disabled={isResending || timer > 0}
+                className="text-[#6B1294] font-semibold hover:underline cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Resend Code
+                {isResending
+                  ? 'Resending...'
+                  : timer > 0
+                    ? `Resend Code (${timer}s)`
+                    : 'Resend Code'}
               </button>
             </div>
 
             {/* Verify & Continue Button */}
             <button
               type="submit"
-              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              disabled={isVerifying}
+              className="w-full mt-4 bg-[#6B1294] hover:bg-[#580e7d] text-white font-semibold py-3.5 px-4 rounded-lg shadow-sm transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
             >
-              Verify & Continue
+              {isVerifying && <Loader2 className="w-5 h-5 animate-spin" />}
+              <span>{isVerifying ? 'Verifying...' : 'Verify & Continue'}</span>
             </button>
 
             {/* Return to Login Link */}
@@ -174,3 +281,4 @@ export default function VerifyOTPPage() {
     </div>
   );
 }
+
